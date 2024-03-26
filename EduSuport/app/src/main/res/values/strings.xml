@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">EduSuport</string>
     <string name="test">Test hehehehehheheheehhehehehe</string>
+    <string name="text_size">100pd</string>
 </resources>

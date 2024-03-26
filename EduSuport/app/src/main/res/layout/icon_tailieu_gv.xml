@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="500px"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_width="250px"
+    android:layout_height="300px"
     android:padding="5px"
+    android:gravity="center"
+    android:background="@drawable/button_background"
+
    >
 
     <ImageButton
         android:id="@+id/imgMonHoc"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:contentDescription="@string/test"
         android:layout_marginBottom="20dp"
@@ -20,11 +22,13 @@
         android:id="@+id/textTenMonHoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="10dp"
         android:layout_alignBottom="@+id/imgMonHoc"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-16dp"
+        android:layout_marginBottom="-15dp"
+        android:paddingTop="10dp"
         android:text="Phương mốc"
-        android:textColor="@android:color/black" />
+android:layout_centerInParent="true"
+        android:textColor="@color/black_mid_emp" />
 
 
 </RelativeLayout >
