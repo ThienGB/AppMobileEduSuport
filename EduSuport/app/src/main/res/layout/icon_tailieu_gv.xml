@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="500px"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="5px"
+   >
+
+    <ImageButton
+        android:id="@+id/imgMonHoc"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:background="@color/white"
+        android:contentDescription="@string/test"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/test" />
+
+    <TextView
+        android:id="@+id/textTenMonHoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgMonHoc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-16dp"
+        android:text="Phương mốc"
+        android:textColor="@android:color/black" />
+
+
+</RelativeLayout >
