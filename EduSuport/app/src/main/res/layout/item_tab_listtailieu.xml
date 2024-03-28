@@ -40,10 +40,10 @@
     </LinearLayout>
 
     <ImageButton
-        android:layout_alignParentRight="true"
+        android:id="@+id/btn_moreOptTaiLieuFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/baseline_arrow_drop_down_24"/>
+        android:src="@drawable/baseline_arrow_drop_down_24" />
 </RelativeLayout>
