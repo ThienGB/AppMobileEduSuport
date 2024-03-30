@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Đăng tải tài liệu học tập" />
+                android:text="Môn Toán học" />
         </LinearLayout>
 
 
