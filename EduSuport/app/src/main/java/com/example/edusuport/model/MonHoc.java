@@ -1,18 +1,18 @@
 package com.example.edusuport.model;
 
 public class MonHoc {
-    private int idMon;
+    private String idMon;
     private String tenMon;
-    public MonHoc(int idMon, String tenMon) {
+    public MonHoc(String idMon, String tenMon) {
         this.idMon = idMon;
         this.tenMon = tenMon;
     }
 
-    public int getIdMon() {
+    public String getIdMon() {
         return idMon;
     }
 
-    public void setIdMon(int idMon) {
+    public void setIdMon(String idMon) {
         this.idMon = idMon;
     }
 

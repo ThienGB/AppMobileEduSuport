@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MonHocAdapter;
+import com.example.edusuport.adapter.NhomTheAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.model.MonHoc;
+import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
 
 import java.util.ArrayList;
@@ -26,15 +28,17 @@ import java.util.ArrayList;
 public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
     ListView lvFile;
+    GridView gdCard;
     ImageButton imgBack;
     TaiLieuHocTapAdapter taiLieuHocTapAdapter;
+    NhomTheAdapter nhomTheAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_tai_tai_lieu_mon);
         loadTabs();
-        doFormWidgets();
-
+        doFormWidgetsFile();
+        doFormWidgetsFlasCard();
         imgBack=(ImageButton) findViewById(R.id.back_TaiLieuMain);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +76,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             }
         });
     }
-    public void doFormWidgets()
+    public void doFormWidgetsFile()
     {
         lvFile=(ListView) findViewById(R.id.lv_fileTaiLieu);
         ArrayList<TaiLieuHocTap> list=new ArrayList<TaiLieuHocTap>();
@@ -85,6 +89,23 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
         taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, list );
         lvFile.setAdapter(taiLieuHocTapAdapter);
+
+    }
+    public void doFormWidgetsFlasCard()
+    {
+        gdCard=(GridView) findViewById(R.id.grid_flashcard);
+        ArrayList<NhomThe> list=new ArrayList<NhomThe>();
+        list.add(new NhomThe( "1","Thẻ vip","2"));
+        list.add(new NhomThe( "2","300 bài code thiếu nhi","2"));
+        list.add(new NhomThe( "3","Học soạn giáo án cùng cô giáo","2"));
+        list.add(new NhomThe( "4","Kiếm tiền không khó","2"));
+        list.add(new NhomThe( "5","Kiếm tiền khó","2"));
+        list.add(new NhomThe( "6","Thẻ vip","2"));
+
+
+
+        nhomTheAdapter = new NhomTheAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_flashcard, list );
+        gdCard.setAdapter(nhomTheAdapter);
 
     }
 }

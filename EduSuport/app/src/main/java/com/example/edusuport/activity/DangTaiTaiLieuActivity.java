@@ -30,12 +30,12 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
         LayoutInflater inflater= (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         ArrayList<MonHoc> list=new ArrayList<MonHoc>();
-        list.add(new MonHoc( 1,"Toán học"));
-        list.add(new MonHoc( 2,"Lý học"));
-        list.add(new MonHoc( 3,"Hóa học"));
-        list.add(new MonHoc( 4,"Toán học"));
-        list.add(new MonHoc( 5,"Lý học"));
-        list.add(new MonHoc( 6,"Hóa học"));
+        list.add(new MonHoc( "1","Toán học"));
+        list.add(new MonHoc( "2","Lý học"));
+        list.add(new MonHoc( "3","Hóa học"));
+        list.add(new MonHoc( "4","Toán học"));
+        list.add(new MonHoc( "5","Lý học"));
+        list.add(new MonHoc( "6","Hóa học"));
 
 
 

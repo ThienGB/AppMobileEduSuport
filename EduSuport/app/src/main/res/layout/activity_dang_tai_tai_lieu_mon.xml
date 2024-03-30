@@ -23,6 +23,7 @@
                 android:id="@+id/back_TaiLieuMain"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:padding="5dp"
                 android:src="@drawable/back_icon"
                 android:scaleType="fitCenter"
                 android:background="@drawable/button_background"
@@ -48,11 +49,13 @@
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:elevation="10dp"
                     android:background="@drawable/button_background"></TabWidget>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
+                    android:paddingTop="10dp"
                     android:layout_height="match_parent">
 
                     <RelativeLayout
@@ -85,14 +88,14 @@
                         android:orientation="vertical">
 
                         <GridView
-                            android:id="@+id/grid_monhoc"
+                            android:id="@+id/grid_flashcard"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
-                            android:horizontalSpacing="6dp"
+                            android:horizontalSpacing="10dp"
                             android:numColumns="2"
                             android:scrollbars="horizontal"
-                            android:verticalSpacing="6dp"
+                            android:verticalSpacing="10dp"
                             android:clickable="true"/>
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:layout_width="wrap_content"

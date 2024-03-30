@@ -4,13 +4,13 @@ import java.sql.Blob;
 import java.sql.Date;
 
 public class TaiLieuHocTap {
-    private int idTaiLieu;
+    private String idTaiLieu;
     private int mon;
     private String tenTaiLieu;
     private Blob noiDung;
     private String thoiGian;
 
-    public TaiLieuHocTap(int idTaiLieu, int mon, String tenTaiLieu, Blob noiDung, String thoiGian) {
+    public TaiLieuHocTap(String idTaiLieu, int mon, String tenTaiLieu, Blob noiDung, String thoiGian) {
         this.idTaiLieu = idTaiLieu;
         this.mon = mon;
         this.tenTaiLieu = tenTaiLieu;
@@ -24,11 +24,11 @@ public class TaiLieuHocTap {
     }
 
 
-    public int getIdTaiLieu() {
+    public String getIdTaiLieu() {
         return idTaiLieu;
     }
 
-    public void setIdTaiLieu(int idTaiLieu) {
+    public void setIdTaiLieu(String  idTaiLieu) {
         this.idTaiLieu = idTaiLieu;
     }
 
