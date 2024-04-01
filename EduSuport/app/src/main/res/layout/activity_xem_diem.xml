@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ĐTB: 9.0 "
-            android:textColor="#@color/excellent_score"
+            android:textColor="@color/excellent_score"
             android:textStyle="bold"
             android:textSize="30dp"
             android:textAlignment="center"/>
