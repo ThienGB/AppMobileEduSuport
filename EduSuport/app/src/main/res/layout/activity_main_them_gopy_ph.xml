@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@color/white"
+    tools:context=".activity.DangTaiTaiLieuActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/button_background">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/back_icon"
+                android:scaleType="fitCenter"
+                android:background="@drawable/button_background"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Viết thư góp ý" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:layout_marginRight="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ẩn danh"/>
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_send" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+   <TableLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:paddingTop="10dp">
+       <TableRow
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp">
+
+           <TextView
+               android:layout_width="78dp"
+               android:layout_height="wrap_content"
+               android:text="From:" />
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Phụ hhuynh em Phương"/>
+
+       </TableRow>
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/white_low_emp" />
+       <TableRow
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="To:"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Giao viên ..?"/>
+       </TableRow>
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/white_low_emp" />
+       <TableRow
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Subject:"/>
+           <EditText
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="10dp"
+               />
+       </TableRow>
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="@color/white_low_emp" />
+       <TableRow
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Content:"/>
+
+       </TableRow>
+   </TableLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</LinearLayout>
