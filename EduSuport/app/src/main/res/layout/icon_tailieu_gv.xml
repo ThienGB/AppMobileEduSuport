@@ -5,7 +5,7 @@
     android:padding="5px"
     android:gravity="center"
     android:orientation="vertical"
-android:background="@drawable/button_background"
+android:background="@drawable/fullbutton_background"
    >
 
     <ImageView
