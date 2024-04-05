@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black_mid_emp">#616161</color>
@@ -25,5 +25,5 @@
     <color name="good_score">#DCA500</color>
     <color name="average_score">#DA00FF</color>
     <color name="bad_score">#FF1100</color>
-    <!-- Màu trộn gradient -->
+
 </resources>

@@ -5,4 +5,6 @@
         <item name="hk2"> Học kì 2</item>
         <item name="ca_nam"> Cả năm </item>
     </string-array>
+    <string name="test">Test hehehehehheheheehhehehehe</string>
+    <string name="text_size">100pd</string>
 </resources>
