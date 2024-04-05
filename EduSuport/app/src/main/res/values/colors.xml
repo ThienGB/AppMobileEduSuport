@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="theme_80">#2176FF</color>
+    <color name="theme_8">#142176FF</color>
+    <color name="light_8">#14000000</color>
+    <drawable name="gradient">@drawable/background_color</drawable>
 </resources>
