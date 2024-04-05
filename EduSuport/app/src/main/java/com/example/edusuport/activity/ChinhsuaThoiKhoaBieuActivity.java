@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.edusuport.R;
 
-public class MainActivity extends AppCompatActivity {
+public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chinhsua_thoi_khoa_bieu);
     }
 }

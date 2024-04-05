@@ -13,6 +13,33 @@
         android:theme="@style/Theme.EduSuport"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DonXinPhepNghiHocActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DuyetDonXinNghiHocActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.GuiThongBaoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThuGopYActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HopThuGopYActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.XemDiemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChinhsuaThoiKhoaBieuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.XemThoiKhoaBieuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true"/>
+        <activity
             android:name=".activity.Main_DonXinNghiHoc_PH"
             android:exported="true" >
             <intent-filter>
@@ -40,9 +67,6 @@
             android:exported="false" />
         <activity
             android:name=".activity.DangTaiTaiLieuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.MainActivity"
             android:exported="false" />
     </application>
 
