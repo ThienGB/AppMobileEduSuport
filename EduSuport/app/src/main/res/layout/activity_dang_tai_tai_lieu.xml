@@ -42,6 +42,7 @@
             android:padding="10dp"
 
             >
+            
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_centerInParent= "true"

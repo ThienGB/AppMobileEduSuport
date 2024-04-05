@@ -52,27 +52,21 @@
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_send" />
-
         </LinearLayout>
-
-
     </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp">
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
-
             <TextView
                 android:layout_width="78dp"
                 android:layout_height="wrap_content"
                 android:text="From:" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
