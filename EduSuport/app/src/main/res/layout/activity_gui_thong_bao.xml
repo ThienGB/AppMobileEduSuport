@@ -9,159 +9,200 @@
     android:padding="5dp"
     tools:context=".activity.GuiThongBaoActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:paddingTop="10dp"
-        >
-        <ImageButton
-            android:id="@+id/back_TaiLieuMain"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back_icon"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_background"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Trang chủ" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:src="@drawable/notify"/>
-        <TextView
-            android:paddingLeft="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gửi thông báo"
-            android:textStyle="bold"
-            android:textSize="23dp"
-            android:layout_gravity="center" />
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="0dp"
-        android:background="@drawable/background_gui_thong_bao">
-
+        android:elevation="10dp"
+        android:background="@drawable/button_background">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:paddingLeft="20dp"
-                android:hint="Gứi đến:"
-                android:background="null"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+            android:background="@drawable/button_background"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/fullbutton_background"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/back_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Gửi thông báo" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20dp" />
+                android:layout_marginRight="10dp"
+                android:gravity="end">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/fullbutton_background"
+                    android:clickable="true"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_send" />
+            </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:background="@color/white_mid_emp"
-            android:layout_margin="5dp"
-            android:outlineAmbientShadowColor="@color/black_high_emp"
             >
 
+
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_centerInParent= "true"
-                android:layout_width= "40dp"
-                android:layout_height= "40dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ava"
-                />
-            <TextView
-                android:id="@+id/txvTenNguoiGui"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ava" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Lớp 10B3"
-                android:textColor="@color/black"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginBottom="1dp"
+                    android:text="Người gửi:"
+                    android:textColor="@color/black_high_emp"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Giao viên Trịnh Thu Phương"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Date: 24/03/2003"
+                    android:textColor="@color/black_high_emp"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_gui_thong_bao">
-        <LinearLayout
+        android:paddingTop="10dp">
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:paddingLeft="20dp"
-                android:hint="Tiêu dề"
-                android:background="null"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+            android:padding="10dp">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:lines="3"
-                android:textSize="20dp" />
-        </LinearLayout>
-    </LinearLayout>
+                android:text="Gửi đến:"
+                />
 
-    <LinearLayout
+
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_low_emp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:text="Tệp đính kèm:" />
+
+
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_low_emp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tiêu đề thông báo:" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+               />
+
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_low_emp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nội dung thông báo: " />
+
+        </TableRow>
+    </TableLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_gui_thong_bao">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:hint="Enter text">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="null"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:hint="Nội dung"
-                android:inputType="textMultiLine"
-                android:paddingLeft="20dp"
-                android:lines="9"
-                android:textSize="20dp" />
-        </LinearLayout>
-    </LinearLayout>
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="right"
-        android:text="Gửi"/>
-
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:scrollbars="vertical" />
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
