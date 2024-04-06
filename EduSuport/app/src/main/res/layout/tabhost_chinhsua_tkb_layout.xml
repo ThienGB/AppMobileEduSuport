@@ -20,19 +20,19 @@
         android:orientation="vertical">
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
 
             <TableRow>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_span="2"
                     android:text="SÁNG"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
-                    android:textSize="30sp"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -41,13 +41,15 @@
                     android:src="@drawable/sang" />
             </TableRow>
             <TableRow>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ems="4"
                     android:text="Tiết 1: "
                     android:textColor="@android:color/white"
-                    android:textSize="18dp"
-                    android:ems="4"/>
+                    android:textSize="18dp" />
+
                 <EditText
                     android:id="@+id/edtTiet1"
                     android:layout_width="wrap_content"
@@ -143,7 +145,8 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
@@ -151,7 +154,7 @@
                 android:text="CHIỀU"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"
+                android:textSize="20dp"
                 android:textAlignment="center"
                 android:layout_span="2" />
             <ImageView
