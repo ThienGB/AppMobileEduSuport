@@ -72,37 +72,37 @@
                     android:id="@+id/T3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/T4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/T5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/T6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/T7"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/CN"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <include layout="@layout/tabhost_chinhsua_tkb_layout"/>
+                    <include layout="@layout/tabhost_tkb_test"/>
                 </LinearLayout>
 
             </FrameLayout>
