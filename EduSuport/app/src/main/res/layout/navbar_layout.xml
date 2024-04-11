@@ -19,7 +19,6 @@
             android:padding="4dp"
             >
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,11 +33,12 @@
                         android:id="@+id/imgClass"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:padding="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_home" />
+                        app:srcCompat="@drawable/ic_home" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,14 +63,14 @@
                     android:layout_weight="0.25">
 
                     <ImageView
-                        android:id="@+id/imgSea"
+                        android:id="@+id/imgInfor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_search" />
+                        app:srcCompat="@drawable/img_person" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </com.google.android.material.bottomnavigation.BottomNavigationView>

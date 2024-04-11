@@ -39,7 +39,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Mã số sinh viên/ phụ huynh"
+        android:hint="Mã số giáo viên"
         app:startIconDrawable="@drawable/img_id">
 
         <com.google.android.material.textfield.TextInputEditText
