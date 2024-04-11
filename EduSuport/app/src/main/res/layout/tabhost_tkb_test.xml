@@ -98,10 +98,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -142,10 +141,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -186,10 +184,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -230,10 +227,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -274,10 +270,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -381,10 +376,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -425,10 +419,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -469,10 +462,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -513,10 +505,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
@@ -557,10 +548,9 @@
                         android:layout_weight="1" />
 
                     <ImageButton
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:background="@drawable/fullbutton_background"
-                        android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_edit" />
                 </LinearLayout>
