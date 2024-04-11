@@ -13,61 +13,14 @@
         android:theme="@style/Theme.EduSuport"
         tools:targetApi="31">
         <activity
-            android:name=".activity.DonXinPhepNghiHocActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.DuyetDonXinNghiHocActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.GuiThongBaoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ThuGopYActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.HopThuGopYActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.XemDiemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ChinhsuaThoiKhoaBieuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.XemThoiKhoaBieuActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.MainActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".activity.Main_DonXinNghiHoc_PH"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity.Main_them_gopy_PH"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Main_ThuGopY_PH"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Main_TheLat_HS"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".activity.Main_TheLat_GV"
-            android:exported="false" />
-        <activity
-            android:name=".activity.DangTaiTaiLieu_MonActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.DangTaiTaiLieuActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
