@@ -20,4 +20,5 @@
     <color name="good_score">#DCA500</color>
     <color name="average_score">#DA00FF</color>
     <color name="bad_score">#FF1100</color>
+
 </resources>
