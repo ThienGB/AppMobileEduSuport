@@ -77,7 +77,6 @@
                 android:src="@drawable/ic_fillter" />
 
         </RelativeLayout>
-
     </LinearLayout>
 
 
