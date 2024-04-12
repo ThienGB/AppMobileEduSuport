@@ -27,7 +27,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/ic_sun"/>
+                android:src="@drawable/ic_sun"
+                android:background="@drawable/fullbutton_background"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -68,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -111,7 +112,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -154,7 +155,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -197,7 +198,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -240,7 +241,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -304,7 +305,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/ic_cloud"/>
+                android:src="@drawable/ic_cloud"
+                android:background="@drawable/fullbutton_background"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -345,7 +347,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -388,7 +390,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -399,7 +401,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp">
+                    android:paddingLeft="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -431,11 +433,11 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="6dp"
+                    android:layout_height="7dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_cloud" />
 
@@ -474,7 +476,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
@@ -517,7 +519,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
-                android:paddingLeft="5dp">
+                android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="10dp"
