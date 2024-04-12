@@ -5,7 +5,7 @@
         <item name="hk2"> Học kì 2</item>
         <item name="ca_nam"> Cả năm </item>
     </string-array>
+    <integer name="text_main">10</integer>
     <string name="test">Test hehehehehheheheehhehehehe</string>
     <string name="text_size">100pd</string>
-    <integer name="text_main">10</integer>
 </resources>

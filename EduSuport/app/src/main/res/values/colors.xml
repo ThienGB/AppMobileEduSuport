@@ -2,6 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="theme_80">#2176FF</color>
+    <color name="theme_8">#142176FF</color>
+    <color name="light_8">#14000000</color>
+    <drawable name="gradient">@drawable/background_color</drawable>
     <color name="black_mid_emp">#616161</color>
     <color name="black_high_emp">#212121</color>
     <color name="black_low_emp">#757575</color>
@@ -20,4 +24,5 @@
     <color name="good_score">#DCA500</color>
     <color name="average_score">#DA00FF</color>
     <color name="bad_score">#FF1100</color>
+
 </resources>
