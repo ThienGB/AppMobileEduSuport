@@ -10,8 +10,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EduSuport"
+        android:theme="@style/Base.Theme.EduSuport"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ChangePassword"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Message"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Home"
+            android:exported="true" />
+        <activity
+            android:name=".activity.EditInformation"
+            android:exported="true" />
+        <activity
+            android:name=".activity.RegisterAccount"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Login"
+            android:exported="true"/>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"/>
