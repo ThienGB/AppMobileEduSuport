@@ -8,5 +8,17 @@
     <color name="white_mid_emp">#F5F5F5</color>
     <color name="white_low_emp">#EEEEEE</color>
     <color name="main_blue">#5F61F0</color>
+    <color name="main_dark_blue">#4C4EC0</color>
+    <color name="main_darker_blue">#393A90</color>
+    <color name="main_darkest_blue">#131330</color>
+    <color name="orange">#EE7B59</color>
+    <color name="second_dark_purple">#8146BE</color>
+    <color name="colorPrimary">#FF4081</color>
+    <!--  Màu kết thúc của gradient  -->
+    <color name="endColor">#FFFFFF</color>
+    <color name="excellent_score">#00CA08</color>
+    <color name="good_score">#DCA500</color>
+    <color name="average_score">#DA00FF</color>
+    <color name="bad_score">#FF1100</color>
 
 </resources>
