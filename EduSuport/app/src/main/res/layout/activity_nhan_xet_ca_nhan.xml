@@ -90,7 +90,7 @@
             android:layout_centerInParent= "true"
             android:layout_width= "40dp"
             android:layout_height= "40dp"
-            android:src="@drawable/ava_hs"
+            android:src="@drawable/ava"
             />
         <LinearLayout
             android:layout_width="match_parent"

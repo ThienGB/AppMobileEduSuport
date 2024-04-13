@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1061030003947",
+    "project_id": "edusuport-2da97",
+    "storage_bucket": "edusuport-2da97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061030003947:android:c9b1494c808f5afdd82aae",
+        "android_client_info": {
+          "package_name": "com.example.edusuport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyIuvP82h7j9TDZ7XwUPdOdzaEKRBSWQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -87,7 +87,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_gravity="center"
-                android:src="@drawable/ava_hs" />
+                android:src="@drawable/ava" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
