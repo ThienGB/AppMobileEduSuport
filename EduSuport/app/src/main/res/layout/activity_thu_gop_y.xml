@@ -8,59 +8,39 @@
     android:background="@color/white"
     android:padding="5dp"
     tools:context=".activity.ThuGopYActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:paddingTop="10dp"
-        >
-        <ImageButton
-            android:id="@+id/back_TaiLieuMain"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back_icon"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_background"
-            />
-        <TextView
+        android:orientation="vertical"
+        android:elevation="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Hộp thư góp ý" />
-    </LinearLayout>
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            >
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fullbutton_background"
+                android:padding="10dp"
+                android:src="@drawable/back_icon"
+                android:scaleType="fitCenter"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:src="@drawable/letter"/>
-        <TextView
-            android:paddingLeft="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thư góp ý"
-            android:textStyle="bold"
-            android:textSize="23dp"
-            android:layout_gravity="center" />
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Thư góp ý" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/txvTieuDeThuGopY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginBottom="15dp"
-        android:text="Đánh giá thái độ của giáo viên"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +48,6 @@
         android:background="@color/white_mid_emp"
         android:outlineAmbientShadowColor="@color/black_high_emp"
         >
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_centerInParent= "true"
             android:layout_width= "40dp"
@@ -120,7 +99,7 @@
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_margin="10dp"
             android:padding="20dp"
             android:background="@drawable/backgroun_boder_letter">

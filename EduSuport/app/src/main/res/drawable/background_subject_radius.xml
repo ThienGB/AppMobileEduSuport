@@ -2,8 +2,11 @@
     android:shape="rectangle">
     <corners android:radius="10dp" />
     <gradient
-        android:startColor="@color/white_mid_emp"
-        android:endColor="#DAD8D8"
-        android:type="linear"
+        android:startColor="@color/white"
+        android:endColor="@color/white"
+
         android:angle="0" />
+    <!-- Đường viền -->
+
+
 </shape>
