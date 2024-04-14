@@ -10,11 +10,63 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EduSuport"
+        android:theme="@style/Base.Theme.EduSuport"
         tools:targetApi="31">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.ThemHocSinhActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.ThemLopHocActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.NhapDiemCaNhanActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.NhapDiemChungActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.NhanXetChungActivity$NhanXetCaNhanActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activity.NhanXetChungActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".activity.DanhSachLopHoc"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".activity.DanhSachHocSinh"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChangePassword"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Message"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Home"
+            android:exported="true" />
+        <activity
+            android:name=".activity.EditInformation"
+            android:exported="true" />
+        <activity
+            android:name=".activity.RegisterAccount"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Login"
             android:exported="true"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".activity.DonXinPhepNghiHocActivity"
             android:exported="false" />
@@ -38,15 +90,12 @@
             android:exported="false" />
         <activity
             android:name=".activity.XemThoiKhoaBieuActivity"
-            android:exported="true" >
+            android:exported="true">
         </activity>
         <activity
             android:name=".activity.Main_DonXinNghiHoc_PH"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
@@ -67,7 +116,13 @@
             android:exported="false" />
         <activity
             android:name=".activity.DangTaiTaiLieuActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
     </application>

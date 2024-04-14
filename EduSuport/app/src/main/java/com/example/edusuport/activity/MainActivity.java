@@ -12,6 +12,8 @@ import android.widget.GridView;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MonHocAdapter;
 import com.example.edusuport.model.MonHoc;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         lvApp.setAdapter(monHocAdapter);
 
         addEvents();
+    // Write a message to the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("Hello, World!");
 
     }
     private  void HandelClick(int position){
