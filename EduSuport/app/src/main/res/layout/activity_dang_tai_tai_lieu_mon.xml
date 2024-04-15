@@ -29,10 +29,11 @@
                 android:scaleType="fitCenter"
                 />
             <TextView
+                android:id="@+id/textTenMonHoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Môn Toán học" />
+                />
         </LinearLayout>
 
 
@@ -71,6 +72,7 @@
 
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btn_uploadfileTL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -98,6 +100,7 @@
                             android:verticalSpacing="10dp"
                             android:clickable="true"/>
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btn_addFlashCard"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"

@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+
                     android:text="Đăng tải tài liệu học tập" />
             </LinearLayout>
 
@@ -99,6 +100,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="20dp">
 
 
@@ -111,19 +113,20 @@
             android:textColor="@color/black"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"/>
+        <GridView
+            android:id="@+id/grid_monhoc"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:horizontalSpacing="20dp"
+            android:numColumns="4"
+            android:scrollbars="horizontal"
+            android:verticalSpacing="40dp"
+
+            android:clickable="true"/>
+
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/grid_monhoc"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:horizontalSpacing="10dp"
-        android:numColumns="4"
-        android:scrollbars="horizontal"
-        android:verticalSpacing="10dp"
-
-        android:clickable="true"/>
 
 </LinearLayout>

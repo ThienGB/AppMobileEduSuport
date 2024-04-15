@@ -1,28 +1,29 @@
 package com.example.edusuport.model;
 
 import java.sql.Blob;
-import java.sql.Date;
+import java.util.Map;
 
 public class TaiLieuHocTap {
     private String idTaiLieu;
-    private int mon;
+    private String idmon;
     private String tenTaiLieu;
-    private Blob noiDung;
-    private String thoiGian;
+    private String urlfile;
+    private Map thoiGian;
 
-    public TaiLieuHocTap(String idTaiLieu, int mon, String tenTaiLieu, Blob noiDung, String thoiGian) {
+    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, Map thoiGian) {
         this.idTaiLieu = idTaiLieu;
-        this.mon = mon;
+        this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
-        this.noiDung = noiDung;
+        this.urlfile = urlfile;
         this.thoiGian = thoiGian;
     }
 
-    public TaiLieuHocTap(String tenTaiLieu, String thoiGian) {
+    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, Map thoiGian) {
+        this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
+        this.urlfile = urlfile;
         this.thoiGian = thoiGian;
     }
-
 
     public String getIdTaiLieu() {
         return idTaiLieu;
@@ -32,12 +33,12 @@ public class TaiLieuHocTap {
         this.idTaiLieu = idTaiLieu;
     }
 
-    public int getMon() {
-        return mon;
+    public String getidmon() {
+        return idmon;
     }
 
-    public void setMon(int mon) {
-        this.mon = mon;
+    public void setidmon(String idmon) {
+        this.idmon = idmon;
     }
 
     public String getTenTaiLieu() {
@@ -48,19 +49,19 @@ public class TaiLieuHocTap {
         this.tenTaiLieu = tenTaiLieu;
     }
 
-    public Blob getNoiDung() {
-        return noiDung;
+    public String geturlfile() {
+        return urlfile;
     }
 
-    public void setNoiDung(Blob noiDung) {
-        this.noiDung = noiDung;
+    public void seturlfile(String urlfile) {
+        this.urlfile = urlfile;
     }
 
-    public String getThoiGian() {
+    public Map getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(String thoiGian) {
+    public void setThoiGian(Map thoiGian) {
         this.thoiGian = thoiGian;
     }
 }

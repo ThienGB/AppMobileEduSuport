@@ -15,7 +15,7 @@
         android:text="Tiêu đề tài liệu: " />
 
     <EditText
-        android:id="@+id/add_cauhoi"
+        android:id="@+id/txtTenFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -28,6 +28,7 @@
         android:text="File: " />
 
   <LinearLayout
+      android:id="@+id/btn_upNewfile"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"

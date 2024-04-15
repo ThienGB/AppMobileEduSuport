@@ -45,7 +45,6 @@ public class NhomTheAdapter extends ArrayAdapter {
         txtTen.setText(List.get(position).getTenNhomThe());
         txtsoluong.setText("1000 cards");
 
-
         ImageButton btn= customView.findViewById(R.id.btn_moreOptFlashCard);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

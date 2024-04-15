@@ -54,23 +54,22 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         return customView;
     }
     private void showPopUpDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-//        builder.setTitle("Chọn lựa");
-//
-//        // Thêm các lựa chọn vào danh sách
-//        String[] options = {"Lựa chọn 1", "Lựa chọn 2", "Lựa chọn 3"};
-//        builder.setItems(options, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // Xử lý khi một lựa chọn được chọn
-//                String selectedOption = options[which];
-//                Toast.makeText(mContext, "Bạn đã chọn: " + selectedOption, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        // Hiển thị AlertDialog
-//        builder.create().show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Chọn lựa");
 
+        // Thêm các lựa chọn vào danh sách
+        String[] options = {"Lựa chọn 1", "Lựa chọn 2", "Lựa chọn 3"};
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Xử lý khi một lựa chọn được chọn
+                String selectedOption = options[which];
+                Toast.makeText(mContext, "Bạn đã chọn: " + selectedOption, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Hiển thị AlertDialog
+        builder.create().show();
 
     }
 
