@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.ActionMode;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -23,7 +24,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class DangTaiTaiLieuController {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -34,7 +40,8 @@ public class DangTaiTaiLieuController {
 
 
     ArrayList<MonHoc> list=new ArrayList<MonHoc>();
-
+    ArrayList<TaiLieuHocTap> listFile=new ArrayList<TaiLieuHocTap>();
+///(1)/////////////////////////////////////////////////////////////////////////////////////////
 
     public interface DataRetrievedCallback_MonHoc {
         void onDataRetrieved(ArrayList<MonHoc> monHocList);
@@ -63,7 +70,7 @@ public class DangTaiTaiLieuController {
             }
         });
     }
-
+////(2)////////////////////////////////////////////////////////////////////////////////////////
     public interface DataRetrievedCallback_String {
         void onDataRetrieved(String tenmon);
     }
@@ -88,27 +95,76 @@ public class DangTaiTaiLieuController {
 
     }
 
-
+    ////(3)////////////////////////////////////////////////////////////////////////////////////////
     public interface DataRetrievedCallback_File {
-        void onDataRetrieved(ArrayList<MonHoc> monHocList);
+        void onDataRetrieved(ArrayList<TaiLieuHocTap> monHocList);
     }
-    public void getListTaiLieu_idmon(String idmon){
-        myRef.child("tailieuFile");
-    }
-    public void createNewFileTaiLieu_idmon(String idmon, String tenTaiLieu, Uri data){
+
+    public void createNewFileTaiLieu_idmon (String idmon, String tenTaiLieu, Uri data,String idlop){
         StorageReference reference=myRefStora.child("tailieuFile/"+System.currentTimeMillis()+".pdf");
         reference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask= taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete());
-                Uri url=uriTask.getResult();
-                Log.d("url", url.toString());
+                if(!taskSnapshot.getTask().isSuccessful()){
+
+                }
+                else{
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isComplete()) ;
+                    Uri url = uriTask.getResult();
+
+                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(), ServerValue.TIMESTAMP,idlop);
+                    myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(taiLieuHocTap);
+                   // Toast.makeText()
+                }
+
+                   }
+
+        });
+    }
+
+    ////////(4)////////////////////////////////////////////////////////////////////////////////////
+
+    public void getListViewTaiLieu(String idmon, String idlop,DataRetrievedCallback_File callback){
+        myRef.child("taiLieuFile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+
+                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+
+                        String idLop = dataSnapshot.child("idLop").getValue(String.class); // Lấy tên môn học từ giá trị
+                        String idMon = dataSnapshot.child("idmon").getValue(String.class); // Lấy tên môn học từ giá trị
+                        String tenTaiLieu = dataSnapshot.child("tenTaiLieu").getValue(String.class); // Lấy tên môn học từ giá trị
+                        Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+                        String urlfile = dataSnapshot.child("urlfile").getValue(String.class); // Lấy tên môn học từ giá trị
+
+                        Log.d("list file", String.valueOf(thoiGian));
 
 
-                TaiLieuHocTap taiLieuHocTap=new TaiLieuHocTap(idmon,tenTaiLieu,url.toString(), ServerValue.TIMESTAMP);
-                myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(taiLieuHocTap);
+                       if(Objects.equals(idLop, idlop) && Objects.equals(idmon, idMon)){
+                           Map<String, Object> timestampMap = convertTimestampToMap(thoiGian);
+                           listFile.add(new TaiLieuHocTap(idmon, tenTaiLieu,urlfile,timestampMap,idLop));
+                     }
+
+                    }
+                    // Gọi callback với danh sách dữ liệu đã lấy được
+                    Log.d("list file", String.valueOf(listFile));
+                    callback.onDataRetrieved(listFile);
+
+
+                }
+
             }
         });
     }
+    public static Map<String, Object> convertTimestampToMap(Long timestamp) {
+        Map<String, Object> timestampMap = new HashMap<>();
+        timestampMap.put("timestamp", timestamp);
+        return timestampMap;
+    }
+
 }

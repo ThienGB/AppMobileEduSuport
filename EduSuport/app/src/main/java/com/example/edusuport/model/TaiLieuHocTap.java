@@ -10,34 +10,38 @@ public class TaiLieuHocTap {
     private String urlfile;
     private Map thoiGian;
 
-    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, Map thoiGian) {
+    private String idLop;
+
+    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, Map thoiGian, String idLop) {
         this.idTaiLieu = idTaiLieu;
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
         this.urlfile = urlfile;
         this.thoiGian = thoiGian;
+        this.idLop = idLop;
     }
 
-    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, Map thoiGian) {
+    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, Map thoiGian, String idLop) {
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
         this.urlfile = urlfile;
         this.thoiGian = thoiGian;
+        this.idLop = idLop;
     }
 
     public String getIdTaiLieu() {
         return idTaiLieu;
     }
 
-    public void setIdTaiLieu(String  idTaiLieu) {
+    public void setIdTaiLieu(String idTaiLieu) {
         this.idTaiLieu = idTaiLieu;
     }
 
-    public String getidmon() {
+    public String getIdmon() {
         return idmon;
     }
 
-    public void setidmon(String idmon) {
+    public void setIdmon(String idmon) {
         this.idmon = idmon;
     }
 
@@ -49,11 +53,11 @@ public class TaiLieuHocTap {
         this.tenTaiLieu = tenTaiLieu;
     }
 
-    public String geturlfile() {
+    public String getUrlfile() {
         return urlfile;
     }
 
-    public void seturlfile(String urlfile) {
+    public void setUrlfile(String urlfile) {
         this.urlfile = urlfile;
     }
 
@@ -63,5 +67,13 @@ public class TaiLieuHocTap {
 
     public void setThoiGian(Map thoiGian) {
         this.thoiGian = thoiGian;
+    }
+
+    public String getIdLop() {
+        return idLop;
+    }
+
+    public void setIdLop(String idLop) {
+        this.idLop = idLop;
     }
 }

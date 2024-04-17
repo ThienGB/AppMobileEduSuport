@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
 
@@ -40,9 +43,12 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     GridView gdCard;
     ImageButton imgBack;
     FloatingActionButton btnuploadfileTL,btnAddFlashCard;
+    SearchView filterFile;
     TaiLieuHocTapAdapter taiLieuHocTapAdapter;
     NhomTheAdapter nhomTheAdapter;
     String idMon, tenFile;
+    Intent data=null;
+    ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     DangTaiTaiLieuController dangTaiTaiLieuController=new DangTaiTaiLieuController();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +110,40 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     {
         lvFile=(ListView) findViewById(R.id.lv_fileTaiLieu);
         btnuploadfileTL=(FloatingActionButton) findViewById(R.id.btn_uploadfileTL);
+        filterFile =(SearchView) findViewById(R.id.filterFile);
+        filterFile.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<TaiLieuHocTap> temp=new ArrayList<TaiLieuHocTap>();
+                for(TaiLieuHocTap file: listf){
+                    if(file.getTenTaiLieu().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(file);
+                    }
+                }
+                taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, temp );
+                lvFile.setAdapter(taiLieuHocTapAdapter);
+                taiLieuHocTapAdapter.notifyDataSetChanged();
+
+                return false;
+            }
+        });
+
+        dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
+            @Override
+            public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
+                listf=FileList;
+                taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, listf );
+                lvFile.setAdapter(taiLieuHocTapAdapter);
+                taiLieuHocTapAdapter.notifyDataSetChanged();
+
+            }
+
+        });
 
         btnuploadfileTL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,50 +151,71 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(DangTaiTaiLieu_MonActivity.this);
                 LayoutInflater layoutInflater = LayoutInflater.from(DangTaiTaiLieu_MonActivity.this);
                 builder.setTitle("Thêm tài liệu: ");
-                LayoutInflater inflater = getLayoutInflater();
+
                 final View alertView = layoutInflater.inflate(R.layout.activity_click_upfile_gv, null);
-                builder.setView(inflater.inflate(R.layout.activity_click_upfile_gv, null));
+                builder.setView(alertView);
+
                 EditText txtTenFile=(EditText) alertView.findViewById(R.id.txtTenFile);
-                android.widget.LinearLayout upFile=(android.widget.LinearLayout) alertView.findViewById(R.id.btn_upNewfile);
+                LinearLayout upFile=(LinearLayout) alertView.findViewById(R.id.btn_upNewfile);
                 tenFile=txtTenFile.getText().toString();
 
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(data!=null){
+                            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon,txtTenFile.getText().toString() ,data.getData(),"1");
+                            TaiLieuHocTap temp= new TaiLieuHocTap(idMon,txtTenFile.getText().toString(),data.getData().toString(), ServerValue.TIMESTAMP,"1");
+                            listf.add(temp);
+                            taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, listf );
+                            lvFile.setAdapter(taiLieuHocTapAdapter);
+                            taiLieuHocTapAdapter.notifyDataSetChanged();
+                            data=null;
+                        }
+                        else {
+                            Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Chua co file, up laij", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+                upFile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                         Intent intent=new Intent();
                         intent.setType("application/pdf");
                         intent.setAction(intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent,"Select PDF File"),1);
-
                     }
                 });
 
 
-                builder.create().show();
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
-        ArrayList<TaiLieuHocTap> list=new ArrayList<TaiLieuHocTap>();
-//        list.add(new TaiLieuHocTap( "Tài liệu học tập pro vip","24/03/2003"));
-//        list.add(new TaiLieuHocTap( "Cách múa flo mượt","2/03/2003"));
-//        list.add(new TaiLieuHocTap( "Hhuhu hix","24/03/2003"));
-//        list.add(new TaiLieuHocTap( "Tài liệu học tập pro vip","24/03/2003"));
-//        list.add(new TaiLieuHocTap( "Tài liệu học tập pro vip","24/03/2003"));
 
 
-        taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, list );
-        lvFile.setAdapter(taiLieuHocTapAdapter);
+
+
+
+
+
+
 
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null ){
+        if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null  ){
             final ProgressDialog progressDialog=new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon,tenFile,data.getData());
+            this.data=data;
             progressDialog.dismiss();
+
         }
+
+
     }
 
     public void doFormWidgetsFlasCard()
