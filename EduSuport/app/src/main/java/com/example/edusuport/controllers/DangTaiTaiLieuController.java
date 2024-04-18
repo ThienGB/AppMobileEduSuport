@@ -1,6 +1,7 @@
 package com.example.edusuport.controllers;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -102,8 +104,9 @@ public class DangTaiTaiLieuController {
     }
 
     public void createNewFileTaiLieu_idmon (String idmon, String tenTaiLieu, Uri data,String extension,String idlop,UploadCallback callback){
+        String idTaiLieu=myRef.push().getKey();
 
-        StorageReference reference=myRefStora.child("tailieuFile/"+tenTaiLieu+System.currentTimeMillis()+extension);
+        StorageReference reference=myRefStora.child("tailieuFile/"+idTaiLieu+extension);
         reference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -114,8 +117,8 @@ public class DangTaiTaiLieuController {
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete()) ;
                     Uri url = uriTask.getResult();
-                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(myRef.push().getKey(),idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);
-                    myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(taiLieuHocTap);
+                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap( idTaiLieu,idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);
+                    myRef.child("taiLieuFile").child(idTaiLieu).setValue(taiLieuHocTap);
                     callback.onUploadComplete();
                    // Toast.makeText()
                 }
@@ -175,4 +178,51 @@ public class DangTaiTaiLieuController {
         return timestampMap;
     }
 
+    ////////(4)////////////////////////////////////////////////////////////////////////////////////
+
+    public void getTaiLieu_idTaiLieu(String idTaiLieu, DataRetrievedCallback_String callback){
+        myRef.child("taiLieuFile").orderByKey().equalTo(idTaiLieu).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    DataSnapshot dataSnapshot = task.getResult().getChildren().iterator().next();
+                    String urlfile = dataSnapshot.child("urlfile").getValue(String.class);
+                    callback.onDataRetrieved(urlfile);
+                }
+
+
+            }
+        });
+    }
+    ////////(4)////////////////////////////////////////////////////////////////////////////////////
+    public void deleteTaiLieu_idTaiLieu(String idTaiLieu, String fileType, UploadCallback callback, Context mContext){
+        StorageReference reference=myRefStora.child("tailieuFile/"+idTaiLieu+fileType);
+        myRef.child("taiLieuFile").child(idTaiLieu).removeValue();
+        reference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                callback.onUploadComplete();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(mContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+    ////////(4)////////////////////////////////////////////////////////////////////////////////////
+    public void editTenTaiLieu(String idTaiLieu,String tenNew,UploadCallback callback){
+        myRef.child("taiLieuFile").child(idTaiLieu).child("tenTaiLieu").setValue(tenNew).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                callback.onUploadComplete();
+            }
+        });
+    }
 }

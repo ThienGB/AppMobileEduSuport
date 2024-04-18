@@ -123,16 +123,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         lvFile=(ListView) findViewById(R.id.lv_fileTaiLieu);
         btnuploadfileTL=(FloatingActionButton) findViewById(R.id.btn_uploadfileTL);
         filterFile =(SearchView) findViewById(R.id.filterFile);
-        lvFile.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(DangTaiTaiLieu_MonActivity.this, "huhu", Toast.LENGTH_SHORT).show();
-                TextView tenfile=view.findViewById(R.id.name_tailieu);
-                ImageView hinhfile=view.findViewById(R.id.ic_fileType);
-                showBottomSheet(tenfile.getText().toString(),hinhfile.getDrawable());
 
-            }
-        });
 
         filterFile.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -187,16 +178,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                             dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, "1", new DangTaiTaiLieuController.UploadCallback() {
                                 @Override
                                 public void onUploadComplete() {
-                                    listf.clear();
-                                    dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
-
-                                     @Override
-                                        public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
-
-                                            listf = FileList;
-                                            taiLieuHocTapAdapter.notifyDataSetChanged();
-                                        }
-                                    });
+                                    reLoadListf();
                                     Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Đăng thành công", Toast.LENGTH_LONG).show();
                                 }
 
@@ -235,6 +217,19 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
 
     }
+    public void reLoadListf(){
+        listf.clear();
+        dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
+
+            @Override
+            public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
+
+                listf = FileList;
+                taiLieuHocTapAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -246,44 +241,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         }
         return fileExtension;
     }
-    public void showBottomSheet(String tenFile,Drawable hinhfile){
-        final Dialog dialog=new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.botsheet_tailieufile);
 
-        TableRow sua=dialog.findViewById(R.id.bot_chinhsuaFile);
-        TableRow xoa=dialog.findViewById(R.id.bot_xoaFile);
-        TableRow tai=dialog.findViewById(R.id.bot_taiFile);
-        TextView ten=dialog.findViewById(R.id.bot_nameFile);
-        ImageView hinh=dialog.findViewById(R.id.bot_hinhfile);
-
-        ten.setText(tenFile);
-        hinh.setImageDrawable(hinhfile);
-        sua.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        xoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        tai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

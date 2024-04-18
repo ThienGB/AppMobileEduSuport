@@ -83,7 +83,7 @@
                         android:id="@+id/gg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chỉnh sửa tài liệu."
+                        android:text="Chỉnh sửa tên tài liệu."
                         android:textSize="14dp"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
