@@ -8,23 +8,26 @@ public class TaiLieuHocTap {
     private String idmon;
     private String tenTaiLieu;
     private String urlfile;
+    private String fileType;
     private Map thoiGian;
 
     private String idLop;
 
-    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, Map thoiGian, String idLop) {
+    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, String fileType, Map thoiGian, String idLop) {
         this.idTaiLieu = idTaiLieu;
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
         this.urlfile = urlfile;
+        this.fileType = fileType;
         this.thoiGian = thoiGian;
         this.idLop = idLop;
     }
 
-    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, Map thoiGian, String idLop) {
+    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, String fileType, Map thoiGian, String idLop) {
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
         this.urlfile = urlfile;
+        this.fileType = fileType;
         this.thoiGian = thoiGian;
         this.idLop = idLop;
     }
@@ -59,6 +62,14 @@ public class TaiLieuHocTap {
 
     public void setUrlfile(String urlfile) {
         this.urlfile = urlfile;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public Map getThoiGian() {

@@ -4,31 +4,40 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TabHost;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edusuport.R;
-import com.example.edusuport.adapter.MonHocAdapter;
 import com.example.edusuport.adapter.NhomTheAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
-import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,10 +54,11 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     FloatingActionButton btnuploadfileTL,btnAddFlashCard;
     SearchView filterFile;
     TaiLieuHocTapAdapter taiLieuHocTapAdapter;
+    ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     NhomTheAdapter nhomTheAdapter;
     String idMon, tenFile;
     Intent data=null;
-    ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
+
     DangTaiTaiLieuController dangTaiTaiLieuController=new DangTaiTaiLieuController();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +89,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
             public void onDataRetrieved(String tenmon) {
-                textTenMonHoc.setText("Môn học: "+tenmon);
+                textTenMonHoc.setText(tenmon);
             }
         });
 
@@ -106,11 +116,24 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         });
     }
 
+
     public void doFormWidgetsFile()
     {
+
         lvFile=(ListView) findViewById(R.id.lv_fileTaiLieu);
         btnuploadfileTL=(FloatingActionButton) findViewById(R.id.btn_uploadfileTL);
         filterFile =(SearchView) findViewById(R.id.filterFile);
+        lvFile.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(DangTaiTaiLieu_MonActivity.this, "huhu", Toast.LENGTH_SHORT).show();
+                TextView tenfile=view.findViewById(R.id.name_tailieu);
+                ImageView hinhfile=view.findViewById(R.id.ic_fileType);
+                showBottomSheet(tenfile.getText().toString(),hinhfile.getDrawable());
+
+            }
+        });
+
         filterFile.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -128,19 +151,15 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                 taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, temp );
                 lvFile.setAdapter(taiLieuHocTapAdapter);
                 taiLieuHocTapAdapter.notifyDataSetChanged();
-
                 return false;
             }
         });
-
         dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
             @Override
             public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
                 listf=FileList;
                 taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, listf );
                 lvFile.setAdapter(taiLieuHocTapAdapter);
-                taiLieuHocTapAdapter.notifyDataSetChanged();
-
             }
 
         });
@@ -159,30 +178,50 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                 LinearLayout upFile=(LinearLayout) alertView.findViewById(R.id.btn_upNewfile);
                 tenFile=txtTenFile.getText().toString();
 
+
                 builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(data!=null){
-                            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon,txtTenFile.getText().toString() ,data.getData(),"1");
-                            TaiLieuHocTap temp= new TaiLieuHocTap(idMon,txtTenFile.getText().toString(),data.getData().toString(), ServerValue.TIMESTAMP,"1");
-                            listf.add(temp);
-                            taiLieuHocTapAdapter = new TaiLieuHocTapAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_listtailieu, listf );
-                            lvFile.setAdapter(taiLieuHocTapAdapter);
-                            taiLieuHocTapAdapter.notifyDataSetChanged();
+                        if(data!=null && !txtTenFile.getText().toString().equals("")){
+                            String ext="."+getFileExtension(data.getData());
+                            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, "1", new DangTaiTaiLieuController.UploadCallback() {
+                                @Override
+                                public void onUploadComplete() {
+                                    listf.clear();
+                                    dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
+
+                                     @Override
+                                        public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
+
+                                            listf = FileList;
+                                            taiLieuHocTapAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                    Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Đăng thành công", Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onUploadFailed(String errorMessage) {
+
+                                }
+                            });
                             data=null;
+                            // Gọi callback trực tiếp khi việc thêm đã hoàn tất
+
                         }
                         else {
-                            Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Chua co file, up laij", Toast.LENGTH_LONG).show();
+                            Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Nhập chưa đầy đủ", Toast.LENGTH_LONG).show();
                         }
 
                     }
                 });
+
                 upFile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         Intent intent=new Intent();
-                        intent.setType("application/pdf");
+                        intent.setType("*/*");
                         intent.setAction(intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent,"Select PDF File"),1);
                     }
@@ -195,13 +234,55 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        String mimeType = contentResolver.getType(uri);
+        String fileExtension = null;
+        if (mimeType != null) {
+            fileExtension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+        }
+        return fileExtension;
+    }
+    public void showBottomSheet(String tenFile,Drawable hinhfile){
+        final Dialog dialog=new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.botsheet_tailieufile);
 
+        TableRow sua=dialog.findViewById(R.id.bot_chinhsuaFile);
+        TableRow xoa=dialog.findViewById(R.id.bot_xoaFile);
+        TableRow tai=dialog.findViewById(R.id.bot_taiFile);
+        TextView ten=dialog.findViewById(R.id.bot_nameFile);
+        ImageView hinh=dialog.findViewById(R.id.bot_hinhfile);
 
+        ten.setText(tenFile);
+        hinh.setImageDrawable(hinhfile);
+        sua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
-
-
-
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

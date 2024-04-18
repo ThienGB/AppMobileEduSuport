@@ -1,5 +1,6 @@
 package com.example.edusuport.controllers;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -100,8 +101,9 @@ public class DangTaiTaiLieuController {
         void onDataRetrieved(ArrayList<TaiLieuHocTap> monHocList);
     }
 
-    public void createNewFileTaiLieu_idmon (String idmon, String tenTaiLieu, Uri data,String idlop){
-        StorageReference reference=myRefStora.child("tailieuFile/"+System.currentTimeMillis()+".pdf");
+    public void createNewFileTaiLieu_idmon (String idmon, String tenTaiLieu, Uri data,String extension,String idlop,UploadCallback callback){
+
+        StorageReference reference=myRefStora.child("tailieuFile/"+tenTaiLieu+System.currentTimeMillis()+extension);
         reference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -112,16 +114,20 @@ public class DangTaiTaiLieuController {
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete()) ;
                     Uri url = uriTask.getResult();
-
-                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(), ServerValue.TIMESTAMP,idlop);
+                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(myRef.push().getKey(),idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);
                     myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(taiLieuHocTap);
+                    callback.onUploadComplete();
                    // Toast.makeText()
                 }
-
                    }
 
         });
     }
+    public interface UploadCallback {
+        void onUploadComplete();
+        void onUploadFailed(String errorMessage); // Optionally, handle upload failure
+    }
+
 
     ////////(4)////////////////////////////////////////////////////////////////////////////////////
 
@@ -136,10 +142,12 @@ public class DangTaiTaiLieuController {
 
                     for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
 
+                        String idTL = dataSnapshot.getKey(); // Lấy tên môn học từ giá trị
                         String idLop = dataSnapshot.child("idLop").getValue(String.class); // Lấy tên môn học từ giá trị
                         String idMon = dataSnapshot.child("idmon").getValue(String.class); // Lấy tên môn học từ giá trị
                         String tenTaiLieu = dataSnapshot.child("tenTaiLieu").getValue(String.class); // Lấy tên môn học từ giá trị
                         Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+                        String fileType = dataSnapshot.child("fileType").getValue(String.class); // Lấy tên môn học từ giá trị
                         String urlfile = dataSnapshot.child("urlfile").getValue(String.class); // Lấy tên môn học từ giá trị
 
                         Log.d("list file", String.valueOf(thoiGian));
@@ -147,7 +155,7 @@ public class DangTaiTaiLieuController {
 
                        if(Objects.equals(idLop, idlop) && Objects.equals(idmon, idMon)){
                            Map<String, Object> timestampMap = convertTimestampToMap(thoiGian);
-                           listFile.add(new TaiLieuHocTap(idmon, tenTaiLieu,urlfile,timestampMap,idLop));
+                           listFile.add(new TaiLieuHocTap(idTL,idmon, tenTaiLieu,urlfile,fileType,timestampMap,idLop));
                      }
 
                     }
