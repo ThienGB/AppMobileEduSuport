@@ -2,6 +2,9 @@ package com.example.edusuport.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,11 +12,13 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +48,8 @@ import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ServerValue;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
@@ -51,7 +58,9 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     ListView lvFile;
     GridView gdCard;
     ImageButton imgBack;
+    ViewPager viewPager;
     FloatingActionButton btnuploadfileTL,btnAddFlashCard;
+    LinearLayout sortList;
     SearchView filterFile;
     TaiLieuHocTapAdapter taiLieuHocTapAdapter;
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
@@ -59,12 +68,24 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     String idMon, tenFile;
     Intent data=null;
 
+    android.app.AlertDialog.Builder builder;
+
+    private View alertView;
+    ArrayList<Integer> listLop=new ArrayList<>();
     DangTaiTaiLieuController dangTaiTaiLieuController=new DangTaiTaiLieuController();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_tai_tai_lieu_mon);
         loadTabs();
+
+        viewPager =findViewById(R.id.pagerTL);
+        listLop.add(R.drawable.profile);
+        listLop.add(R.drawable.icon_excel);
+        listLop.add(R.drawable.ava);
+        listLop.add(R.drawable.ic_calendar);
+
+
         doFormWidgetsFile();
         doFormWidgetsFlasCard();
         clickBack();
@@ -145,6 +166,14 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                 return false;
             }
         });
+        sortList=(LinearLayout) findViewById(R.id.sort_listTL);
+        sortList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DangTaiTaiLieu_MonActivity.this, "sort",Toast.LENGTH_SHORT).show();
+
+            }
+        });
         dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
             @Override
             public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
@@ -158,11 +187,11 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         btnuploadfileTL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.app.AlertDialog.Builder builder = new AlertDialog.Builder(DangTaiTaiLieu_MonActivity.this);
+                builder = new AlertDialog.Builder(DangTaiTaiLieu_MonActivity.this);
                 LayoutInflater layoutInflater = LayoutInflater.from(DangTaiTaiLieu_MonActivity.this);
                 builder.setTitle("Thêm tài liệu: ");
 
-                final View alertView = layoutInflater.inflate(R.layout.activity_click_upfile_gv, null);
+                alertView = layoutInflater.inflate(R.layout.activity_click_upfile_gv, null);
                 builder.setView(alertView);
 
                 EditText txtTenFile=(EditText) alertView.findViewById(R.id.txtTenFile);
@@ -175,6 +204,8 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if(data!=null && !txtTenFile.getText().toString().equals("")){
                             String ext="."+getFileExtension(data.getData());
+
+
                             dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, "1", new DangTaiTaiLieuController.UploadCallback() {
                                 @Override
                                 public void onUploadComplete() {
@@ -207,6 +238,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                         intent.setAction(intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent,"Select PDF File"),1);
                     }
+
                 });
 
 
@@ -229,7 +261,13 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             }
         });
     }
-
+    private String getFileName(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri,null, null, null, null);
+        int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        cursor.moveToFirst();
+        String filename =  cursor.getString(nameIndex);
+        return filename;
+    }
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -246,12 +284,10 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null  ){
-            final ProgressDialog progressDialog=new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
             this.data=data;
-            progressDialog.dismiss();
-
+            EditText txtTenFile=(EditText) alertView.findViewById(R.id.txtTenFile);
+            String tenfile=getFileName(data.getData());
+            txtTenFile.setText(tenfile);
         }
 
 

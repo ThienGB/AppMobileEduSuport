@@ -43,14 +43,12 @@
           android:text="Upload file"
           android:padding="10dp"
           />
-      <ImageButton
-
+      <ImageView
           android:layout_width="50dp"
           android:layout_height="50dp"
           android:scaleType="fitCenter"
           android:padding="10dp"
-          android:src="@drawable/icon_upfile"
-          android:background="@drawable/fullbutton_background"/>
+          android:src="@drawable/icon_upfile" />
   </LinearLayout>
 
 

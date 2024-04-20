@@ -218,7 +218,11 @@ public class DangTaiTaiLieuController {
     }
     ////////(4)////////////////////////////////////////////////////////////////////////////////////
     public void editTenTaiLieu(String idTaiLieu,String tenNew,UploadCallback callback){
-        myRef.child("taiLieuFile").child(idTaiLieu).child("tenTaiLieu").setValue(tenNew).addOnCompleteListener(new OnCompleteListener<Void>() {
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("taiLieuFile/" + idTaiLieu + "/thoiGian", ServerValue.TIMESTAMP);
+        updates.put("taiLieuFile/" + idTaiLieu + "/tenTaiLieu", tenNew);
+
+        myRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 callback.onUploadComplete();

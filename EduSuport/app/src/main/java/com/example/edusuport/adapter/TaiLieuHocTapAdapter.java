@@ -66,6 +66,7 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         txtDate.setText("Upload ngày"+List.get(position).getThoiGian());
         String ext= List.get(position).getFileType();
 
+
         if(Objects.equals(ext, ".pdf")){
             img.setImageResource(R.drawable.icon_pdf);
         } else if (Objects.equals(ext, ".pptx")) {
@@ -80,9 +81,12 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         else if (Objects.equals(ext, ".doc") || Objects.equals(ext, ".docx")) {
             img.setImageResource(R.drawable.icon_word);
         }
+        else if (Objects.equals(ext, ".png") || Objects.equals(ext,".jpeg") || Objects.equals(ext, ".JPG") || Objects.equals(ext, ".gif")) {
+            img.setImageResource(R.drawable.icon_imgfile    );
+        }
         else{
 
-            img.setImageResource(R.drawable.icon_imgfile);
+            img.setImageResource(R.drawable.icon_notefile);
         }
         Log.d("test icon",ext.toString());
 
