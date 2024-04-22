@@ -1,5 +1,6 @@
 package com.example.edusuport.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -24,6 +25,7 @@ import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -45,6 +47,7 @@ import com.example.edusuport.R;
 import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
 import com.example.edusuport.adapter.NhomTheAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
+import com.example.edusuport.adapter.ViewHolderClick;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.LopHoc;
@@ -116,8 +119,27 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
             }
         });
-        rv_lophoc.setclick
-        xemthemlophoc=(TextView)findViewById(R.id.xemthem_lophoc);
+        rv_lophoc.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+                Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        xemthemlophoc = (TextView) findViewById(R.id.xemthem_lophoc);
         xemthemlophoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
