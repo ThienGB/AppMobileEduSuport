@@ -46,12 +46,34 @@
                 android:textStyle="bold" />
 
         </RelativeLayout>
-        <androidx.viewpager.widget.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pagerTL"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_chonLop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/xemthem_lophoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_blue"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:text="Xem thêm"
+                android:background="@drawable/fullbutton_background"/>
+
+        </LinearLayout>
         <TabHost
             android:id="@+id/tabHost_tailieu"
             android:layout_width="match_parent"
@@ -211,7 +233,7 @@
                             <GridView
                                 android:id="@+id/grid_flashcard"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:horizontalSpacing="10dp"
                                 android:numColumns="2"

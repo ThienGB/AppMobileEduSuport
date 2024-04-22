@@ -3,6 +3,8 @@ package com.example.edusuport.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,9 +42,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edusuport.R;
+import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
 import com.example.edusuport.adapter.NhomTheAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
+import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,40 +59,36 @@ import java.util.ArrayList;
 
 public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
-    TextView textTenMonHoc;
+    TextView textTenMonHoc,xemthemlophoc;
     ListView lvFile;
+    RecyclerView rv_lophoc;
     GridView gdCard;
     ImageButton imgBack;
-    ViewPager viewPager;
     FloatingActionButton btnuploadfileTL,btnAddFlashCard;
     LinearLayout sortList;
     SearchView filterFile;
     TaiLieuHocTapAdapter taiLieuHocTapAdapter;
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
+    ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapter nhomTheAdapter;
-    String idMon, tenFile;
+    String idMon,idGV="1", tenFile,idLop="1";
     Intent data=null;
 
     android.app.AlertDialog.Builder builder;
 
     private View alertView;
-    ArrayList<Integer> listLop=new ArrayList<>();
+    ArrayList<LopHoc> listLop=new ArrayList<LopHoc>();
     DangTaiTaiLieuController dangTaiTaiLieuController=new DangTaiTaiLieuController();;
+    LopHocController lopHocController=new LopHocController();
+    LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_tai_tai_lieu_mon);
+        chonLop();
         loadTabs();
-
-        viewPager =findViewById(R.id.pagerTL);
-        listLop.add(R.drawable.profile);
-        listLop.add(R.drawable.icon_excel);
-        listLop.add(R.drawable.ava);
-        listLop.add(R.drawable.ic_calendar);
-
-
-        doFormWidgetsFile();
-        doFormWidgetsFlasCard();
+        //doFormWidgetsFile();
+        //doFormWidgetsFlasCard();
         clickBack();
     }
 
@@ -102,11 +103,34 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             }
         });
     }
+    public void chonLop(){
+        rv_lophoc=(RecyclerView) findViewById(R.id.rv_chonLop);
+        lopHocController.getListLopHoc_idGV(idGV, new LopHocController.DataRetrievedCallback_LopHoc() {
+            @Override
+            public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+
+                listLop=monHocList;
+                lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+                rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
+                rv_lophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+            }
+        });
+        rv_lophoc.setclick
+        xemthemlophoc=(TextView)findViewById(R.id.xemthem_lophoc);
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "xem them lop hoc", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void loadTabs(){
 
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
+        idGV=getIntent().getStringExtra("idGV");
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
             public void onDataRetrieved(String tenmon) {
@@ -114,7 +138,6 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("idMon", String.valueOf(idMon));
         //Lấy Tabhost id ra trước /
         final TabHost tab =(TabHost) findViewById(R.id.tabHost_tailieu);
         tab.setup();
@@ -131,8 +154,8 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         tab.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String arg0) {
-                String s = "Tab tag="+arg0+"; index=" + tab.getCurrentTab();
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+//                String s = "Tab tag="+arg0+"; index=" + tab.getCurrentTab();
+//                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -292,23 +315,102 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
 
     }
-
+    ///(1)/////////////////////////////////////////////////////////////////////////////////////////
     public void doFormWidgetsFlasCard()
     {
         gdCard=(GridView) findViewById(R.id.grid_flashcard);
         ArrayList<NhomThe> list=new ArrayList<NhomThe>();
-        list.add(new NhomThe( "1","Thẻ vip","2"));
-        list.add(new NhomThe( "2","300 bài code thiếu nhi","2"));
-        list.add(new NhomThe( "3","Học soạn giáo án cùng cô giáo","2"));
-        list.add(new NhomThe( "4","Kiếm tiền không khó","2"));
-        list.add(new NhomThe( "5","Kiếm tiền khó","2"));
-        list.add(new NhomThe( "6","Thẻ vip","2"));
+
+        filterFile =(SearchView) findViewById(R.id.filterFC);
+
+
+        filterFile.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<NhomThe> temp=new ArrayList<NhomThe>();
+                for(NhomThe nhomThe: listGFC){
+                    if(nhomThe.getTenNhomThe().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(nhomThe);
+                    }
+                }
+                nhomTheAdapter = new NhomTheAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_flashcard, temp );
+                gdCard.setAdapter(nhomTheAdapter);
+                nhomTheAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+        dangTaiTaiLieuController.getListGroupFC(idLop, idMon, new DangTaiTaiLieuController.DataRetrievedCallback_GroupFC() {
+            @Override
+            public void onDataRetrieved(ArrayList<NhomThe> nhomtheList) {
+                listGFC=nhomtheList;
+                nhomTheAdapter = new NhomTheAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_flashcard, listGFC );
+                gdCard.setAdapter(nhomTheAdapter);
+            }
+        });
 
 
 
-        nhomTheAdapter = new NhomTheAdapter(DangTaiTaiLieu_MonActivity.this,R.layout.item_tab_flashcard, list );
-        gdCard.setAdapter(nhomTheAdapter);
+        btnAddFlashCard=(FloatingActionButton) findViewById(R.id.btn_addFlashCard) ;
+        btnAddFlashCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder = new AlertDialog.Builder(DangTaiTaiLieu_MonActivity.this);
+                LayoutInflater layoutInflater = LayoutInflater.from(DangTaiTaiLieu_MonActivity.this);
+                builder.setTitle("Thêm FlashCard mới : ");
 
+                alertView = layoutInflater.inflate(R.layout.activity_click_add_groupfc, null);
+                builder.setView(alertView);
+
+                EditText txtTenGroupFC=(EditText) alertView.findViewById(R.id.tenGroupFC);
+                EditText txtMoTaGroupFC=(EditText) alertView.findViewById(R.id.motaGroupFC);
+                builder.setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!txtTenGroupFC.getText().toString().equals("") && !txtMoTaGroupFC.getText().toString().equals("") ){
+                            dangTaiTaiLieuController.addNewGroupFC(txtTenGroupFC.getText().toString(), txtMoTaGroupFC.getText().toString(), idLop, idMon, new DangTaiTaiLieuController.UploadCallback() {
+                                @Override
+                                public void onUploadComplete() {
+                                    reLoadListGFC();
+                                    Toast.makeText(DangTaiTaiLieu_MonActivity.this, "NGON LÀNH", Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onUploadFailed(String errorMessage) {
+                                    Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Nô nô", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }
+                        else {
+                            Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Nhập chưa đầy đủ", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+    }
+    public void reLoadListGFC(){
+        listGFC.clear();
+        dangTaiTaiLieuController.getListGroupFC(idLop, idMon, new DangTaiTaiLieuController.DataRetrievedCallback_GroupFC() {
+            @Override
+            public void onDataRetrieved(ArrayList<NhomThe> nhomtheList) {
+                listGFC=nhomtheList;
+                nhomTheAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
 }

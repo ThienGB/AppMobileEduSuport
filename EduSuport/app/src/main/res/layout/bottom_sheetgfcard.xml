@@ -9,7 +9,7 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="20dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
->
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,23 +22,23 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/bot_hinhfile"
+                android:id="@+id/bot_hinhGFC"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_word" />
+                android:src="@drawable/flashcard" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/bot_hinhfile"
+                android:layout_toEndOf="@+id/bot_hinhGFC"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bot_nameFile"
+                    android:id="@+id/bot_nameGFC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp"
@@ -47,7 +47,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/bot_timeFile"
+                    android:id="@+id/bot_timeGFC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload day 24/03/2003"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow
-                android:id="@+id/bot_chinhsuaFile"
+                android:id="@+id/bot_chinhsuaGFC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
@@ -83,14 +83,14 @@
                         android:id="@+id/gg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chỉnh sửa tên tài liệu."
+                        android:text="Chỉnh sửa tên FlashCard"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         android:layout_gravity="center"/>
                 </LinearLayout>
             </TableRow>
             <TableRow
-                android:id="@+id/bot_xoaFile"
+                android:id="@+id/bot_xoaGFC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -111,41 +111,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Xóa tài liệu"
+                        android:text="Xóa FlashCard"
                         android:textSize="14dp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </TableRow>
-            <TableRow
-                android:id="@+id/bot_taiFile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginBottom="10dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/udxxu"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:padding="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/icon_downfile" />
 
-                    <TextView
-                        android:id="@+id/ggđddd"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Tải tài liệu"
-                        android:textSize="14dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </TableRow>
             <TableRow
-                android:id="@+id/bot_shareFile"
+                android:id="@+id/bot_shareGFC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -165,7 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Chia sẻ tài liệu"
+                        android:text="Chia sẻ FlashCard"
                         android:textSize="14dp"
                         android:textStyle="bold" />
                 </LinearLayout>

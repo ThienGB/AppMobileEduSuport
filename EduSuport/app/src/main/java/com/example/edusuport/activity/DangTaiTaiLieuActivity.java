@@ -59,7 +59,7 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 MonHoc monHoc =(MonHoc)  monHocAdapter.getItem(position);
                 Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
-
+                intent.putExtra("idGV","1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

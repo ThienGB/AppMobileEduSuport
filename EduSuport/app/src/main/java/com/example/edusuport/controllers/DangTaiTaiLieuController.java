@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.edusuport.model.MonHoc;
+import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +45,7 @@ public class DangTaiTaiLieuController {
 
     ArrayList<MonHoc> list=new ArrayList<MonHoc>();
     ArrayList<TaiLieuHocTap> listFile=new ArrayList<TaiLieuHocTap>();
+    ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
 ///(1)/////////////////////////////////////////////////////////////////////////////////////////
 
     public interface DataRetrievedCallback_MonHoc {
@@ -117,7 +119,7 @@ public class DangTaiTaiLieuController {
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete()) ;
                     Uri url = uriTask.getResult();
-                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap( idTaiLieu,idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);
+                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);//ddđ
                     myRef.child("taiLieuFile").child(idTaiLieu).setValue(taiLieuHocTap);
                     callback.onUploadComplete();
                    // Toast.makeText()
@@ -229,4 +231,92 @@ public class DangTaiTaiLieuController {
             }
         });
     }
+
+    ///(1)/////////////////////////////////////////////////////////////////////////////////////////
+    ///(1)//////////////////////////FLASH CARD////////////////////////////////
+    ///(1)/////////////////////////////////////////////////////////////////////////////////////////
+
+    public void addNewGroupFC(String tenGFC, String mota,String idlop, String idmon,UploadCallback callback ){
+        NhomThe nhomThe=new NhomThe(tenGFC,mota,idmon,idlop,ServerValue.TIMESTAMP);
+        String id=myRef.push().getKey();
+
+        myRef.child("groupFlashCard").child(id).setValue(nhomThe).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                myRef.child("groupFlashCard").child(id).child("theLat").setValue("hehe");
+                callback.onUploadComplete();
+            }
+        });
+    }
+    public interface DataRetrievedCallback_GroupFC {
+        void onDataRetrieved(ArrayList<NhomThe> monHocList);
+    }
+    public void getListGroupFC(String idlop, String idmon,DataRetrievedCallback_GroupFC callbackGroupFC){
+        myRef.child("groupFlashCard").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+
+                    for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+
+                        String idGFC = dataSnapshot.getKey(); // Lấy tên môn học từ giá trị
+                        String idLop = dataSnapshot.child("idLop").getValue(String.class); // Lấy tên môn học từ giá trị
+                        String idMon = dataSnapshot.child("idMon").getValue(String.class); // Lấy tên môn học từ giá trị
+                        String mota = dataSnapshot.child("mota").getValue(String.class);
+                        String tenNhomThe = dataSnapshot.child("tenNhomThe").getValue(String.class); // Lấy tên môn học từ giá trị
+                        Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+
+
+                        if(Objects.equals(idLop, idlop) && Objects.equals(idMon, idmon)){
+                            Map<String, Object> timestampMap = convertTimestampToMap(thoiGian);
+                            listGFC.add(new NhomThe(idGFC,tenNhomThe, mota,idMon,idLop,timestampMap));
+                        }
+                        Log.d("list flasshcard", String.valueOf(idMon));
+
+                    }
+                    // Gọi callback với danh sách dữ liệu đã lấy được
+                    Log.d("list flasshcard", String.valueOf(listGFC));
+                    callbackGroupFC.onDataRetrieved(listGFC);
+
+                }
+
+            }
+        });
+    }
+
+    public void editGFC(String idGFC,String newTen, String newMoTa,UploadCallback callback){
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("groupFlashCard/" + idGFC + "/thoiGian", ServerValue.TIMESTAMP);
+        updates.put("groupFlashCard/" + idGFC + "/tenNhomThe", newTen);
+        updates.put("groupFlashCard/" + idGFC + "/mota", newMoTa);
+        myRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                callback.onUploadComplete();
+            }
+        });
+    }
+    public void deleteGroupFC(String idGFC,Context mContext,UploadCallback callback){
+        myRef.child("groupFlashCard").child(idGFC).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onUploadComplete();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(mContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    public void shareGFC( String idGFC, String idLopNew,UploadCallback callback){
+
+
+    }
+
 }
