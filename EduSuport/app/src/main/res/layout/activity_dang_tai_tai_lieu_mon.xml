@@ -58,20 +58,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+<ImageView
+    android:id="@+id/xemthem_lophoc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/baseline_add_24"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:padding="5dp"
+    android:background="@drawable/fullbutton_background"
+    app:tint="@color/main_blue" />
 
-            <TextView
-                android:id="@+id/xemthem_lophoc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/main_blue"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:padding="10dp"
-                android:text="Xem thêm"
-                android:background="@drawable/fullbutton_background"/>
 
         </LinearLayout>
         <TabHost

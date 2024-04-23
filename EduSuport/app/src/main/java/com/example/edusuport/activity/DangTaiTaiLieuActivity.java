@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MonHocAdapter;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
+import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 
 import java.util.ArrayList;
@@ -60,6 +63,15 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
                 intent.putExtra("idGV","1");
+                LopHocController lopHocController=new LopHocController();
+                lopHocController.getListLopHoc_idGV("1", new LopHocController.DataRetrievedCallback_LopHoc() {
+                    @Override
+                    public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+                        intent.putExtra("firstClass",monHocList.get(0).getIdLopHoc().toString());
+                       // Log.d("FIRST CLASS",monHocList.get(0).getIdLopHoc().toString());
+                        //Toast.makeText(getApplicationContext(), monHocList.get(0).getIdLopHoc().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

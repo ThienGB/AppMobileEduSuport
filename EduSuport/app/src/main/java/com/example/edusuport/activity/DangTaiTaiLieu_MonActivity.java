@@ -62,11 +62,12 @@ import java.util.ArrayList;
 
 public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
-    TextView textTenMonHoc,xemthemlophoc;
+    TextView textTenMonHoc;
     ListView lvFile;
     RecyclerView rv_lophoc;
     GridView gdCard;
     ImageButton imgBack;
+    ImageView xemthemlophoc;
     FloatingActionButton btnuploadfileTL,btnAddFlashCard;
     LinearLayout sortList;
     SearchView filterFile;
@@ -74,7 +75,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapter nhomTheAdapter;
-    String idMon,idGV="1", tenFile,idLop="1";
+    String idMon,idGV="1", tenFile,idLop;
     Intent data=null;
 
     android.app.AlertDialog.Builder builder;
@@ -90,8 +91,8 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dang_tai_tai_lieu_mon);
         chonLop();
         loadTabs();
-        //doFormWidgetsFile();
-        //doFormWidgetsFlasCard();
+        doFormWidgetsFile();
+        doFormWidgetsFlasCard();
         clickBack();
     }
 
@@ -117,42 +118,99 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                 rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
                 rv_lophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
 
+
             }
         });
-        rv_lophoc.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
 
+        rv_lophoc.addOnItemTouchListener(new ViewHolderClick(DangTaiTaiLieu_MonActivity.this, rv_lophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String id) {
+                idLop=listLop.get(position).getIdLopHoc();
+               // lopHocIdGVNavAdapter.setItemFocus(position, true);
+                reLoadListf();
+                reLoadListGFC();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        xemthemlophoc = (ImageView) findViewById(R.id.xemthem_lophoc);
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheet();
+            }
+        });
+    }
+    public void showBottomSheet(){
+        final Dialog dialog=new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.botsheet_xemthemlop);
+
+
+        SearchView filterlop=dialog.findViewById(R.id.filterLop);
+        RecyclerView morelophoc=dialog.findViewById(R.id.more_lophoc);
+
+       // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
+        LopHoc_IdGV_Nav_Adapter lh;
+        lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.setAdapter(lopHocIdGVNavAdapter);
+
+        filterlop.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
             @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<LopHoc> temp=new ArrayList<LopHoc>();
+                for(LopHoc lh: listLop){
+                    if(lh.getTenLopHoc().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(lh);
+                    }
+                }
+                lopHocIdGVNavAdapter =new LopHoc_IdGV_Nav_Adapter(temp);
+                morelophoc.setAdapter(lopHocIdGVNavAdapter);
+                //morelophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                lopHocIdGVNavAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        //lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.addOnItemTouchListener(new ViewHolderClick(DangTaiTaiLieu_MonActivity.this, morelophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String  id) {
+                idLop= id;
+                reLoadListf();
+                reLoadListGFC();
 
             }
 
             @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-                Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+            public void onLongItemClick(View view, int position) {
 
             }
-        });
-        xemthemlophoc = (TextView) findViewById(R.id.xemthem_lophoc);
-        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "xem them lop hoc", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }));
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
     public void loadTabs(){
 
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
+       // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
         idGV=getIntent().getStringExtra("idGV");
+
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
             public void onDataRetrieved(String tenmon) {
@@ -181,7 +239,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             }
         });
     }
-
+///(1)/////////////////////////////////////////////////////////////////////////////////////////
 
     public void doFormWidgetsFile()
     {
@@ -219,7 +277,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
             }
         });
-        dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
+        dangTaiTaiLieuController.getListViewTaiLieu(idMon, idLop, new DangTaiTaiLieuController.DataRetrievedCallback_File() {
             @Override
             public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
                 listf=FileList;
@@ -251,7 +309,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                             String ext="."+getFileExtension(data.getData());
 
 
-                            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, "1", new DangTaiTaiLieuController.UploadCallback() {
+                            dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, idLop, new DangTaiTaiLieuController.UploadCallback() {
                                 @Override
                                 public void onUploadComplete() {
                                     reLoadListf();
@@ -296,7 +354,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     }
     public void reLoadListf(){
         listf.clear();
-        dangTaiTaiLieuController.getListViewTaiLieu(idMon, "1", new DangTaiTaiLieuController.DataRetrievedCallback_File() {
+        dangTaiTaiLieuController.getListViewTaiLieu(idMon, idLop, new DangTaiTaiLieuController.DataRetrievedCallback_File() {
 
             @Override
             public void onDataRetrieved(ArrayList<TaiLieuHocTap> FileList) {
