@@ -24,6 +24,7 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
     GridView gvmon;
     MonHocAdapter monHocAdapter;
+    public  static String idGV="1";
     DangTaiTaiLieuController dangTaiTaiLieuController =new DangTaiTaiLieuController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +63,8 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 MonHoc monHoc =(MonHoc)  monHocAdapter.getItem(position);
                 Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
-                intent.putExtra("idGV","1");
-                LopHocController lopHocController=new LopHocController();
-                lopHocController.getListLopHoc_idGV("1", new LopHocController.DataRetrievedCallback_LopHoc() {
-                    @Override
-                    public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
-                        intent.putExtra("firstClass",monHocList.get(0).getIdLopHoc().toString());
-                       // Log.d("FIRST CLASS",monHocList.get(0).getIdLopHoc().toString());
-                        //Toast.makeText(getApplicationContext(), monHocList.get(0).getIdLopHoc().toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+               // intent.putExtra("idGV","1");
+                //LopHocController lopHocController=new LopHocController();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

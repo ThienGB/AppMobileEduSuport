@@ -120,8 +120,13 @@ public class DangTaiTaiLieuController {
                     while (!uriTask.isComplete()) ;
                     Uri url = uriTask.getResult();
                     TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);//ddđ
-                    myRef.child("taiLieuFile").child(idTaiLieu).setValue(taiLieuHocTap);
-                    callback.onUploadComplete();
+                    if(idlop!=null){
+                        myRef.child("taiLieuFile").child(idTaiLieu).setValue(taiLieuHocTap);
+                        callback.onUploadComplete();
+                    }
+                    else {
+                        callback.onUploadFailed("Phải chọn lớp");
+                    }
                    // Toast.makeText()
                 }
                    }
@@ -228,6 +233,43 @@ public class DangTaiTaiLieuController {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 callback.onUploadComplete();
+            }
+        });
+    }
+    public void shareTaiLieu(String idTaiLieu, String newLop, UploadCallback callback ){
+        myRef.child("taiLieuFile").orderByKey().equalTo(idTaiLieu).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    DataSnapshot dataSnapshot = task.getResult().getChildren().iterator().next();
+                    String idTL = dataSnapshot.getKey(); // Lấy tên môn học từ giá trị
+                    String idLop = dataSnapshot.child("idLop").getValue(String.class); // Lấy tên môn học từ giá trị
+                    String idMon = dataSnapshot.child("idmon").getValue(String.class); // Lấy tên môn học từ giá trị
+                    String tenTaiLieu = dataSnapshot.child("tenTaiLieu").getValue(String.class); // Lấy tên môn học từ giá trị
+                    Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+                    String fileType = dataSnapshot.child("fileType").getValue(String.class); // Lấy tên môn học từ giá trị
+                    String urlfile = dataSnapshot.child("urlfile").getValue(String.class); // Lấy tên môn học từ giá trị
+
+                    //Log.d("list file", String.valueOf(thoiGian));
+
+
+                    if(!Objects.equals(idLop, newLop)   ){
+                        TaiLieuHocTap tl=new TaiLieuHocTap(idMon, tenTaiLieu,urlfile,fileType,ServerValue.TIMESTAMP,newLop);
+                        myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(tl);
+                        callback.onUploadComplete();
+                    }
+                    else {
+                        callback.onUploadFailed("Chọn lớp khác");
+                    }
+
+                }
+
+
+
+
             }
         });
     }

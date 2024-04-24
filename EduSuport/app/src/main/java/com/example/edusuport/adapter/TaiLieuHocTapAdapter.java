@@ -21,16 +21,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edusuport.R;
 import com.example.edusuport.activity.DangTaiTaiLieu_MonActivity;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.TaiLieuHocTap;
 
@@ -42,7 +45,9 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
     private Context mContext;
     int resource;
     ArrayList<TaiLieuHocTap> List= new ArrayList<TaiLieuHocTap>();
+    ArrayList<LopHoc> listLop=new ArrayList<>();
     DangTaiTaiLieuController dt=new DangTaiTaiLieuController();
+    String idShare;
 
     public TaiLieuHocTapAdapter(Context context, int resource, ArrayList<TaiLieuHocTap> list) {
         super(context, resource, list);
@@ -118,6 +123,7 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         TableRow sua=dialog.findViewById(R.id.bot_chinhsuaFile);
         TableRow xoa=dialog.findViewById(R.id.bot_xoaFile);
         TableRow tai=dialog.findViewById(R.id.bot_taiFile);
+        TableRow share=dialog.findViewById(R.id.bot_shareFile);
         TextView ten=dialog.findViewById(R.id.bot_nameFile);
         ImageView hinh=dialog.findViewById(R.id.bot_hinhfile);
 
@@ -189,6 +195,13 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
                 dialog.dismiss();
             }
         });
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                showBottomSheetShareLop(id);
+            }
+        });
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -197,6 +210,100 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
+    public void showBottomSheetShareLop(String idTaiLieu){
+        final Dialog dialog=new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.botsheet_xemthemlop);
+
+
+        SearchView filterlop=dialog.findViewById(R.id.filterLop);
+        RecyclerView morelophoc=dialog.findViewById(R.id.more_lophoc);
+
+        // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
+        LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
+        listLop=((DangTaiTaiLieu_MonActivity) mContext).getListLop();
+        lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop );
+        morelophoc.setAdapter(lopHocIdGVNavAdapter);
+
+        filterlop.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<LopHoc> temp=new ArrayList<LopHoc>();
+                for(LopHoc lh: listLop){
+                    if(lh.getTenLopHoc().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(lh);
+
+                    }
+                }
+                LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(temp);
+                morelophoc.setAdapter(lh);
+                //morelophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                lh.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        //lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.addOnItemTouchListener(new ViewHolderClick(mContext, morelophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String  id) {
+                idShare= id;
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Xác nhận chia sẻ");
+                builder.setMessage("Bạn có chắc chắn chia sẻ cho tài liệu này tới lớp "+listLop.get(position).getTenLopHoc());
+
+                // Nút xác nhận
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogmini, int which) {
+                        // Gọi hàm deleteTL() để xóa tài liệu
+                        dt.shareTaiLieu(idTaiLieu, listLop.get(position).getIdLopHoc(), new DangTaiTaiLieuController.UploadCallback() {
+                            @Override
+                            public void onUploadComplete() {
+                                Toast.makeText(mContext, "Share thành công", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onUploadFailed(String errorMessage) {
+                                Toast.makeText(mContext, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialogmini.dismiss();
+                        dialog.dismiss();
+                    }
+                });
+
+                // Nút hủy
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng hộp thoại xác nhận
+                    }
+                });
+
+                // Hiển thị hộp thoại xác nhận
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
     public void deleteTL(String id,String ext){
 
         dt.deleteTaiLieu_idTaiLieu(id, ext, new DangTaiTaiLieuController.UploadCallback() {

@@ -75,7 +75,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapter nhomTheAdapter;
-    String idMon,idGV="1", tenFile,idLop;
+    String idMon,idGV=DangTaiTaiLieuActivity.idGV, tenFile,idLop=null;
     Intent data=null;
 
     android.app.AlertDialog.Builder builder;
@@ -141,11 +141,14 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         xemthemlophoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBottomSheet();
+                showBottomSheetMoreLop();
             }
         });
     }
-    public void showBottomSheet(){
+    public ArrayList<LopHoc> getListLop(){
+        return listLop;
+    }
+    public void showBottomSheetMoreLop(){
         final Dialog dialog=new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.botsheet_xemthemlop);
@@ -173,10 +176,10 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                         temp.add(lh);
                     }
                 }
-                lopHocIdGVNavAdapter =new LopHoc_IdGV_Nav_Adapter(temp);
-                morelophoc.setAdapter(lopHocIdGVNavAdapter);
+                LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(temp);
+                morelophoc.setAdapter(lh);
                 //morelophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                lopHocIdGVNavAdapter.notifyDataSetChanged();
+                lh.notifyDataSetChanged();
                 return false;
             }
         });
@@ -209,7 +212,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
        // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
-        idGV=getIntent().getStringExtra("idGV");
+
 
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
@@ -318,7 +321,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onUploadFailed(String errorMessage) {
-
+                                    Toast.makeText(DangTaiTaiLieu_MonActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                                 }
                             });
                             data=null;

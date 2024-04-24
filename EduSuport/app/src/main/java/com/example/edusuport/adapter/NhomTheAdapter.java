@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -25,7 +26,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.example.edusuport.R;
+import com.example.edusuport.activity.DangTaiTaiLieuActivity;
 import com.example.edusuport.activity.DangTaiTaiLieu_MonActivity;
+import com.example.edusuport.activity.Main_TheLat_GV;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
@@ -69,6 +72,17 @@ public class NhomTheAdapter extends ArrayAdapter {
             }
         });
 
+        customView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, Main_TheLat_GV.class);
+                intent.putExtra("idMon",List.get(position).getIdMon());
+                intent.putExtra("idGV","1");
+                intent.putExtra("idNhomThe",List.get(position).getIdNhomThe());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                mContext.startActivity(intent);
+            }
+        });
         customView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
