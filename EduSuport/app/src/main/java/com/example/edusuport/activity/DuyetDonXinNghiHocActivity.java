@@ -14,15 +14,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.DonXinNghiHocAdapter;
+import com.example.edusuport.databinding.ActivityDuyetDonXinNghiHocBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.MonHoc;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+
+import com.example.edusuport.model.ThuGopY;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,26 +42,20 @@ import java.util.Set;
 public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
+    ActivityDuyetDonXinNghiHocBinding binding;
     ArrayList<DonXinNghiHoc> listDon = new ArrayList<>();
     ArrayAdapter<DonXinNghiHoc> adapter;
-    ListView lsvDonXinPhep;
-    EditText editTextDate;
+    androidx.appcompat.widget.SearchView searchView;
     Calendar calendar;
     Timestamp selectedTimestamp;
     String IDLop = "12B3";
-    ImageButton btnFilter, btnCancelFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_duyet_don_xin_nghi_hoc);
+        binding = ActivityDuyetDonXinNghiHocBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         dbHelper = new DBHelper();
-        lsvDonXinPhep = findViewById(R.id.lsvDonXinPhep);
-        editTextDate = findViewById(R.id.editTextDate);
         calendar = Calendar.getInstance();
-        btnFilter = findViewById(R.id.btnFillerDon);
-        btnCancelFilter = findViewById(R.id.btnCancelFillerDon);
-
         GetDonXinhPhep(IDLop);
         AddEvents();
     }
@@ -84,7 +82,7 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        editTextDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        binding.searchView.setQueryHint(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, monthOfYear);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -95,7 +93,8 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
                         calendar.set(Calendar.SECOND, 0);
                         calendar.set(Calendar.MILLISECOND, 0);
                         selectedTimestamp = new Timestamp(calendar.getTimeInMillis());
-
+                        filterByDate(selectedTimestamp);
+                        binding.searchView.requestFocus();
                     }
                 }, year, month, day);
         datePickerDialog.show();
@@ -162,23 +161,17 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
     }
     public void SetData(ArrayList<DonXinNghiHoc> list){
         adapter = new DonXinNghiHocAdapter(this, R.layout.list_don_xin_phep_item, list);
-        lsvDonXinPhep.setAdapter(adapter);
+        binding.lsvDonXinPhep.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
     public void AddEvents(){
-        btnFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterByDate(selectedTimestamp);
-            }
-        });
-        btnCancelFilter.setOnClickListener(new View.OnClickListener() {
+        binding.btnCancelFillerDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SetData(listDon);
             }
         });
-        lsvDonXinPhep.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.lsvDonXinPhep.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(DuyetDonXinNghiHocActivity.this, DonXinPhepNghiHocActivity.class);
@@ -186,5 +179,29 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Xử lý khi người dùng gửi truy vấn tìm kiếm
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<DonXinNghiHoc> filteredThuGopYList = filter(listDon, newText);
+                SetData(filteredThuGopYList);
+                Log.d("ListFillert", "ID: " + filteredThuGopYList.size());
+                return true;
+            }
+        });
+    }
+    private ArrayList<DonXinNghiHoc> filter(ArrayList<DonXinNghiHoc> thuGopYList, String query) {
+        ArrayList<DonXinNghiHoc> filteredList = new ArrayList<>();
+        for (DonXinNghiHoc donXinNghiHoc : thuGopYList) {
+            if (donXinNghiHoc.getMSHS().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(donXinNghiHoc);
+            }
+        }
+        return filteredList;
     }
 }

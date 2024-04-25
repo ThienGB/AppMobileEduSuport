@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/avaDonXP"
+        android:id="@+id/avaGV"
         android:layout_centerInParent= "true"
         android:layout_width= "40dp"
         android:layout_height= "40dp"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/txvTenHSXP"
+            android:id="@+id/txvTenGV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -31,20 +31,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/txvTGXP"
+                android:id="@+id/txvMaGV"
                 android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20/3/2024"
-                android:textStyle="italic"/>
-            <TextView
-                android:id="@+id/txvTrangThaiXP"
-                android:layout_width="match_parent"
-                android:layout_margin="5dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:text="Trạng thái: Đã đồng ý"
+                android:text="Mã giáo viên: 123"
                 android:textStyle="italic"/>
         </LinearLayout>
     </LinearLayout>

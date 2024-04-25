@@ -12,6 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 public class DBHelper {
     private DatabaseReference databaseRef;
     public final String ColecThoiKhoaBieu = "thoikhoabieu";
+    public final String ColecPhuHuynh = "phuhuynh";
+    public final String ColecGiaoVien = "giaovien";
+    public final String ColecThuGopY = "thugopy";
     public final String ColecMonHoc = "monhoc";
     public final String ColecHocSinh ="hocsinh";
     public final String ColecDonXinNghiHoc="donxinnghihoc";
@@ -20,6 +23,13 @@ public class DBHelper {
     public final String FieldThoiGian="thoigian";
     public final String FieldTrangThai="trangthai";
     public final String FieldTenHS = "ten";
+    public final String FieldTenPH = "ten";
+    public final String FieldAnDanh = "andanh";
+    public final String FieldXem = "xem";
+    public final String FieldIDNguoiGui = "idnguoigui";
+    public final String FieldIDGiaoVien = "idgiaovien";
+    public final String FieldNoiDung = "noidung";
+    public final String FieldTieuDe = "tieude";
     public final String FieldIDLopHoc = "idlophoc";
     public final String FieldTenMon = "tenmon";
     public final String FieldIDMon = "idmon";
@@ -53,7 +63,44 @@ public class DBHelper {
             }
         });
     }
+    public void getTenPhuHuynhByID(String MSPH, final TenHocSinhCallback callback) {
+        DatabaseReference hocsinhRef = databaseRef.child(ColecPhuHuynh).child(MSPH).child(FieldTenPH);
+        hocsinhRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String tenPhuHuynh = dataSnapshot.getValue(String.class);
+                    callback.onTenHocSinhFetched(tenPhuHuynh);
+                } else {
+                    callback.onTenHocSinhFetched(null);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onTenHocSinhFetched(null);
+            }
+        });
+    }
+    public void getTenGiaoVienByID(String MSPH, final TenHocSinhCallback callback) {
+        DatabaseReference hocsinhRef = databaseRef.child(ColecGiaoVien).child(MSPH).child(FieldTenPH);
+        hocsinhRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String tenPhuHuynh = dataSnapshot.getValue(String.class);
+                    callback.onTenHocSinhFetched(tenPhuHuynh);
+                } else {
+                    callback.onTenHocSinhFetched(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onTenHocSinhFetched(null);
+            }
+        });
+    }
     public interface TenHocSinhCallback {
         void onTenHocSinhFetched(String tenHocSinh);
     }

@@ -42,22 +42,15 @@ public class DonXinNghiHocAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        LayoutInflater inflater = LayoutInflater.from(context);
+        ViewHolder viewHolder = new ViewHolder();
+        convertView = inflater.inflate(R.layout.item_don_xin_phep_layout, parent, false);
 
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.list_don_xin_phep_item, parent, false);
 
-            viewHolder = new ViewHolder();
-            viewHolder.txvTenNguoiGui = convertView.findViewById(R.id.txvTenHSXP);
-            viewHolder.txvThoiGian = convertView.findViewById(R.id.txvTGXP);
-            viewHolder.txvTrangThai = convertView.findViewById(R.id.txvTrangThaiXP);
-            viewHolder.mainLayout = convertView.findViewById(R.id.layoutXPItem);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        viewHolder.txvTenNguoiGui = convertView.findViewById(R.id.txvTenHSXP);
+        viewHolder.txvThoiGian = convertView.findViewById(R.id.txvTGXP);
+        viewHolder.txvTrangThai = convertView.findViewById(R.id.txvTrangThaiXP);
+        viewHolder.mainLayout = convertView.findViewById(R.id.layoutXPItem);
 
         DonXinNghiHoc item = list.get(position);
         Log.d("MSHSsssss", "ID: " + item.getMSHS());
