@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.example.edusuport.R;
 
-public class Main_TheLat_HS extends AppCompatActivity {
+public class Main_TheLat_HS_Stydy extends AppCompatActivity {
 
     private AnimatorSet mSetRightOut;
     private AnimatorSet mSetLeftIn;

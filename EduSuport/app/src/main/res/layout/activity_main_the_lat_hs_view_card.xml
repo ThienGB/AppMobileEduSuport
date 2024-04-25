@@ -7,7 +7,7 @@
     android:background="#E7E7E7"
     android:layout_height="match_parent"
     >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -46,67 +46,71 @@
                         android:text="Flashcard: 300 BÀI CODE PHỤ HUYNH" />
 
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_moreOptFlashCard"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/button_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/more3dot" />
             </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="flipCard"
-                >
-                <FrameLayout
-                    android:id="@+id/card_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <include layout="@layout/back_card" />
-
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/card_front"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:elevation="20dp"
-                    >
-                    <include layout="@layout/front_card" />
-
-                </FrameLayout>
-            </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/fullbutton_background"
-                android:elevation="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center">
-                <ImageButton
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/icon_left"
+                android:gravity="center"
+                android:padding="10dp"
+                >
 
-                    android:background="@color/white"/>
-                <View
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"/>
-                 <ImageButton
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <ImageButton
+                    android:id="@+id/btn_stydyFC"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_right"
-                    android:background="@color/white"/>
+                    android:src="@drawable/icon_play"
+                    android:background="@drawable/fullbutton_background"
+
+                    />
+
 
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/backgroun_boder_letter"
+                android:padding="5dp">
+
+                <SearchView
+                    android:id="@+id/filterCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:queryHint="Tìm tài liệu" />
+
+            </RelativeLayout>
+            <ListView
+                android:id="@+id/lvTheLats"
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>
+    <include
+        layout="@layout/botsheet_tailieufile"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

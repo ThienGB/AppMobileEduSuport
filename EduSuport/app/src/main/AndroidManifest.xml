@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -11,37 +11,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.EduSuport"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".activity.Main_TheLat_HS_viewCard"
+            android:exported="false" />
+        <activity
+            android:name=".activity.XemTaiLieu_MonHSActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.ThemHocSinhActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.ThemLopHocActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.NhapDiemCaNhanActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.NhapDiemChungActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.NhanXetChungActivity$NhanXetCaNhanActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.NhanXetChungActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.DanhSachLopHoc"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.DanhSachHocSinh"
             android:exported="false" />
@@ -62,11 +59,10 @@
             android:exported="true" />
         <activity
             android:name=".activity.Login"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.DonXinPhepNghiHocActivity"
             android:exported="false" />
@@ -90,14 +86,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.XemThoiKhoaBieuActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".activity.Main_DonXinNghiHoc_PH"
-            android:exported="true" >
-
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".activity.Main_them_gopy_PH"
             android:exported="false" />
@@ -105,9 +97,8 @@
             android:name=".activity.Main_ThuGopY_PH"
             android:exported="false" />
         <activity
-            android:name=".activity.Main_TheLat_HS"
-            android:exported="false">
-        </activity>
+            android:name=".activity.Main_TheLat_HS_Stydy"
+            android:exported="false" />
         <activity
             android:name=".activity.Main_TheLat_GV"
             android:exported="false" />
@@ -119,11 +110,10 @@
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

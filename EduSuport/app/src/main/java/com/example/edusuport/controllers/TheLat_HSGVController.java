@@ -1,6 +1,8 @@
 package com.example.edusuport.controllers;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -8,6 +10,8 @@ import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TheLat;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +21,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TheLat_HSGVController {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -64,6 +70,31 @@ public class TheLat_HSGVController {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 callback.onUploadComplete();
+            }
+        });
+
+    }
+    public void editTheLat(String idGFC, String idthelat, String newCauHoi, String newCauTraLoi, DangTaiTaiLieuController.UploadCallback callback){
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("groupFlashCard/" + idGFC + "/theLat/"+idthelat+"/cauHoi",newCauHoi );
+        updates.put("groupFlashCard/" + idGFC + "/theLat/"+idthelat+"/cauTraLoi", newCauTraLoi);
+        myRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                callback.onUploadComplete();
+            }
+        });
+    }
+    public void deleteTheLat(String idGFC, String idthelat, Context mContext, DangTaiTaiLieuController.UploadCallback callback){
+        myRef.child("groupFlashCard").child(idGFC).child("theLat").child(idthelat).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onUploadComplete();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(mContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
             }
         });
 

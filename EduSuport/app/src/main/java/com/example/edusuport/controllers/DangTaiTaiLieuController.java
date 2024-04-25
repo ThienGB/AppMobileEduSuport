@@ -356,9 +356,41 @@ public class DangTaiTaiLieuController {
         });
 
     }
-    public void shareGFC( String idGFC, String idLopNew,UploadCallback callback){
+    public void shareGFC(String idGFC, String idLopNew, UploadCallback callback ){
+        myRef.child("groupFlashCard").orderByKey().equalTo(idGFC).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    DataSnapshot dataSnapshot = task.getResult().getChildren().iterator().next();
+
+                    String idLop = dataSnapshot.child("idLop").getValue(String.class); // Lấy tên môn học từ giá trị
+                    String idMon = dataSnapshot.child("idMon").getValue(String.class); // Lấy tên môn học từ giá trị
+                    String mota = dataSnapshot.child("mota").getValue(String.class);
+                    String tenNhomThe = dataSnapshot.child("tenNhomThe").getValue(String.class); // Lấy tên môn học từ giá trị
+                    Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+
+                    //Log.d("list file", String.valueOf(thoiGian));
 
 
+                    if(!Objects.equals(idLop, idLopNew)   ){
+                        NhomThe nhomThe=new NhomThe(tenNhomThe, mota,idMon,idLopNew,ServerValue.TIMESTAMP);
+                        myRef.child("groupFlashCard").child(myRef.push().getKey()).setValue(nhomThe);
+                        callback.onUploadComplete();
+                    }
+                    else {
+                        callback.onUploadFailed("Chọn lớp khác");
+                    }
+
+                }
+
+
+
+
+            }
+        });
     }
 
 }

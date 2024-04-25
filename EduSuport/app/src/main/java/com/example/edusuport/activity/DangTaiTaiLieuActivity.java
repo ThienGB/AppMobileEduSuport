@@ -61,7 +61,7 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MonHoc monHoc =(MonHoc)  monHocAdapter.getItem(position);
-                Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
+                Intent intent= new Intent(DangTaiTaiLieuActivity.this,XemTaiLieu_MonHSActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
                // intent.putExtra("idGV","1");
                 //LopHocController lopHocController=new LopHocController();
