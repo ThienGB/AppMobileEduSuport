@@ -15,15 +15,16 @@ import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.HocSinh;
 
 import java.util.ArrayList;
 
-public class GiaoVienAdapter extends ArrayAdapter {
+public class HocSinhAdapter extends ArrayAdapter {
     Context context;
     DBHelper dbHelper;
     int resource;
-    ArrayList<GiaoVien> list= new ArrayList<GiaoVien>();
-    public GiaoVienAdapter(@NonNull Context context, int resource, ArrayList<GiaoVien> list) {
+    ArrayList<HocSinh> list= new ArrayList<HocSinh>();
+    public HocSinhAdapter(@NonNull Context context, int resource, ArrayList<HocSinh> list) {
         super(context, resource, list);
         this.context = context;
         this.list = list;
@@ -45,8 +46,8 @@ public class GiaoVienAdapter extends ArrayAdapter {
         viewHolder.txvMaGV = convertView.findViewById(R.id.txvMaGV);
         viewHolder.imvAvaGV = convertView.findViewById(R.id.avaGV);
 
-        GiaoVien item = list.get(position);
-        dbHelper.getTenGiaoVienByID(item.getIDGiaoVien(), new DBHelper.TenHocSinhCallback() {
+        HocSinh item = list.get(position);
+        dbHelper.getTenHocSinhByMSHS(item.getMSHS(), new DBHelper.TenHocSinhCallback() {
             @Override
             public void onTenHocSinhFetched(String tenHocSinh) {
                 if (tenHocSinh != null) {
@@ -56,7 +57,7 @@ public class GiaoVienAdapter extends ArrayAdapter {
                 }
             }
         });
-        viewHolder.txvMaGV.setText("Mã giáo viên: " +item.getIDGiaoVien());
+        viewHolder.txvMaGV.setText("Mã học sinh: "+ item.getMSHS());
 
         return convertView;
     }

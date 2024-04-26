@@ -12,13 +12,26 @@ import com.google.firebase.database.ValueEventListener;
 public class DBHelper {
     private DatabaseReference databaseRef;
     public final String ColecThoiKhoaBieu = "thoikhoabieu";
+    public final String ColecDiem = "diem";
+    public final String ColecHocSinh = "hocsinh";
     public final String ColecPhuHuynh = "phuhuynh";
     public final String ColecGiaoVien = "giaovien";
     public final String ColecThuGopY = "thugopy";
     public final String ColecMonHoc = "monhoc";
-    public final String ColecHocSinh ="hocsinh";
     public final String ColecDonXinNghiHoc="donxinnghihoc";
     public final String FieldMSHS="mshs";
+    public final String FieldHocKy = "hocky";
+    public final String FieldDiemToan="idtoan";
+    public final String FieldDiemVatLy = "idvatly";
+    public final String FieldDiemHoaHoc= "idhoahoc";
+    public final String FieldDiemNguVan="idnguvan";
+    public final String FieldDiemSinhHoc="idsinhhoc";
+    public final String FieldDiemLichSu="idlichsu";
+    public final String FieldDiemDiaLy="iddialy";
+    public final String FieldDiemGDCD = "idgiaoduccongdan";
+    public final String FieldDiemGDTC ="idgiaoducthechat";
+    public final String FieldDiemTinHoc = "idtinhoc";
+    public final String FieldDiemTiengAnh = "idtienganh";
     public final String FieldLyDo ="lydo";
     public final String FieldThoiGian="thoigian";
     public final String FieldTrangThai="trangthai";
@@ -38,6 +51,8 @@ public class DBHelper {
     public final String ValueTTDaDuyet = "Đã duyệt";
     public final String ValueTTChuaDuyet = "Chưa duyệt";
     public final String ValueTTTuChoi = "Từ chối";
+    public final String ValueHocKy1 = "hocky1";
+    public final String ValueHocKy2 = "hocky2";
 
     public DBHelper() {
         // Khởi tạo DatabaseReference
