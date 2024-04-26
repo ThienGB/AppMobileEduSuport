@@ -1,57 +1,62 @@
 package com.example.edusuport.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.edusuport.R;
+import com.example.edusuport.adapter.FlashCardAdapter;
+import com.example.edusuport.adapter.TheLatAdapterHS;
+import com.example.edusuport.controllers.TheLat_HSGVController;
+import com.example.edusuport.model.TheLat;
+
+import java.util.ArrayList;
 
 public class Main_TheLat_HS_Stydy extends AppCompatActivity {
 
-    private AnimatorSet mSetRightOut;
-    private AnimatorSet mSetLeftIn;
-    private boolean mIsBackVisible = false;
-    private View mCardFrontLayout;
-    private View mCardBackLayout;
+
+    ImageButton imgBack;
+    ViewPager viewPager;
+    FlashCardAdapter flashCardAdapter;
+    TheLat_HSGVController theLatHsgvController=new TheLat_HSGVController();
+    ArrayList<TheLat> listtl=new ArrayList<>();
+    String idNhomThe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_the_lat_hs);
         findViews();
-        loadAnimations();
-        changeCameraDistance();
+        loadData();
+      // Flip();
     }
     private void findViews() {
-        mCardBackLayout = findViewById(R.id.card_back);
-        mCardFrontLayout = findViewById(R.id.card_front);
+        viewPager=findViewById(R.id.viewpager_FC);
+        imgBack=(ImageButton) findViewById(R.id.back_TaiLieuMain);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
-    private void loadAnimations() {
-        mSetRightOut = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.outanimation_flashcard);
-        mSetLeftIn = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.inanimation_flashcard);
+    private void loadData() {
+        idNhomThe=getIntent().getStringExtra("idNhomThe");
+        theLatHsgvController.getListTheLat(idNhomThe, new TheLat_HSGVController.DataRetrievedCallback_TheLat() {
+            @Override
+            public void onDataRetrieved(ArrayList<TheLat> thelatList) {
+                listtl=thelatList;
+                flashCardAdapter = new FlashCardAdapter(Main_TheLat_HS_Stydy.this, listtl,viewPager );
+                viewPager.setAdapter(flashCardAdapter);
+                viewPager.setCurrentItem(0);
+            }
+        });
     }
-    private void changeCameraDistance() {
-        int distance = 8000;
-        float scale = getResources().getDisplayMetrics().density * distance;
-        mCardFrontLayout.setCameraDistance(scale);
-        mCardBackLayout.setCameraDistance(scale);
-    }
-    public void flipCard(View view) {
-        if (!mIsBackVisible) {
-            mSetRightOut.setTarget(mCardFrontLayout);
-            mSetLeftIn.setTarget(mCardBackLayout);
-            mSetRightOut.start();
-            mSetLeftIn.start();
-            mIsBackVisible = true;
-        } else {
-            mSetRightOut.setTarget(mCardBackLayout);
-            mSetLeftIn.setTarget(mCardFrontLayout);
-            mSetRightOut.start();
-            mSetLeftIn.start();
-            mIsBackVisible = false;
-        }
-    }
+
+
 
 }

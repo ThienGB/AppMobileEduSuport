@@ -34,7 +34,6 @@ import java.util.ArrayList;
 public class TheLatAdapterHS extends ArrayAdapter {
     Activity context;
     private Context mContext;
-    int resource;
     ArrayList<TheLat> List= new ArrayList<TheLat>();
     TheLat_HSGVController theLatHsgvController=new TheLat_HSGVController();
 

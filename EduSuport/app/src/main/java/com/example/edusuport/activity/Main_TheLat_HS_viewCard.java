@@ -43,7 +43,7 @@ public class Main_TheLat_HS_viewCard extends AppCompatActivity {
 
     SearchView search;
 
-    private String txtCauHoi,txtCauTraloi;
+
     TheLat_HSGVController theLatHsgvController=new TheLat_HSGVController();
     ArrayList<TheLat> listtl=new ArrayList<>();
     @Override
@@ -110,10 +110,7 @@ public class Main_TheLat_HS_viewCard extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(Main_TheLat_HS_viewCard.this,XemTaiLieu_MonHSActivity.class);
-                intent.putExtra("idMon",idMon);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+               onBackPressed();
             }
         });
         btnPlay.setOnClickListener(new View.OnClickListener() {
