@@ -11,7 +11,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:padding="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/icon_question" />
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Em ăn cơm với gau heheheehehehe"
-
+            android:paddingTop="5dp"
             android:textSize="10dp"
             />
 

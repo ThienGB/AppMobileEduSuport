@@ -1,6 +1,7 @@
 package com.example.edusuport.model;
 
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.util.Map;
 
 public class TaiLieuHocTap {
@@ -9,11 +10,11 @@ public class TaiLieuHocTap {
     private String tenTaiLieu;
     private String urlfile;
     private String fileType;
-    private Map thoiGian;
+    private Timestamp thoiGian;
 
     private String idLop;
 
-    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, String fileType, Map thoiGian, String idLop) {
+    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, String fileType, Timestamp thoiGian, String idLop) {
         this.idTaiLieu = idTaiLieu;
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
@@ -23,7 +24,7 @@ public class TaiLieuHocTap {
         this.idLop = idLop;
     }
 
-    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, String fileType, Map thoiGian, String idLop) {
+    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, String fileType, Timestamp thoiGian, String idLop) {
         this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
         this.urlfile = urlfile;
@@ -72,11 +73,11 @@ public class TaiLieuHocTap {
         this.fileType = fileType;
     }
 
-    public Map getThoiGian() {
+    public Timestamp getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(Map thoiGian) {
+    public void setThoiGian(Timestamp thoiGian) {
         this.thoiGian = thoiGian;
     }
 

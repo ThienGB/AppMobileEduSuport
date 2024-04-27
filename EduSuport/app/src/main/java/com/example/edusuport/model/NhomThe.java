@@ -1,5 +1,6 @@
 package com.example.edusuport.model;
 
+import java.sql.Timestamp;
 import java.util.Map;
 
 public class NhomThe {
@@ -8,9 +9,9 @@ public class NhomThe {
     private String mota;
     private String idMon;
     private String idLop;
-    private Map thoiGian;
+    private Timestamp thoiGian;
 
-    public NhomThe(String idNhomThe, String tenNhomThe, String mota, String idMon, String idLop, Map thoiGian) {
+    public NhomThe(String idNhomThe, String tenNhomThe, String mota, String idMon, String idLop, Timestamp thoiGian) {
         this.idNhomThe = idNhomThe;
         this.tenNhomThe = tenNhomThe;
         this.mota = mota;
@@ -19,7 +20,7 @@ public class NhomThe {
         this.thoiGian = thoiGian;
     }
 
-    public NhomThe(String tenNhomThe, String mota, String idMon, String idLop, Map thoiGian) {
+    public NhomThe(String tenNhomThe, String mota, String idMon, String idLop, Timestamp thoiGian) {
         this.tenNhomThe = tenNhomThe;
         this.mota = mota;
         this.idMon = idMon;
@@ -67,11 +68,11 @@ public class NhomThe {
         this.idLop = idLop;
     }
 
-    public Map getThoiGian() {
+    public Timestamp getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(Map thoiGian) {
+    public void setThoiGian(Timestamp thoiGian) {
         this.thoiGian = thoiGian;
     }
 }

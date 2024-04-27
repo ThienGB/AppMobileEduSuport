@@ -4,11 +4,13 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.ActionMode;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.NhomThe;
@@ -28,7 +30,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -110,6 +115,7 @@ public class DangTaiTaiLieuController {
 
         StorageReference reference=myRefStora.child("tailieuFile/"+idTaiLieu+extension);
         reference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 if(!taskSnapshot.getTask().isSuccessful()){
@@ -119,9 +125,12 @@ public class DangTaiTaiLieuController {
                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!uriTask.isComplete()) ;
                     Uri url = uriTask.getResult();
-                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(),extension, ServerValue.TIMESTAMP,idlop);//ddđ
+
+
+                    TaiLieuHocTap taiLieuHocTap = new TaiLieuHocTap(idmon, tenTaiLieu, url.toString(),extension,new Timestamp(System.currentTimeMillis()) ,idlop);//ddđ
                     if(idlop!=null){
                         myRef.child("taiLieuFile").child(idTaiLieu).setValue(taiLieuHocTap);
+                        myRef.child("taiLieuFile").child(idTaiLieu).child("thoiGian").setValue(System.currentTimeMillis());
                         callback.onUploadComplete();
                     }
                     else {
@@ -160,12 +169,13 @@ public class DangTaiTaiLieuController {
                         String fileType = dataSnapshot.child("fileType").getValue(String.class); // Lấy tên môn học từ giá trị
                         String urlfile = dataSnapshot.child("urlfile").getValue(String.class); // Lấy tên môn học từ giá trị
 
+                        Timestamp time=new Timestamp(thoiGian);
                         Log.d("list file", String.valueOf(thoiGian));
 
 
                        if(Objects.equals(idLop, idlop) && Objects.equals(idmon, idMon)){
-                           Map<String, Object> timestampMap = convertTimestampToMap(thoiGian);
-                           listFile.add(new TaiLieuHocTap(idTL,idmon, tenTaiLieu,urlfile,fileType,timestampMap,idLop));
+
+                           listFile.add(new TaiLieuHocTap(idTL,idmon, tenTaiLieu,urlfile,fileType,time,idLop));
                      }
 
                     }
@@ -179,11 +189,7 @@ public class DangTaiTaiLieuController {
             }
         });
     }
-    public static Map<String, Object> convertTimestampToMap(Long timestamp) {
-        Map<String, Object> timestampMap = new HashMap<>();
-        timestampMap.put("timestamp", timestamp);
-        return timestampMap;
-    }
+
 
     ////////(4)////////////////////////////////////////////////////////////////////////////////////
 
@@ -226,7 +232,7 @@ public class DangTaiTaiLieuController {
     ////////(4)////////////////////////////////////////////////////////////////////////////////////
     public void editTenTaiLieu(String idTaiLieu,String tenNew,UploadCallback callback){
         Map<String, Object> updates = new HashMap<>();
-        updates.put("taiLieuFile/" + idTaiLieu + "/thoiGian", ServerValue.TIMESTAMP);
+        updates.put("taiLieuFile/" + idTaiLieu + "/thoiGian",System.currentTimeMillis());
         updates.put("taiLieuFile/" + idTaiLieu + "/tenTaiLieu", tenNew);
 
         myRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -238,6 +244,7 @@ public class DangTaiTaiLieuController {
     }
     public void shareTaiLieu(String idTaiLieu, String newLop, UploadCallback callback ){
         myRef.child("taiLieuFile").orderByKey().equalTo(idTaiLieu).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -253,12 +260,14 @@ public class DangTaiTaiLieuController {
                     String fileType = dataSnapshot.child("fileType").getValue(String.class); // Lấy tên môn học từ giá trị
                     String urlfile = dataSnapshot.child("urlfile").getValue(String.class); // Lấy tên môn học từ giá trị
 
+
                     //Log.d("list file", String.valueOf(thoiGian));
 
-
+                    String idNewTL=myRef.push().getKey();
                     if(!Objects.equals(idLop, newLop)   ){
-                        TaiLieuHocTap tl=new TaiLieuHocTap(idMon, tenTaiLieu,urlfile,fileType,ServerValue.TIMESTAMP,newLop);
-                        myRef.child("taiLieuFile").child(myRef.push().getKey()).setValue(tl);
+                        TaiLieuHocTap tl=new TaiLieuHocTap(idMon, tenTaiLieu,urlfile,fileType,new Timestamp(System.currentTimeMillis()),newLop);
+                        myRef.child("taiLieuFile").child(idNewTL).setValue(tl);
+                        myRef.child("taiLieuFile").child(idNewTL).child("thoiGian").setValue(System.currentTimeMillis());
                         callback.onUploadComplete();
                     }
                     else {
@@ -279,7 +288,7 @@ public class DangTaiTaiLieuController {
     ///(1)/////////////////////////////////////////////////////////////////////////////////////////
 
     public void addNewGroupFC(String tenGFC, String mota,String idlop, String idmon,UploadCallback callback ){
-        NhomThe nhomThe=new NhomThe(tenGFC,mota,idmon,idlop,ServerValue.TIMESTAMP);
+        NhomThe nhomThe=new NhomThe(tenGFC,mota,idmon,idlop,new Timestamp(System.currentTimeMillis()));
         String id=myRef.push().getKey();
 
         myRef.child("groupFlashCard").child(id).setValue(nhomThe).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -287,6 +296,7 @@ public class DangTaiTaiLieuController {
             public void onComplete(@NonNull Task<Void> task) {
 
                 myRef.child("groupFlashCard").child(id).child("theLat").setValue("hehe");
+                myRef.child("groupFlashCard").child(id).child("thoiGian").setValue(System.currentTimeMillis());
                 callback.onUploadComplete();
             }
         });
@@ -314,8 +324,8 @@ public class DangTaiTaiLieuController {
 
 
                         if(Objects.equals(idLop, idlop) && Objects.equals(idMon, idmon)){
-                            Map<String, Object> timestampMap = convertTimestampToMap(thoiGian);
-                            listGFC.add(new NhomThe(idGFC,tenNhomThe, mota,idMon,idLop,timestampMap));
+                            Timestamp time=new Timestamp(thoiGian);
+                            listGFC.add(new NhomThe(idGFC,tenNhomThe, mota,idMon,idLop,time));
                         }
                         Log.d("list flasshcard", String.valueOf(idMon));
 
@@ -330,9 +340,10 @@ public class DangTaiTaiLieuController {
         });
     }
 
-    public void editGFC(String idGFC,String newTen, String newMoTa,UploadCallback callback){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void editGFC(String idGFC, String newTen, String newMoTa, UploadCallback callback){
         Map<String, Object> updates = new HashMap<>();
-        updates.put("groupFlashCard/" + idGFC + "/thoiGian", ServerValue.TIMESTAMP);
+        updates.put("groupFlashCard/" + idGFC + "/thoiGian", System.currentTimeMillis());
         updates.put("groupFlashCard/" + idGFC + "/tenNhomThe", newTen);
         updates.put("groupFlashCard/" + idGFC + "/mota", newMoTa);
         myRef.updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -371,13 +382,24 @@ public class DangTaiTaiLieuController {
                     String mota = dataSnapshot.child("mota").getValue(String.class);
                     String tenNhomThe = dataSnapshot.child("tenNhomThe").getValue(String.class); // Lấy tên môn học từ giá trị
                     Long thoiGian = dataSnapshot.child("thoiGian").getValue(Long.class); // Lấy tên môn học từ giá trị
+                    Iterable<DataSnapshot> theLats=dataSnapshot.child("theLat").getChildren();
+                    Map<String, Object> theLatMap = new HashMap<>();
 
-                    //Log.d("list file", String.valueOf(thoiGian));
+                    for (DataSnapshot snapshot : theLats) {
+                        // Lấy key của mỗi nút con
+                        String key = snapshot.getKey();
+                        // Lấy value của mỗi nút con và thêm vào map
+                        Object value = snapshot.getValue();
+                        theLatMap.put(key, value);
+                    }
 
+                    String id=myRef.push().getKey();
+                    if(!Objects.equals(idLop, idLopNew)  ){
 
-                    if(!Objects.equals(idLop, idLopNew)   ){
-                        NhomThe nhomThe=new NhomThe(tenNhomThe, mota,idMon,idLopNew,ServerValue.TIMESTAMP);
-                        myRef.child("groupFlashCard").child(myRef.push().getKey()).setValue(nhomThe);
+                        NhomThe nhomThe=new NhomThe(tenNhomThe, mota,idMon,idLopNew,new Timestamp(System.currentTimeMillis()));
+                        myRef.child("groupFlashCard").child(id).setValue(nhomThe);
+                        myRef.child("groupFlashCard").child(id).child("thoiGian").setValue(System.currentTimeMillis());
+                        myRef.child("groupFlashCard").child(id).child("theLat").setValue(theLatMap);
                         callback.onUploadComplete();
                     }
                     else {

@@ -68,7 +68,7 @@ public class TaiLieuHocTapAdapter  extends ArrayAdapter {
         TextView txtDate =(TextView) customView.findViewById(R.id.date_dangtailieu);
         txtTen.setText(List.get(position).getTenTaiLieu());
         id.setText(List.get(position).getIdTaiLieu());
-        txtDate.setText("Upload ngày"+List.get(position).getThoiGian());
+        txtDate.setText("Upload ngày "+List.get(position).getThoiGian());
         String ext= List.get(position).getFileType();
 
 

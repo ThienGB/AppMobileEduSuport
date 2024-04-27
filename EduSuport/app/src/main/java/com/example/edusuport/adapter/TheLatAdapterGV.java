@@ -101,6 +101,7 @@ public class TheLatAdapterGV extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 showSua(txtcauhoi,txtcautraloi,idTheLat,idNhomThe);
+                dialog.dismiss();
             }
         });
         xoa.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +179,7 @@ public class TheLatAdapterGV extends ArrayAdapter {
                         public void onUploadComplete() {
                             ((Main_TheLat_GV) mContext).reloadListTL();
                             Toast.makeText(mContext, "Suae thành coongg ", Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override

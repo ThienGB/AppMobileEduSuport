@@ -65,7 +65,7 @@ public class NhomTheAdapter extends ArrayAdapter {
         TextView txtDate =(TextView) customView.findViewById(R.id.soluongThe);
         String mota=List.get(position).getMota();
         txtTen.setText(List.get(position).getTenNhomThe());
-        txtDate.setText("Upload ngày"+List.get(position).getThoiGian());
+        txtDate.setText("Upload ngày "+List.get(position).getThoiGian());
         String id=List.get(position).getIdNhomThe();
 
         ImageButton moreOption= customView.findViewById(R.id.btn_moreOptFlashCard);

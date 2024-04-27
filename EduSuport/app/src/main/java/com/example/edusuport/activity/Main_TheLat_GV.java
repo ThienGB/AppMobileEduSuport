@@ -151,10 +151,7 @@ public class Main_TheLat_GV extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(Main_TheLat_GV.this,DangTaiTaiLieu_MonActivity.class);
-                intent.putExtra("idMon",idMon);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                onBackPressed();
             }
         });
         btnAdd1.setOnClickListener(new View.OnClickListener() {
