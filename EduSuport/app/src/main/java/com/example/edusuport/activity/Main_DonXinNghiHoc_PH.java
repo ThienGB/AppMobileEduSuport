@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.edusuport.R;
@@ -17,7 +19,10 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
 
     Button btnNgayNghi;
 
-    TextView tvNgayNghi;
+    ImageButton imgBack,btnSend;
+    EditText edtLyDoNghi;
+
+    TextView tvNgayNghi,txtGV,txtPH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +34,23 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
     private void findView(){
         btnNgayNghi=(Button) findViewById(R.id.chon_ngay_nghi);
         tvNgayNghi=(TextView) findViewById(R.id.hien_ngay_nghi);
+        btnSend=(ImageButton) findViewById(R.id.btnSend);
+        imgBack=(ImageButton) findViewById(R.id.imgback);
+        txtGV=(TextView) findViewById(R.id.txt_gv);
+        txtPH=(TextView) findViewById(R.id.txt_ph);
+        edtLyDoNghi=(EditText) findViewById(R.id.ed_liDoNghi);
     }
     private void HandleAllClick(){
+        ClickBack();
         ClickBtnNgayNghi();
+    }
+    private void ClickBack(){
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
     private void ClickBtnNgayNghi(){
         btnNgayNghi.setOnClickListener(new View.OnClickListener() {
@@ -60,8 +79,8 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
                         // on below line we are passing year,
                         // month and day for selected date in our date picker.
                         year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
+
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });

@@ -3,16 +3,19 @@ package com.example.edusuport.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MonHocAdapter;
+import com.example.edusuport.controllers.DangKiGV_AuController;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.LopHoc;
@@ -24,7 +27,10 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
     GridView gvmon;
     MonHocAdapter monHocAdapter;
+    TextView logout;
     public  static String idGV="1";
+    public static final String SHARED_PREFS="sharePrefs";
+
     DangTaiTaiLieuController dangTaiTaiLieuController =new DangTaiTaiLieuController();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,6 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
 
         LayoutInflater inflater= (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
 
         gvmon=(GridView)findViewById(R.id.grid_monhoc);
 
@@ -69,6 +74,26 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        logout=findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
     }
 
+    private void logout(){
+
+        SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putString("name","");
+        editor.apply();
+        Log.d("??????",sharedPreferences.getString("name",""));
+        DangKiGV_AuController dangKiGVAuController= new DangKiGV_AuController();
+        dangKiGVAuController.logout_GV();
+        Intent intent=new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
+    }
 }

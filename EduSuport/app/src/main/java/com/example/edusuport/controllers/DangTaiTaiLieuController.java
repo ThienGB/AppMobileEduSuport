@@ -340,7 +340,7 @@ public class DangTaiTaiLieuController {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public void editGFC(String idGFC, String newTen, String newMoTa, UploadCallback callback){
         Map<String, Object> updates = new HashMap<>();
         updates.put("groupFlashCard/" + idGFC + "/thoiGian", System.currentTimeMillis());

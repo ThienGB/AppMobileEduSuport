@@ -23,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageButton
+                android:id="@+id/imgback"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/fullbutton_background"
@@ -45,6 +46,7 @@
             android:gravity="end">
 
             <ImageButton
+                android:id="@+id/btnSend"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/fullbutton_background"
@@ -68,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="From:" />
             <TextView
+                android:id="@+id/txt_ph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Phụ hhuynh em Phương" />
@@ -90,6 +93,7 @@
                 android:text="To:" />
 
             <TextView
+                android:id="@+id/txt_gv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Giao viên ..?" />
@@ -155,7 +159,7 @@
         android:hint="Enter text">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/ed_liDoNghi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
