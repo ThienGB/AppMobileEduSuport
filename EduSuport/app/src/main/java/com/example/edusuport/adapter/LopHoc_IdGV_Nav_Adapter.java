@@ -2,6 +2,7 @@ package com.example.edusuport.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class LopHoc_IdGV_Nav_Adapter  extends RecyclerView.Adapter<LopHoc_IdGV_N
         boolean isFocused = itemFocusList.get(position);
         if (isFocused) {
             ten.setBackgroundResource(R.drawable.background_subject_radius_click);
-         //   textView.setTextColor(ContextCompat.getColor(context, R.color.main_blue));
+            ten.setTextColor(Color.parseColor("#5F61F0"));
 
         } else {
             ten.setBackgroundResource(R.drawable.background_subject_radius); // Đặt lại background ban đầu
