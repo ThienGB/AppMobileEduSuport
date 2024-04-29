@@ -51,7 +51,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.Home"
-            android:exported="true" />
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".activity.EditInformation"
             android:exported="true" />
