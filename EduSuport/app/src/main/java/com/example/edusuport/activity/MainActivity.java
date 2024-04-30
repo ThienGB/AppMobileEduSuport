@@ -1,13 +1,13 @@
 package com.example.edusuport.activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MonHocAdapter;
@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         lvApp.setAdapter(monHocAdapter);
 
         addEvents();
+    // Write a message to the database
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("message");
+//
+//        myRef.setValue("Hello, World!");
 
     }
     private  void HandelClick(int position){

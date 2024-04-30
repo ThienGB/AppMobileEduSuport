@@ -1,11 +1,11 @@
 package com.example.edusuport.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edusuport.R;
 

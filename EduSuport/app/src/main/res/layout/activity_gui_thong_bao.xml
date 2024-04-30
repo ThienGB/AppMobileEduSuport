@@ -49,6 +49,7 @@
                 android:gravity="end">
 
                 <ImageButton
+                    android:id="@+id/btnXacnhangui"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/fullbutton_background"
@@ -128,6 +129,7 @@
                 android:text="Gửi đến:"
                 />
             <EditText
+                android:id="@+id/mahocsinh"
                 android:layout_width="239dp"
                 android:layout_height="wrap_content"
                 />
@@ -193,6 +195,7 @@
                 android:text="Tiêu đề thông báo:" />
 
             <EditText
+                android:id="@+id/tieudethongbao"
                 android:layout_width="239dp"
                 android:layout_height="wrap_content"
                 />

@@ -1,30 +1,31 @@
 package com.example.edusuport.model;
 
-public class HocSinh {
+public class PhuHuynh {
     private String maSo;
-    private String hoTen;
+    private String ten;
 
-    public HocSinh() {
+    public PhuHuynh() {
         // Constructor mặc định cần thiết cho Firebase
     }
 
-    public HocSinh(String maSo,String hoTen) {
+    public PhuHuynh(String maSo, String ten) {
         this.maSo = maSo;
-        this.hoTen = hoTen;
-    }
-    public String getMaSo() {
-        return maSo;
-    }
-    public String getHoTen() {
-        return hoTen;
+        this.ten = ten;
     }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    public String getMaSo() {
+        return maSo;
     }
 
     public void setMaSo(String maSo) {
         this.maSo = maSo;
     }
 
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
 }

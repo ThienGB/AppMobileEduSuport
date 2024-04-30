@@ -1,23 +1,20 @@
 package com.example.edusuport.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.edusuport.R;
-import com.example.edusuport.adapter.MonHocAdapter;
 import com.example.edusuport.adapter.TheLatAdapterGV;
 import com.example.edusuport.model.TheLat;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -63,7 +60,7 @@ public class Main_TheLat_GV extends AppCompatActivity {
 
     }
     private void showPopUpDialog() {
-        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(Main_TheLat_GV.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Main_TheLat_GV.this);
         LayoutInflater layoutInflater = LayoutInflater.from(Main_TheLat_GV.this);
         builder.setTitle("Thẻ: ");
         LayoutInflater inflater = getLayoutInflater();
