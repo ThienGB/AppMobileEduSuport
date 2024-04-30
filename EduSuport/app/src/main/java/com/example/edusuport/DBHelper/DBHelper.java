@@ -34,6 +34,7 @@ public class DBHelper {
     public final String FieldDiemTiengAnh = "idtienganh";
     public final String FieldLyDo ="lydo";
     public final String FieldThoiGian="thoigian";
+    public final String FieldNgayNghi="ngaynghi";
     public final String FieldTrangThai="trangthai";
     public final String FieldTenHS = "ten";
     public final String FieldTenPH = "ten";

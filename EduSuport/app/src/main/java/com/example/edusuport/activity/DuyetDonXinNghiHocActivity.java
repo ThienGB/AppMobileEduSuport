@@ -137,18 +137,20 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listDon = new ArrayList<>();
-                for (DataSnapshot monHocSnapshot : dataSnapshot.getChildren()) {
-                    if (monHocSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class).equals(IDLopHoc))
+                for (DataSnapshot donXPSnapshot : dataSnapshot.getChildren()) {
+                    if (donXPSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class).equals(IDLopHoc))
                     {
-                        String idDon = monHocSnapshot.getKey();
-                        String mshs = monHocSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
-                        String lydo = monHocSnapshot.child(dbHelper.FieldLyDo).getValue(String.class);
-                        long timestampLong = monHocSnapshot.child(dbHelper.FieldThoiGian).getValue(Long.class);
-                        String trangthai = monHocSnapshot.child(dbHelper.FieldTrangThai).getValue(String.class);
-                        Timestamp thoigian = new Timestamp(timestampLong);
-                        DonXinNghiHoc don = new DonXinNghiHoc(idDon, mshs, lydo, thoigian, trangthai);
+                        String idDon = donXPSnapshot.getKey();
+                        String mshs = donXPSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
+                        String lydo = donXPSnapshot.child(dbHelper.FieldLyDo).getValue(String.class);
+                        long timestampTG = donXPSnapshot.child(dbHelper.FieldThoiGian).getValue(Long.class);
+                        long timestampNgayNghi = donXPSnapshot.child(dbHelper.FieldNgayNghi).getValue(Long.class);
+                        String trangthai = donXPSnapshot.child(dbHelper.FieldTrangThai).getValue(String.class);
+                        Timestamp thoigiangui = new Timestamp(timestampTG);
+                        Timestamp ngaynghi = new Timestamp(timestampNgayNghi);
+                        DonXinNghiHoc don = new DonXinNghiHoc(idDon, mshs, lydo, ngaynghi, thoigiangui, trangthai);
                         listDon.add(don);
-                        Log.d("Don Xin Phep", "ID: " + thoigian + ", Lý do: " + lydo);
+                        Log.d("Don Xin Phep", "ID: " + ngaynghi + ", Lý do: " + lydo);
                     }
                 }
                 SetData(listDon);

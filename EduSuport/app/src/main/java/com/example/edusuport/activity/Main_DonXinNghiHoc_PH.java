@@ -3,67 +3,156 @@ package com.example.edusuport.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
+import com.example.edusuport.databinding.ActivityMainDonXinNghiHocPhBinding;
+import com.example.edusuport.databinding.ActivityMainThemGopyPhBinding;
+import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.HocSinh;
+import com.example.edusuport.model.PhuHuynh;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
 
-    Button btnNgayNghi;
+    ActivityMainDonXinNghiHocPhBinding binding;
+    PhuHuynh phuHuynh = new PhuHuynh();
 
-    TextView tvNgayNghi;
+    DBHelper dbHelper;
+    HocSinh hocSinh;
+    long selectedTimestamp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_don_xin_nghi_hoc_ph);
-        findView();
-        HandleAllClick();
+        binding = ActivityMainDonXinNghiHocPhBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        dbHelper = new DBHelper();
+        Intent intent = getIntent();
+        phuHuynh = (PhuHuynh) intent.getSerializableExtra("phuHuynh");
+        phuHuynh = new PhuHuynh("21110928PH", "Hoàng Công", "12B3", "21110928");
+        AddEvents();
     }
-
-    private void findView(){
-        btnNgayNghi=(Button) findViewById(R.id.chon_ngay_nghi);
-        tvNgayNghi=(TextView) findViewById(R.id.hien_ngay_nghi);
-    }
-    private void HandleAllClick(){
-        ClickBtnNgayNghi();
-    }
-    private void ClickBtnNgayNghi(){
-        btnNgayNghi.setOnClickListener(new View.OnClickListener() {
+    public void GetHocSinh(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh).child(phuHuynh.getMSHS());
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-
-                // on below line we are getting
-                // our day, month and year.
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-
-                // on below line we are creating a variable for date picker dialog.
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        // on below line we are passing context.
-                        Main_DonXinNghiHoc_PH.this,new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // on below line we are setting date to our text view.
-                                tvNgayNghi.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
-                            }
-                        },
-                        // on below line we are passing year,
-                        // month and day for selected date in our date picker.
-                        year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
-                datePickerDialog.show();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot hsthuSnapshot : dataSnapshot.getChildren()) {
+                    String MSHS = hsthuSnapshot.getKey();
+                    String TenHocSinh = hsthuSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
+                    String IDLopHoc = hsthuSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
+                    hocSinh = new HocSinh(MSHS, TenHocSinh, IDLopHoc);
+                    Log.d("HOCSINH", "ID: " + hocSinh.getMSHS() + ", Tên: " + hocSinh.getTen());
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
+    private void AddEvents(){
+        binding.btnchonNgayNghi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Main_DonXinNghiHoc_PH.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        Calendar selectedDate = Calendar.getInstance();
+                        selectedDate.set(year, monthOfYear, dayOfMonth);
+                        if (selectedDate.before(c)) {
+                            binding.txvHienThiNgay.setText("");
+                            binding.txvError.setText("Bạn không thể chọn ngày ở quá khứ!!");
+                            return;
+                        }
+                        Calendar futureDate = Calendar.getInstance();
+                        futureDate.add(Calendar.DAY_OF_MONTH, 7);
+                        if (selectedDate.after(futureDate)) {
+                            binding.txvHienThiNgay.setText("");
+                            binding.txvError.setText("Bạn chỉ có thể chọn ngày trong vòng 7 ngày từ ngày hiện tại.!!");
+                            return;
+                        }
+                        // Ngày hợp lệ, hiển thị ngày đã chọn trên TextView
+                        binding.txvHienThiNgay.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        binding.txvError.setText("");
+                        selectedTimestamp = selectedDate.getTimeInMillis();
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+
+            }
+        });
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Send()){
+                    Back();
+                }
+            }
+        });
+    }
+    public void Back(){
+        Intent intent = new Intent(Main_DonXinNghiHoc_PH.this, DuyetDonXinNghiHocActivity.class);
+        startActivity(intent);
+    }
+    public boolean Send(){
+        if (binding.txvHienThiNgay.getText().toString().equals(""))
+        {
+            Toast.makeText(this, "Vui lòng chọn ngày phù hợp", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        String LyDo = binding.edtLyDo.getText().toString();
+        if (LyDo.equals(""))
+        {
+            Toast.makeText(this, "Vui lòng nhập lý do", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        String IDDon = UUID.randomUUID().toString();
+        Map<String, Object> donXinPhep = new HashMap<>();
+        donXinPhep.put(dbHelper.FieldIDLopHoc, phuHuynh.getIDLopHoc());
+        donXinPhep.put(dbHelper.FieldLyDo, LyDo);
+        donXinPhep.put(dbHelper.FieldMSHS, phuHuynh.getMSHS());
+        donXinPhep.put(dbHelper.FieldThoiGian, selectedTimestamp);
+        donXinPhep.put(dbHelper.FieldTrangThai, dbHelper.ValueTTChuaDuyet);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference thuGopYRef = database.getReference(dbHelper.ColecDonXinNghiHoc);
+        thuGopYRef.child(IDDon).setValue(donXinPhep);
+        Toast.makeText(this, "Đã gửi đơn thành công", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
 }

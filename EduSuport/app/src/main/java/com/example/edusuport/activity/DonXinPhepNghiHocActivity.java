@@ -22,7 +22,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DonXinPhepNghiHocActivity extends AppCompatActivity {
@@ -42,6 +46,7 @@ public class DonXinPhepNghiHocActivity extends AppCompatActivity {
 
         binding.txvLyDo.setText(donXinNghiHoc.getLyDo());
         binding.txvThoiGian.setText(donXinNghiHoc.getThoiGian().toString());
+        binding.txvNgayNghi.setText("Ngày xin nghỉ: " + convertTimestampToString(donXinNghiHoc.getNgayXinNghi()));
         dbHelper.getTenHocSinhByMSHS(donXinNghiHoc.getMSHS(), new DBHelper.TenHocSinhCallback() {
             @Override
             public void onTenHocSinhFetched(String tenHocSinh) {
@@ -54,6 +59,16 @@ public class DonXinPhepNghiHocActivity extends AppCompatActivity {
         });
         AddEvents();
     }
+    private String convertTimestampToString(Timestamp timestamp) {
+        // Tạo đối tượng Date từ timestamp
+        Date date = new Date(timestamp.getTime());
+
+        // Tạo đối tượng SimpleDateFormat để định dạng ngày tháng
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        // Chuyển đổi Date thành chuỗi và trả về
+        return dateFormat.format(date);
+    }
     public void AddEvents(){
         binding.btnbackDuyetDon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,14 +79,14 @@ public class DonXinPhepNghiHocActivity extends AppCompatActivity {
         binding.btnDongYDuyet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDonXinNghiHoc(donXinNghiHoc.getMaDon(), dbHelper.ValueTTDaDuyet);
+                updateDonXinNghiHoc(donXinNghiHoc.getIDDon(), dbHelper.ValueTTDaDuyet);
                 Back();
             }
         });
         binding.btnTuChoiDuyet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDonXinNghiHoc(donXinNghiHoc.getMaDon(), dbHelper.ValueTTTuChoi);
+                updateDonXinNghiHoc(donXinNghiHoc.getIDDon(), dbHelper.ValueTTTuChoi);
                 Back();
             }
         });

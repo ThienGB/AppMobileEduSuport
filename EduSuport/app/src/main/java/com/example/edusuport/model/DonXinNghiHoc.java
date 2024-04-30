@@ -5,16 +5,16 @@ public class DonXinNghiHoc implements Serializable {
     private String IDDon;
     private String MSHS;
     private String LyDo;
-
+    private Timestamp NgayXinNghi;
     private Timestamp ThoiGian;
     private String TrangThai;
 
-    public String getMaDon() {
+    public String getIDDon() {
         return IDDon;
     }
 
-    public void setMaDon(String maDon) {
-        IDDon = maDon;
+    public void setIDDon(String IDDon) {
+        this.IDDon = IDDon;
     }
 
     public String getMSHS() {
@@ -33,6 +33,14 @@ public class DonXinNghiHoc implements Serializable {
         LyDo = lyDo;
     }
 
+    public Timestamp getNgayXinNghi() {
+        return NgayXinNghi;
+    }
+
+    public void setNgayXinNghi(Timestamp ngayXinNghi) {
+        NgayXinNghi = ngayXinNghi;
+    }
+
     public Timestamp getThoiGian() {
         return ThoiGian;
     }
@@ -49,10 +57,11 @@ public class DonXinNghiHoc implements Serializable {
         TrangThai = trangThai;
     }
 
-    public DonXinNghiHoc(String maDon, String MSHS, String lyDo, Timestamp thoiGian, String trangThai) {
-        IDDon = maDon;
+    public DonXinNghiHoc(String IDDon, String MSHS, String lyDo, Timestamp ngayXinNghi, Timestamp thoiGian, String trangThai) {
+        this.IDDon = IDDon;
         this.MSHS = MSHS;
         LyDo = lyDo;
+        NgayXinNghi = ngayXinNghi;
         ThoiGian = thoiGian;
         TrangThai = trangThai;
     }
