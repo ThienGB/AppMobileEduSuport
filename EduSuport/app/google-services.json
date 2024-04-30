@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1061030003947-d5mr5kbnssasca0m0undknome7q2k30v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.edusuport",
+            "certificate_hash": "3ba9cc0b0884fb9dcedc64e7cd80bfbac0bdc395"
+          }
+        },
+        {
           "client_id": "1061030003947-m39q1a9866ot9n6npd2adj4lb3bs3ghf.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -43,6 +51,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1061030003947-t7sa9caja92hjid0lqcckvqlq33rn848.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.suport",
+            "certificate_hash": "3ba9cc0b0884fb9dcedc64e7cd80bfbac0bdc395"
+          }
+        },
         {
           "client_id": "1061030003947-m39q1a9866ot9n6npd2adj4lb3bs3ghf.apps.googleusercontent.com",
           "client_type": 3

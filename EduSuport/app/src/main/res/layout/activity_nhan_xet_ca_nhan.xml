@@ -126,7 +126,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="207dp"
         android:layout_margin="10dp"
         android:padding="20dp">
 
@@ -135,16 +135,15 @@
             android:layout_height="24dp"
             android:text="Nhận xét nề nếp :" />
 
-        <EditText
-            android:id="@+id/nhanXet"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="77dp"
+            android:layout_height="163dp"
             android:text="Làm bài tập đầy đủ! Có cố gắng trong học tập!" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="108dp"
         android:layout_margin="10dp"
         android:padding="20dp">
 
@@ -165,8 +164,7 @@
         android:padding="20dp">
 
         <Button
-            android:id="@+id/btnXacNhan"
-            android:layout_width="314dp"
+            android:layout_width="343dp"
             android:layout_height="match_parent"
             android:text="Xác nhận đánh giá" />
     </LinearLayout>

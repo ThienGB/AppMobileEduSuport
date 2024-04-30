@@ -1,42 +1,52 @@
 package com.example.edusuport.model;
 
 import java.sql.Blob;
+import java.sql.Timestamp;
+import java.util.Map;
 
 public class TaiLieuHocTap {
     private String idTaiLieu;
-    private int mon;
+    private String idmon;
     private String tenTaiLieu;
-    private Blob noiDung;
-    private String thoiGian;
+    private String urlfile;
+    private String fileType;
+    private Timestamp thoiGian;
 
-    public TaiLieuHocTap(String idTaiLieu, int mon, String tenTaiLieu, Blob noiDung, String thoiGian) {
+    private String idLop;
+
+    public TaiLieuHocTap(String idTaiLieu, String idmon, String tenTaiLieu, String urlfile, String fileType, Timestamp thoiGian, String idLop) {
         this.idTaiLieu = idTaiLieu;
-        this.mon = mon;
+        this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
-        this.noiDung = noiDung;
+        this.urlfile = urlfile;
+        this.fileType = fileType;
         this.thoiGian = thoiGian;
+        this.idLop = idLop;
     }
 
-    public TaiLieuHocTap(String tenTaiLieu, String thoiGian) {
+    public TaiLieuHocTap(String idmon, String tenTaiLieu, String urlfile, String fileType, Timestamp thoiGian, String idLop) {
+        this.idmon = idmon;
         this.tenTaiLieu = tenTaiLieu;
+        this.urlfile = urlfile;
+        this.fileType = fileType;
         this.thoiGian = thoiGian;
+        this.idLop = idLop;
     }
-
 
     public String getIdTaiLieu() {
         return idTaiLieu;
     }
 
-    public void setIdTaiLieu(String  idTaiLieu) {
+    public void setIdTaiLieu(String idTaiLieu) {
         this.idTaiLieu = idTaiLieu;
     }
 
-    public int getMon() {
-        return mon;
+    public String getIdmon() {
+        return idmon;
     }
 
-    public void setMon(int mon) {
-        this.mon = mon;
+    public void setIdmon(String idmon) {
+        this.idmon = idmon;
     }
 
     public String getTenTaiLieu() {
@@ -47,19 +57,35 @@ public class TaiLieuHocTap {
         this.tenTaiLieu = tenTaiLieu;
     }
 
-    public Blob getNoiDung() {
-        return noiDung;
+    public String getUrlfile() {
+        return urlfile;
     }
 
-    public void setNoiDung(Blob noiDung) {
-        this.noiDung = noiDung;
+    public void setUrlfile(String urlfile) {
+        this.urlfile = urlfile;
     }
 
-    public String getThoiGian() {
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public Timestamp getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(String thoiGian) {
+    public void setThoiGian(Timestamp thoiGian) {
         this.thoiGian = thoiGian;
+    }
+
+    public String getIdLop() {
+        return idLop;
+    }
+
+    public void setIdLop(String idLop) {
+        this.idLop = idLop;
     }
 }

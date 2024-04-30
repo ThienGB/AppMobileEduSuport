@@ -1,31 +1,52 @@
 package com.example.edusuport.model;
 
-public class PhuHuynh {
-    private String maSo;
-    private String ten;
+import java.io.Serializable;
 
-    public PhuHuynh() {
-        // Constructor mặc định cần thiết cho Firebase
+public class PhuHuynh implements Serializable {
+    private String MSPH;
+    private String Ten;
+    private String IDLopHoc;
+    private String MSHS;
+
+    public String getMSPH() {
+        return MSPH;
     }
 
-    public PhuHuynh(String maSo, String ten) {
-        this.maSo = maSo;
-        this.ten = ten;
-    }
-
-    public String getMaSo() {
-        return maSo;
-    }
-
-    public void setMaSo(String maSo) {
-        this.maSo = maSo;
+    public void setMSPH(String MSPH) {
+        this.MSPH = MSPH;
     }
 
     public String getTen() {
-        return ten;
+        return Ten;
     }
 
     public void setTen(String ten) {
-        this.ten = ten;
+        Ten = ten;
+    }
+
+    public String getIDLopHoc() {
+        return IDLopHoc;
+    }
+
+    public void setIDLopHoc(String IDLopHoc) {
+        this.IDLopHoc = IDLopHoc;
+    }
+
+    public String getMSHS() {
+        return MSHS;
+    }
+
+    public void setMSHS(String MSHS) {
+        this.MSHS = MSHS;
+    }
+
+    public PhuHuynh() {
+    }
+
+    public PhuHuynh(String MSPH, String ten, String IDLopHoc, String MSHS) {
+        this.MSPH = MSPH;
+        Ten = ten;
+        this.IDLopHoc = IDLopHoc;
+        this.MSHS = MSHS;
     }
 }
