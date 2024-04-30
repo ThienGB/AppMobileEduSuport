@@ -16,7 +16,7 @@
             android:name=".activity.ChangePassword"
             android:exported="true" />
         <activity
-            android:name=".activity.Message"
+            android:name=".activity.Chat"
             android:exported="true" />
         <activity
             android:name=".activity.Home"
