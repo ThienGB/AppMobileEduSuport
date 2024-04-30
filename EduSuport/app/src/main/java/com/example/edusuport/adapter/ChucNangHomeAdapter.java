@@ -47,11 +47,39 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
         ImageView imgHinh = (ImageView)  customView.findViewById(R.id.imgMonHoc);
         TextView txtTen =(TextView) customView.findViewById(R.id.textTenMonHoc);
         txtTen.setText(list.get(position).getTenChucNang());
-        imgHinh.setImageResource(R.drawable.flashcard);
+        String id = list.get(position).getIdChucNang();
+        switch (id){
+            case "TKBGV":{
+                imgHinh.setImageResource(R.drawable.ic_calendar);
+                break;
+            }
+            case "TBGV":{
+                imgHinh.setImageResource(R.drawable.icon_thongbao);
+                break;
+            }
+            case "GYGV":{
+                imgHinh.setImageResource(R.drawable.icon_feedback);break;
+            } case "DXNGV":{
+                imgHinh.setImageResource(R.drawable.icon_license);break;
+            }
+            case "TLHTGV":{
+                imgHinh.setImageResource(R.drawable.icon_document);break;
+            }
+            case "NDGV":{
+                imgHinh.setImageResource(R.drawable.icon_score);break;
+            }
+            case "DGHSGV":{
+                imgHinh.setImageResource(R.drawable.icon_dghs);break;
+            }
+
+
+        }
+
+
+
         customView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = list.get(position).getIdChucNang();
                 switch (id){
                     case "TKBGV":{
                         Intent intent=new Intent(context, ChinhsuaThoiKhoaBieuActivity.class);
