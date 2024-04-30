@@ -1,26 +1,39 @@
 package com.example.edusuport.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.DonXinNghiHocAdapter;
+import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
+import com.example.edusuport.adapter.ViewHolderClick;
+import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.databinding.ActivityDuyetDonXinNghiHocBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 
 import java.sql.Date;
@@ -49,11 +62,19 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
     Calendar calendar;
     Timestamp selectedTimestamp;
     String IDLop = "12B3";
+    LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
+    ArrayList<LopHoc> listLop=new ArrayList<LopHoc>();
+    RecyclerView rv_lophoc;
+    ImageView xemthemlophoc;
+    LopHocController lopHocController=new LopHocController();
+    String IDGiaoVien="1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDuyetDonXinNghiHocBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        chonLop();
         dbHelper = new DBHelper();
         calendar = Calendar.getInstance();
         GetDonXinhPhep(IDLop);
@@ -205,5 +226,107 @@ public class DuyetDonXinNghiHocActivity extends AppCompatActivity {
             }
         }
         return filteredList;
+    }
+    public void chonLop(){
+        rv_lophoc=(RecyclerView) findViewById(R.id.rv_chonLop);
+        xemthemlophoc = (ImageView) findViewById(R.id.xemthem_lophoc);
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetMoreLop();
+            }
+        });
+        lopHocController.getListLopHoc_idGV(IDGiaoVien, new LopHocController.DataRetrievedCallback_LopHoc() {
+            @Override
+            public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+
+                listLop=monHocList;
+                lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+                rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
+                rv_lophoc.setLayoutManager(new LinearLayoutManager(DuyetDonXinNghiHocActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+
+            }
+        });
+
+        rv_lophoc.addOnItemTouchListener(new ViewHolderClick(DuyetDonXinNghiHocActivity.this, rv_lophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String id) {
+                IDLop=listLop.get(position).getIdLopHoc();
+//                reLoadListf();
+//                reLoadListGFC();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        xemthemlophoc = (ImageView) findViewById(R.id.xemthem_lophoc);
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetMoreLop();
+            }
+        });
+    }
+    public void showBottomSheetMoreLop(){
+        final Dialog dialog=new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.botsheet_xemthemlop);
+
+
+        SearchView filterlop=dialog.findViewById(R.id.filterLop);
+        RecyclerView morelophoc=dialog.findViewById(R.id.more_lophoc);
+
+        // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
+        LopHoc_IdGV_Nav_Adapter lh;
+        lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.setAdapter(lopHocIdGVNavAdapter);
+
+        filterlop.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<LopHoc> temp=new ArrayList<LopHoc>();
+                for(LopHoc lh: listLop){
+                    if(lh.getTenLopHoc().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(lh);
+                    }
+                }
+                LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(temp);
+                morelophoc.setAdapter(lh);
+                //morelophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                lh.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        //lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.addOnItemTouchListener(new ViewHolderClick(DuyetDonXinNghiHocActivity.this, morelophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String  id) {
+                IDLop= id;
+//                reLoadListf();
+//                reLoadListGFC();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 }
