@@ -227,7 +227,7 @@ public class Login extends AppCompatActivity {
                                 DatabaseReference myRef = database.getReference();
 
 
-                                 Intent intent = new Intent(Login.this, DangTaiTaiLieuActivity.class);
+                                 Intent intent = new Intent(Login.this, Home.class);
                                 startActivityForResult(intent,1);
 
                                 FirebaseUser current= firebaseAuth.getCurrentUser();

@@ -104,8 +104,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_height="348dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
@@ -123,9 +122,9 @@
                     android:textStyle="bold" />
 
                 <GridView
-                    android:id="@+id/grid_monhoc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/grid_ChucNang"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:horizontalSpacing="20dp"
                     android:numColumns="4"
