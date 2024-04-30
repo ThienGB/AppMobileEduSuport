@@ -1,6 +1,8 @@
 package com.example.edusuport.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,11 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.ChucNangHomeAdapter;
 import com.example.edusuport.model.ChucNang;
+import com.example.edusuport.model.GiaoVien;
 
 import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
-
+    public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
     GridView gvChucNang;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
@@ -35,15 +38,24 @@ public class Home extends AppCompatActivity {
     }
 
     private void getData() {
-        ListCN.add(new ChucNang("TKB","Chỉnh sửa thời khóa biểu"));
-        ListCN.add(new ChucNang("TB","Gửi thông báo"));
-        ListCN.add(new ChucNang("GY","Xem góp ý phụ huynh"));
-        ListCN.add(new ChucNang("DXN","Xem đơn xin nghỉ học"));
-        ListCN.add(new ChucNang("TLHT","Đăng tải tài liệu học tập"));
-        ListCN.add(new ChucNang("CD","Cho điểm"));
+        ListCN.add(new ChucNang("TKBGV","Chỉnh sửa thời khóa biểu"));
+        ListCN.add(new ChucNang("TBGV","Gửi thông báo"));
+        ListCN.add(new ChucNang("GYGV","Xem góp ý phụ huynh"));
+        ListCN.add(new ChucNang("DXNGV","Xem đơn xin nghỉ học"));
+        ListCN.add(new ChucNang("TLHTGV","Đăng tải tài liệu học tập"));
+        ListCN.add(new ChucNang("NDGV","Nhập điểm"));
+        ListCN.add(new ChucNang("DGHSGV","Đánh giá học sinh"));
 
         chucNangHomeAdapter=new ChucNangHomeAdapter(Home.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
+    }
+    public void AddEvents(){
+        gvChucNang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     private void getForm() {

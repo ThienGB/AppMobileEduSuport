@@ -5,6 +5,8 @@ import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabWidget;
@@ -21,6 +24,10 @@ import android.widget.Toast;
 
 import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
+import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
+import com.example.edusuport.adapter.ViewHolderClick;
+import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.ThoiKhoaBieu;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,7 +45,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
-
+    ArrayList<LopHoc> listLop=new ArrayList<LopHoc>();
+    LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
+    RecyclerView rv_lophoc;
+    LopHocController lopHocController=new LopHocController();
     private ArrayList<String> listMonHoc = new ArrayList<>();
     private ArrayList<String> listidMonHoc = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -318,6 +328,44 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SaveThoiKhoaBieu(IDLopHoc, currentThu);
+            }
+        });
+    }
+    public void chonLop(){
+        rv_lophoc=(RecyclerView) findViewById(R.id.rv_chonLop);
+        lopHocController.getListLopHoc_idGV(Home.giaoVien.getIDGiaoVien(), new LopHocController.DataRetrievedCallback_LopHoc() {
+            @Override
+            public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+
+                listLop=monHocList;
+                lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+                rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
+                rv_lophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+
+            }
+        });
+
+        rv_lophoc.addOnItemTouchListener(new ViewHolderClick(DangTaiTaiLieu_MonActivity.this, rv_lophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String id) {
+                idLop=listLop.get(position).getIdLopHoc();
+                // lopHocIdGVNavAdapter.setItemFocus(position, true);
+                reLoadListf();
+                reLoadListGFC();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+        xemthemlophoc = (ImageView) findViewById(R.id.xemthem_lophoc);
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetMoreLop();
             }
         });
     }

@@ -42,10 +42,6 @@ public class DangKiGV_AuController {
 
     }
 
-
-
-
-
     public void checkLogin_GV(String email, String password,Context context,UploadCallback callback){
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Login...");
@@ -58,7 +54,8 @@ public class DangKiGV_AuController {
                             progressDialog.dismiss();
                             if(firebaseAuth.getCurrentUser().isEmailVerified()){
                                 Toast.makeText(context,"Login thành công",Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(context, DangTaiTaiLieuActivity.class);
+                                Intent intent=new Intent(context, Home.class);
+
                                 context.startActivity(intent);
                                 myRef.child("user").child("giaoVien").child(firebaseAuth.getCurrentUser().getUid()).child("trangThai").setValue("valid");
                                 callback.onUploadComplete();
