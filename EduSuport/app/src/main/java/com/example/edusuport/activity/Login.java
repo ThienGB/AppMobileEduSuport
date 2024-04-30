@@ -90,6 +90,10 @@ public class Login extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putString("name","");
+        editor.apply();
         getComponet();
         handelClick();
         checkBoxRemeber();
@@ -296,7 +300,7 @@ public class Login extends AppCompatActivity {
         String check= sharedPreferences.getString("name","");
         if(check.equals("true")){
             Toast.makeText(Login.this,check,Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(Login.this, DangTaiTaiLieuActivity.class);
+            Intent intent=new Intent(Login.this, Home.class);
             startActivity(intent);
             finish();
         }

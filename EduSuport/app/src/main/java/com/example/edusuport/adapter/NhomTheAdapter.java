@@ -34,8 +34,6 @@ import com.example.edusuport.activity.Main_TheLat_GV;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.NhomThe;
-import com.example.edusuport.model.TaiLieuHocTap;
-import com.example.edusuport.model.TheLat;
 
 import java.util.ArrayList;
 
