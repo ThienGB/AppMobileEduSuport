@@ -7,7 +7,7 @@
     android:background="#E7E7E7"
     android:layout_height="match_parent"
     >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -46,6 +46,7 @@
                         android:text="Flashcard: 300 BÀI CODE PHỤ HUYNH" />
 
                 </LinearLayout>
+
                 <ImageButton
                     android:id="@+id/btn_moreOptFlashCard"
                     android:layout_width="20dp"
@@ -60,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="10dp"
                 >
 
                 <ImageButton
@@ -68,21 +70,47 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_add_24"
                     android:padding="10dp"
-                    android:elevation="10dp"
+                    android:background="@drawable/background_subject_radius_click"
 
                     />
 
 
             </LinearLayout>
         </LinearLayout>
-        <ListView
-            android:id="@+id/lvTheLats"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/backgroun_boder_letter"
+                android:padding="5dp">
+
+                <SearchView
+                    android:id="@+id/filterCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:queryHint="Tìm tài liệu" />
+
+            </RelativeLayout>
+            <ListView
+                android:id="@+id/lvTheLats"
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>
     <include
-        layout="@layout/test"/>
+        layout="@layout/botsheet_tailieufile"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
