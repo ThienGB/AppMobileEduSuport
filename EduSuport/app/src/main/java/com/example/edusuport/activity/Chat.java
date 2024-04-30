@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edusuport.activity.MemoryData;
 import com.example.edusuport.adapter.ChatAdapter;
 import com.example.edusuport.model.ChatList;
 import com.example.edusuport.model.MemoryData;

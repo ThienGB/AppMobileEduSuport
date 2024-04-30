@@ -77,14 +77,16 @@ public class ChangePassword extends AppCompatActivity {
         }
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
+        id = "21110928";
         Query checkPassword = databaseReference.child(id).orderByChild("password");
 
+        String finalId = id;
         checkPassword.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     //so mật khẩu vừa nhập với mật khẩu lưu trong firebase
-                    String passFormDB = snapshot.child("users").child(id).child("password").getValue(String.class);
+                    String passFormDB = snapshot.child("users").child(finalId).child("password").getValue(String.class);
                     if (!Objects.equals(passFormDB, edtOldPass)) {
                         if (!TextUtils.equals(newPassword, reNewPassword)) {
                             Toast.makeText(ChangePassword.this, "Mật khẩu mới không khớp. Vui lòng nhập lại", Toast.LENGTH_SHORT).show();

@@ -13,29 +13,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="10dp"
             >
+
             <ImageButton
                 android:id="@+id/back_TaiLieuMain"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+
+                android:layout_marginStart="0dp"
                 android:background="@drawable/fullbutton_background"
                 android:padding="10dp"
-                android:src="@drawable/back_icon"
                 android:scaleType="fitCenter"
-                />
+                android:src="@drawable/back_icon" />
+
             <TextView
+                android:id="@+id/textTenMonHoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Môn Toán học" />
+                android:gravity="center"
+                android:text="Môn học: "
+                android:textSize="20dp"
+                android:textColor="@color/main_blue"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_chonLop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+<ImageView
+    android:id="@+id/xemthem_lophoc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/baseline_add_24"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:padding="5dp"
+    android:background="@drawable/fullbutton_background"
+    app:tint="@color/main_blue" />
+
+
         </LinearLayout>
-
-
         <TabHost
             android:id="@+id/tabHost_tailieu"
             android:layout_width="match_parent"
@@ -63,14 +100,69 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
-                        <ListView
-                            android:id="@+id/lv_fileTaiLieu"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="true"/>
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                >
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@drawable/backgroun_boder_letter"
+                                    android:padding="5dp">
+
+                                    <SearchView
+                                        android:id="@+id/filterFile"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:queryHint="Tìm tài liệu" />
+
+                                </RelativeLayout>
+                                <LinearLayout
+                                    android:id="@+id/sort_listTL"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/fullbutton_background">
+
+                                    <com.jaredrummler.materialspinner.MaterialSpinner
+                                        android:id="@+id/spinner"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+
+                                        />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Loại file"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <ListView
+                                android:id="@+id/lv_fileTaiLieu"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+
+                        </LinearLayout>
+
 
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btn_uploadfileTL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -81,23 +173,75 @@
                             app:backgroundTint="#7387EB" />
                     </RelativeLayout>
 
+
                     <RelativeLayout
                         android:id="@+id/tab2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
-
-                        <GridView
-                            android:id="@+id/grid_flashcard"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:horizontalSpacing="10dp"
-                            android:numColumns="2"
-                            android:scrollbars="horizontal"
-                            android:verticalSpacing="10dp"
-                            android:clickable="true"/>
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                >
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@drawable/backgroun_boder_letter"
+                                    android:padding="5dp">
+
+                                    <SearchView
+                                        android:id="@+id/filterFC"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:queryHint="Tìm tài liệu" />
+
+                                </RelativeLayout>
+                                <LinearLayout
+                                    android:id="@+id/sort_listFC"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/fullbutton_background">
+
+                                    <com.jaredrummler.materialspinner.MaterialSpinner
+                                        android:id="@+id/spinnerFC"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+
+                                        />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Loại file"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <GridView
+                                android:id="@+id/grid_flashcard"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:adjustViewBounds="true"
+                                android:horizontalSpacing="10dp"
+                                android:numColumns="2"
+                                android:scrollbars="horizontal"
+                                android:verticalSpacing="10dp"
+                                android:clickable="true"/>
+                        </LinearLayout>
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btn_addFlashCard"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"

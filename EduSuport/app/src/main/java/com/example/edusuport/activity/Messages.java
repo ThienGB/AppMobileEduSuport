@@ -10,7 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.MessagesAdapter;
+import com.example.edusuport.model.MemoryData;
 import com.example.edusuport.model.MessageList;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +91,7 @@ public class Messages extends AppCompatActivity {
                                             if ((getUserOne.equals(getPhone) && getUserTwo.equals(phone)) || (getUserOne.equals(phone) && getUserTwo.equals(getPhone))){
                                                 for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                                     final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
-                                                    final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(formChat.this, getKey));
+                                                    final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
 
                                                     lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
                                                     if (getMessageKey > getLastSeenMessage){
@@ -114,7 +120,7 @@ public class Messages extends AppCompatActivity {
 
                     }
                 }
-                messageRecyclerView.setAdapter(new MessagesAdapter(messageLists, formChat.this));
+                messageRecyclerView.setAdapter(new MessagesAdapter(messageLists, Messages.this));
             }
 
             @Override
