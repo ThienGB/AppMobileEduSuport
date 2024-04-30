@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +33,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.edusuport.R;
 import com.example.edusuport.controllers.DangKiGV_AuController;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
+import com.example.edusuport.model.Account;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -45,13 +49,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
     RadioGroup rb_role;
-    Button btn_dk,btn_dn,btn_dkgg;
+    Button btn_dk,btn_dn;
+    LinearLayout btn_dkgg;
     TextView txtQuenMK;
     EditText tk,mk;
     TextInputLayout tkhint;
@@ -60,10 +70,11 @@ public class Login extends AppCompatActivity {
     boolean isAllFieldsChecked = false;
     DangKiGV_AuController dangKiGVAuController=new DangKiGV_AuController();
     public static final String SHARED_PREFS="sharePrefs";
-    boolean isAllFieldsCheckedFogetGV=true;
+
 
     int RC_SIGNIN_GG =40;
     GoogleSignInClient mGoogleInClient;
+    GoogleApiClient mGoogleApiClient;
     FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
 
 
@@ -108,11 +119,13 @@ public class Login extends AppCompatActivity {
                 if(checkedId==R.id.radioBtn_GV){
                     role="GV";
                     btn_dk.setVisibility(View.VISIBLE);
+                    btn_dkgg.setVisibility(View.VISIBLE);
                     tkhint.setHint("Email giáo viên");
                     tk.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 } else if (checkedId==R.id.radioBtn_PH) {
                     role="PH";
                     btn_dk.setVisibility(View.GONE);
+                    btn_dkgg.setVisibility(View.GONE);
                     tkhint.setHint("Mã số phụ huynh");
                     tk.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
@@ -120,6 +133,7 @@ public class Login extends AppCompatActivity {
                 {
                     role="HS";
                     btn_dk.setVisibility(View.GONE);
+                    btn_dkgg.setVisibility(View.GONE);
                     tk.setInputType(InputType.TYPE_CLASS_NUMBER);
                     tkhint.setHint("Mã số sinh viên");
                 }
@@ -179,10 +193,15 @@ public class Login extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleInClient=GoogleSignIn.getClient(Login.this,gso);
+
         btn_dkgg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+                SharedPreferences.Editor editor= sharedPreferences.edit();
+                editor.putString("name","true");
+                editor.apply();
                 Intent intent= mGoogleInClient.getSignInIntent();
                 startActivityForResult(intent,RC_SIGNIN_GG);
             }
@@ -195,7 +214,6 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGNIN_GG) {
             if (data != null) {
-
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try {
 
@@ -205,10 +223,33 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                                Intent intent = new Intent(Login.this, Home.class);
-                                startActivity(intent);
-                            }
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = database.getReference();
+
+
+                                 Intent intent = new Intent(Login.this, DangTaiTaiLieuActivity.class);
+                                startActivityForResult(intent,1);
+
+                                FirebaseUser current= firebaseAuth.getCurrentUser();
+                                myRef.child("user").child("giaoVien").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid())
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if (!dataSnapshot.exists()) {
+                                                    Account gv=new Account(current.getDisplayName(),current.getPhotoUrl().toString(),current.getPhoneNumber(),"giaoVien",null,null,"valid");
+                                                    myRef.child("user").child("giaoVien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
+                                                    Toast.makeText(Login.this,current.getUid().toString(),Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                Toast.makeText(Login.this,"má",Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                                             }
                         }
                     });
                 } catch (ApiException e) {

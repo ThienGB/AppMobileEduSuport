@@ -40,7 +40,23 @@
             android:textColor="@color/main_blue"
             android:textSize="15dp"
             />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="Họ và tên"
+            android:padding="10dp"
+            app:startIconDrawable="@drawable/img_person">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:background="@drawable/fullbutton_background"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,6 +94,7 @@
                 android:background="@drawable/fullbutton_background"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

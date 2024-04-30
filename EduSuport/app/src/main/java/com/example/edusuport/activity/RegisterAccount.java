@@ -22,7 +22,7 @@ public class RegisterAccount extends AppCompatActivity {
     DangKiGV_AuController dangKiGVAuController=new DangKiGV_AuController();
     TextView login;
     Button btnDK;
-    EditText tk, mk;
+    EditText tk, mk,ten;
     boolean isAllFieldsChecked = false;
 
     @Override
@@ -40,6 +40,7 @@ public class RegisterAccount extends AppCompatActivity {
         btnDK=findViewById(R.id.btnDK);
         tk=findViewById(R.id.txtTK);
         mk=findViewById(R.id.txtMK);
+        ten=findViewById(R.id.txtName);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +53,7 @@ public class RegisterAccount extends AppCompatActivity {
             public void onClick(View v) {
                 isAllFieldsChecked=CheckAllFields();
                 if (isAllFieldsChecked){
-                    dangKiGVAuController.dangKi_GV(tk.getText().toString(),mk.getText().toString(),RegisterAccount.this);
+                    dangKiGVAuController.dangKi_GV(tk.getText().toString(),mk.getText().toString(),ten.getText().toString(),RegisterAccount.this);
                 }
             }
         });

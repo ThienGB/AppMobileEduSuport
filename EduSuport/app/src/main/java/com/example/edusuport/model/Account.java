@@ -4,18 +4,16 @@ import android.net.Uri;
 
 public class Account {
     private String idTK;
-    private String taiKhoan;
-    private String matKhau;
-    private Uri urlAva;
+    private String name;
+    private String urlAva;
     private String phoneNum;
     private String role;
     private String ngonNgu;
     private String themeDL;
     private String trangThai;
 
-    public Account(String taiKhoan, String matKhau, Uri urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
+    public Account(String name, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
+        this.name = name;
         this.urlAva = urlAva;
         this.phoneNum = phoneNum;
         this.role = role;
@@ -24,10 +22,9 @@ public class Account {
         this.trangThai = trangThai;
     }
 
-    public Account(String idTK, String taiKhoan, String matKhau, Uri urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
+    public Account(String idTK, String name, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
         this.idTK = idTK;
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
+        this.name = name;
         this.urlAva = urlAva;
         this.phoneNum = phoneNum;
         this.role = role;
@@ -44,27 +41,19 @@ public class Account {
         this.idTK = idTK;
     }
 
-    public String getTaiKhoan() {
-        return taiKhoan;
+    public String getName() {
+        return name;
     }
 
-    public void setTaiKhoan(String taiKhoan) {
-        this.taiKhoan = taiKhoan;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMatKhau() {
-        return matKhau;
-    }
-
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
-
-    public Uri getUrlAva() {
+    public String getUrlAva() {
         return urlAva;
     }
 
-    public void setUrlAva(Uri urlAva) {
+    public void setUrlAva(String urlAva) {
         this.urlAva = urlAva;
     }
 
