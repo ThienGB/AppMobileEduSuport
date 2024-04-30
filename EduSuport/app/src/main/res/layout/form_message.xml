@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Message">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
@@ -37,7 +36,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:padding="6dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile"
+            android:id="@+id/profilePicture"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

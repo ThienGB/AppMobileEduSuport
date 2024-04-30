@@ -7,6 +7,36 @@
     android:orientation="vertical"
     android:padding="10dp"
     >
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:text="File: " />
+
+
+    <LinearLayout
+        android:id="@+id/btn_upNewfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@drawable/fullbutton_background"
+        android:layout_margin="20dp"
+        android:elevation="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload file"
+            android:padding="10dp"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:src="@drawable/icon_upfile" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,40 +45,12 @@
         android:text="Tiêu đề tài liệu: " />
 
     <EditText
-        android:id="@+id/add_cauhoi"
+        android:id="@+id/txtTenFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:imeOptions="actionDone"
         android:inputType="text" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="File: " />
-
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:layout_gravity="center"
-      android:background="@drawable/fullbutton_background"
-      android:layout_margin="20dp"
-      android:elevation="10dp">
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Upload file"
-          android:padding="10dp"
-          />
-      <ImageButton
-          android:layout_width="50dp"
-          android:layout_height="50dp"
-          android:scaleType="fitCenter"
-          android:padding="10dp"
-          android:src="@drawable/icon_upfile"
-          android:background="@drawable/fullbutton_background"/>
-  </LinearLayout>
 
 
 </LinearLayout>

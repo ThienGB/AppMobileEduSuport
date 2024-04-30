@@ -14,4 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "EduSuport"
-include ':app'
+include(":app")
+ 

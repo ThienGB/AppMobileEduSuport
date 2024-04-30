@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="caidat">Settings</string>
+    <string name="thongtincanhan">Profile</string>
+    <string name="luu">Save</string>
+    <string name="nightmode">Night mode</string>
+    <string name="chonngonngu">Select language</string>
+    <string name="hovaten">Name</string>
+    <string name="Id">ID</string>
+    <string name="app_name">Education App</string>
+    <string name="phone">Phone number</string>
+    <string name="idClass">ID Class</string>
+    <string name="onl">Online</string>
+    <string name="oldPass">Old Password</string>
+    <string name="newPass">New Password</string>
+    <string name="renewPass">Re New Password</string>
+    <string name="hintTextChat">Typing something...</string>
+    <string name="tkb">Edit Schedule</string>
+    <string name="math">Math</string>
+    <string name="question">Question</string>
+    <string name="answer">Answer</string>
+    <string name="titleOfDocument">"Title "</string>
+    <string name="uploadStudyMaterials">"Upload study materials "</string>
+    <string name="hello">Hello.</string>
+    <string name="test">Test hehehehehheheheehhehehehe</string>
+    <string name="text_size">100pd</string>
+</resources>

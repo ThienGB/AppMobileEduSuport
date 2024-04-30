@@ -3,23 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:padding="15dp"
    >
+<TextView
+    android:id="@+id/idTaiLieu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="invisible"
 
+    />
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ic_fileType"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="10dp"
+
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_word" />
+        />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="0dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/ic_fileType"
         android:orientation="vertical">
 
         <TextView
@@ -27,20 +35,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tài liệu học tập cực vip..."
-            android:textSize="10dp"
-            android:textStyle="bold" />
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/date_dangtailieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload day 24/03/2003"
-            android:textSize="7dp" />
+            android:textSize="10dp" />
+
 
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btn_moreOptTaiLieuFile"
+        android:id="@+id/btn_moreOptFile"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
@@ -48,4 +60,5 @@
         android:background="@drawable/fullbutton_background"
         android:scaleType="fitCenter"
         android:src="@drawable/more3dot" />
+
 </RelativeLayout>

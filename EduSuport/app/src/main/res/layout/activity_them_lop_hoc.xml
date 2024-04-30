@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Thêm học sinh mới " />
+                    android:text="Thêm lớp học mới " />
             </LinearLayout>
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     android:layout_centerInParent= "true"
                     android:layout_width= "40dp"
                     android:layout_height= "40dp"
-                    android:src="@drawable/ava"/>
+                    android:src="@drawable/avt1"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -92,12 +92,13 @@
                 android:layout_margin="10dp"
                 android:text="Mã số lớp: " />
             <EditText
+                android:id="@+id/edtMaLop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="1103 " />
+                 />
 
 
             <TextView
@@ -107,13 +108,13 @@
                 android:text="Tên lớp: " />
 
             <EditText
-                android:id="@+id/add_hocsinh"
+                android:id="@+id/edtTenLop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="11A3 " />
+                 />
 
 
             <TextView
@@ -122,12 +123,13 @@
                 android:layout_margin="10dp"
                 android:text="Số lượng: " />
             <EditText
-                android:id="@+id/add_id"
+                android:id="@+id/edtSoLuong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="110238/tự động" />
+                 />
             <Button
+                android:id="@+id/btnXacNhan"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
