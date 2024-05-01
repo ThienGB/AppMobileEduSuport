@@ -46,7 +46,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MessageList list2 = messageLists.get(position);
-        Log.d("hinh anh",list2.getProfilePic());
         if (!list2.getProfilePic().isEmpty()){
             Picasso.get().load(list2.getProfilePic()).into(holder.profilePicture);
         }
@@ -74,6 +73,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("profilePic",list2.getProfilePic());
                 intent.putExtra("phone",list2.getPhone());
                 intent.putExtra("chat_key", list2.getChatKey());
+                Log.d("sos", list2.getChatKey());
                 context.startActivity(intent);
             }
         });
