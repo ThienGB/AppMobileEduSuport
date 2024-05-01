@@ -47,7 +47,7 @@ public class Chat extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private boolean loadingFirstTime=true;
-    ValueEventListener eventListener;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class Chat extends AppCompatActivity {
         final String getId = getIntent().getStringExtra("id");
 
         //get user ID
-        getUserId = "2";//MemoryData.getData(Chat.this);
+        getUserId = "12345";//MemoryData.getData(Chat.this);
         name.setText(getName);
         if(!getProfile.isEmpty()){
             Picasso.get().load(getProfile).into(profilePic);
@@ -87,11 +87,12 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (chatKey.isEmpty()) {
-                    //generate chat key
                     chatKey = "1";
                     if (snapshot.hasChild("chat")) {
                         chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
                     }
+
+
                 }
                 if (snapshot.hasChild("chat")){
                     if (snapshot.child("chat").child(chatKey).hasChild("messages")){
@@ -123,7 +124,7 @@ public class Chat extends AppCompatActivity {
                             }
                         }
                     }
-                    Log.d("MEMO cái cho gi",String.valueOf(chatLists));
+
                     chatAdapter.notifyDataSetChanged();
                     int lastItemPosition = chatAdapter.getItemCount() - 1;
                     chattingRecyclerView.scrollToPosition(lastItemPosition);
@@ -157,7 +158,8 @@ public class Chat extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+
+               finish();
             }
         });
 
