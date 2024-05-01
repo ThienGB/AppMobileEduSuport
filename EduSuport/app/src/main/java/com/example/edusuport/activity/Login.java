@@ -235,13 +235,13 @@ public class Login extends AppCompatActivity {
                                 startActivityForResult(intent,1);
 
                                 FirebaseUser current= firebaseAuth.getCurrentUser();
-                                myRef.child("user").child("giaoVien").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid())
+                                myRef.child("giaovien").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid())
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                 if (!dataSnapshot.exists()) {
-                                                    Account gv=new Account(current.getDisplayName(),current.getPhotoUrl().toString(),current.getPhoneNumber(),"giaoVien",null,null,"valid");
-                                                    myRef.child("user").child("giaoVien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
+                                                    Account gv=new Account(current.getDisplayName(),current.getPhotoUrl().toString(),current.getPhoneNumber(),"giaovien",null,null,"valid");
+                                                    myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
                                                     Toast.makeText(Login.this,current.getUid().toString(),Toast.LENGTH_SHORT).show();
 
                                                 }

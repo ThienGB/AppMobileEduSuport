@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profilePicture"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -49,9 +49,8 @@
                     android:layout_marginTop="5dp"
                     android:maxLines="1"
                     android:textColor="@color/theme_80"
-                    android:textStyle="bold"
                     android:textSize="14dp"
-                    android:hint="This is the last message"/>
+                    android:hint="Hai bạn chưa có tin nhắn nào"/>
 
             </LinearLayout>
             

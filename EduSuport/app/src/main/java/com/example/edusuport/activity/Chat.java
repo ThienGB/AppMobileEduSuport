@@ -1,10 +1,12 @@
 package com.example.edusuport.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +39,7 @@ import com.example.edusuport.R;
 public class Chat extends AppCompatActivity {
 
     private final List<ChatList> chatLists = new ArrayList<>();
-    private String chatKey;
+    private String chatKey="";
     String getUserId = "";
     private RecyclerView chattingRecyclerView;
     private ChatAdapter chatAdapter;
@@ -62,39 +64,34 @@ public class Chat extends AppCompatActivity {
         final String getId = getIntent().getStringExtra("id");
 
         //get user ID
-        getUserId = MemoryData.getData(Chat.this);
+        getUserId = "1";//MemoryData.getData(Chat.this);
         name.setText(getName);
-        Picasso.get().load(getProfile).into(profilePic);
+        if(!getProfile.isEmpty()){
+            Picasso.get().load(getProfile).into(profilePic);
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(profilePic);
+        }
 
 
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));
 
-        chatAdapter = new ChatAdapter(chatLists, Chat.this);
+        chatAdapter = new ChatAdapter(chatLists, Chat.this,getUserId);
         chattingRecyclerView.setAdapter(chatAdapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (chatKey.isEmpty()) {
 
-
-                    //generate chat key
-                    chatKey = "1";
-                    if (snapshot.hasChild("chat")) {
-                        chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
+                    if (!snapshot.child("chat").child(chatKey).hasChild("messages")) {
+                        Toast.makeText(Chat.this,chatKey.toString(),Toast.LENGTH_LONG).show();
                     }
-                }
-
-                if (snapshot.hasChild("chat")){
-                    if (snapshot.child("chat").child(chatKey).hasChild("messages")){
-
-                        chatLists.clear();
-
+                    else {
                         for (DataSnapshot msgSnapshot : snapshot.child("chat").child(chatKey).child("messages").getChildren()){
-                            if (msgSnapshot.hasChild("msg") && msgSnapshot.hasChild("phone")){
+
                                 final String msgTimestamps = msgSnapshot.getKey();
-                                final String getPhone = msgSnapshot.child("phone").getValue(String.class);
+                                final String getPhone = msgSnapshot.child("ID").getValue(String.class);
                                 final String getMsg = msgSnapshot.child("msg").getValue(String.class);
 
                                 Timestamp timestamp = new Timestamp(Long.parseLong(msgTimestamps));
@@ -104,20 +101,24 @@ public class Chat extends AppCompatActivity {
 
                                 ChatList chatList = new ChatList(getPhone, getName, getMsg, simpleDateFormat.format(date),simpleTimeFormat.format(date));
                                 chatLists.add(chatList);
-                                if (loadingFirstTime || Long.parseLong(msgTimestamps) > Long.parseLong(MemoryData.getLastMsgTs(Chat.this, chatKey))){
-
-                                    loadingFirstTime=false;
-
-                                    MemoryData.saveLastMsg(msgTimestamps, chatKey, Chat.this);
-                                    chatAdapter.updateChatList(chatLists);
-                                    chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
-                                }
+//                                if (loadingFirstTime || Long.parseLong(msgTimestamps) > Long.parseLong(MemoryData.getLastMsgTs(Chat.this, chatKey))){
+//
+//                                    loadingFirstTime=false;
+//
+//                                    MemoryData.saveLastMsg(msgTimestamps, chatKey, Chat.this);
+//                                    chatAdapter.updateChatList(chatLists);
+//                                    chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+//                                }
                             }
 
-                        }
+
+                        Log.d("MEMO cái cho gi",String.valueOf(chatLists));
+                        chatAdapter.notifyDataSetChanged();
+                        int lastItemPosition = chatAdapter.getItemCount() - 1;
+                        chattingRecyclerView.scrollToPosition(lastItemPosition);
                     }
                 }
-            }
+
 
 
             @Override
@@ -147,6 +148,7 @@ public class Chat extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });

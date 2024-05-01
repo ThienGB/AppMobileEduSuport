@@ -57,7 +57,7 @@ public class DangKiGV_AuController {
                                 Intent intent=new Intent(context, Home.class);
 
                                 context.startActivity(intent);
-                                myRef.child("user").child("giaoVien").child(firebaseAuth.getCurrentUser().getUid()).child("trangThai").setValue("valid");
+                                myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).child("trangThai").setValue("valid");
                                 callback.onUploadComplete();
                             }
                             else{
@@ -93,8 +93,8 @@ public class DangKiGV_AuController {
                                     context.startActivity(intent);
 
                                     FirebaseUser current= firebaseAuth.getCurrentUser();
-                                    Account gv=new Account(ten,null,null,"giaoVien",null,null,"invalid");
-                                    myRef.child("user").child("giaoVien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
+                                    Account gv=new Account(ten,null,null,"giaovien",null,null,"invalid");
+                                    myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
 
 
                                 }

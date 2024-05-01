@@ -1,6 +1,7 @@
 package com.example.edusuport.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.example.edusuport.R;
@@ -9,6 +10,8 @@ import com.example.edusuport.model.MessageList;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,9 +46,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MessageList list2 = messageLists.get(position);
+        Log.d("hinh anh",list2.getProfilePic());
         if (!list2.getProfilePic().isEmpty()){
             Picasso.get().load(list2.getProfilePic()).into(holder.profilePicture);
-
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(holder.profilePicture);
         }
 
         holder.name.setText(list2.getName());
@@ -63,9 +69,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Chat.class);
-                intent.putExtra("id", list2.getPhone());
+                intent.putExtra("id", list2.getIdpartner());
                 intent.putExtra("name", list2.getName());
                 intent.putExtra("profilePic",list2.getProfilePic());
+                intent.putExtra("phone",list2.getPhone());
                 intent.putExtra("chat_key", list2.getChatKey());
                 context.startActivity(intent);
             }
