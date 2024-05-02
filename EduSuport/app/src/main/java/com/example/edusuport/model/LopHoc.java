@@ -4,7 +4,6 @@ public class LopHoc {
     private String idLopHoc;
     private String idGiaoVien;
     private String tenLopHoc;
-    private String SoLuong;
 
     public String getIdLopHoc() {
         return idLopHoc;
@@ -30,9 +29,6 @@ public class LopHoc {
         this.tenLopHoc = tenLopHoc;
     }
 
-    public String getSoLuong() {
-        return SoLuong;
-    }
 
     public LopHoc(String idLopHoc, String idGiaoVien, String tenLopHoc) {
         this.idLopHoc = idLopHoc;
@@ -40,9 +36,6 @@ public class LopHoc {
         this.tenLopHoc = tenLopHoc;
     }
 
-    public void setSoLuong(String soLuong) {
-        SoLuong = soLuong;
-    }
 
     public LopHoc(String idGiaoVien, String tenLopHoc) {
         this.idGiaoVien = idGiaoVien;
@@ -52,10 +45,4 @@ public class LopHoc {
     public LopHoc() {
     }
 
-    public LopHoc(String idLopHoc, String idGiaoVien, String tenLopHoc, String soLuong) {
-        this.idLopHoc = idLopHoc;
-        this.idGiaoVien = idGiaoVien;
-        this.tenLopHoc = tenLopHoc;
-        SoLuong = soLuong;
-    }
 }

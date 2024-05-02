@@ -30,7 +30,6 @@ public class ThemLopHocActivity extends AppCompatActivity {
         // Ánh xạ các thành phần từ layout
         edtMaLop = findViewById(R.id.edtMaLop);
         edtTenLop = findViewById(R.id.edtTenLop);
-        edtSoLuong = findViewById(R.id.edtSoLuong);
         btnXacNhan = findViewById(R.id.btnXacNhan);
 
         // Xử lý sự kiện khi nhấn nút Xác nhận
@@ -40,14 +39,14 @@ public class ThemLopHocActivity extends AppCompatActivity {
                 // Lấy thông tin từ các EditText
                 String maLop = edtMaLop.getText().toString().trim();
                 String tenLop = edtTenLop.getText().toString().trim();
-                String soLuong = edtSoLuong.getText().toString().trim();
+
 
                 // Kiểm tra xem các trường thông tin có được nhập đầy đủ không
-                if (maLop.isEmpty() || tenLop.isEmpty() || soLuong.isEmpty()) {
+                if (maLop.isEmpty() || tenLop.isEmpty()) {
                     Toast.makeText(ThemLopHocActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     // Tạo một đối tượng LopHoc mới
-                    LopHoc lopHoc = new LopHoc(maLop, tenLop, soLuong);
+                    LopHoc lopHoc = new LopHoc(maLop, tenLop);
 
                     // Thêm lớp học vào Firebase Database
                     databaseReference.child(maLop).setValue(lopHoc, new DatabaseReference.CompletionListener() {
