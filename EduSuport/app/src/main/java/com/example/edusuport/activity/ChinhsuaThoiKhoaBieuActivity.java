@@ -34,6 +34,7 @@ import com.example.edusuport.R;
 import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
 import com.example.edusuport.adapter.ViewHolderClick;
 import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.ThoiKhoaBieu;
@@ -62,8 +63,8 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     Spinner spinner1, spinner2, spinner3, spinner4, spinner5, spinner6, spinner7, spinner8, spinner9, spinner10;
     ImageButton btnT2, btnT3, btnT4, btnT5, btnT6, btnT7;
-    private String IDGiaoVien = "1";
-    private String IDLopHoc = "12B3";
+    private GiaoVien giaoVien = Home.giaoVien;
+    private String IDLopHoc = "";
     String currentThu;
     TabHost tabHost;
     ArrayList<ThoiKhoaBieu> listtkb;
@@ -94,9 +95,7 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
         AddEvents();
         GetMonHoc();
 
-        listtkb = new ArrayList<>();
-        GetThoiKhoaBieu(IDLopHoc, "thu2");
-        currentThu = "thu2";
+
     }
     public void GetMonHoc(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -260,7 +259,12 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
             int tiet = i + 1;
 
             String key = "ID" + IDLop + thu +"_"+ tiet;
-            updates.put("idmon", listIDSelected.get(i));
+            updates.put(dbHelper.FieldIDMon, listIDSelected.get(i));
+            updates.put(dbHelper.FieldIDGiaoVien, giaoVien.getIDGiaoVien());
+            updates.put(dbHelper.FieldIDLopHoc, IDLop);
+            updates.put(dbHelper.FieldTiet, tiet);
+            updates.put(dbHelper.FieldThu, thu);
+
             myRef.child(key).updateChildren(updates);
         }
         Toast.makeText(this, "Chỉnh sửa thời khóa biểu thành công", Toast.LENGTH_SHORT).show();
@@ -284,6 +288,13 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
 
     }
     public void AddEvents(){
+        ImageButton btnBack = findViewById(R.id.btnBackTKB);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         btnT2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -349,7 +360,7 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
                 showBottomSheetMoreLop();
             }
         });
-        lopHocController.getListLopHoc_idGV(IDGiaoVien, new LopHocController.DataRetrievedCallback_LopHoc() {
+        lopHocController.getListLopHoc_idGV(giaoVien.getIDGiaoVien(), new LopHocController.DataRetrievedCallback_LopHoc() {
             @Override
             public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
 
@@ -366,9 +377,9 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position,String id) {
                 IDLopHoc=listLop.get(position).getIdLopHoc();
-                // lopHocIdGVNavAdapter.setItemFocus(position, true);
-//                reLoadListf();
-//                reLoadListGFC();
+                listtkb = new ArrayList<>();
+                GetThoiKhoaBieu(IDLopHoc, "thu2");
+                currentThu = "thu2";
 
             }
 
@@ -426,8 +437,9 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position,String  id) {
                 IDLopHoc= id;
-//                reLoadListf();
-//                reLoadListGFC();
+                listtkb = new ArrayList<>();
+                GetThoiKhoaBieu(IDLopHoc, "thu2");
+                currentThu = "thu2";
 
             }
 
@@ -442,6 +454,9 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+    public void Back(){
+        super.onBackPressed();
     }
 
 }

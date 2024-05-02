@@ -14,10 +14,12 @@ public class DBHelper {
     public final String ColecThoiKhoaBieu = "thoikhoabieu";
     public final String ColecDiem = "diem";
     public final String ColecHocSinh = "hocsinh";
+    public final String ColecThongBao = "thongbao";
     public final String ColecPhuHuynh = "phuhuynh";
     public final String ColecGiaoVien = "giaovien";
     public final String ColecThuGopY = "thugopy";
     public final String ColecMonHoc = "monhoc";
+    public final String ColecNhanXet = "nhanxet";
     public final String ColecDonXinNghiHoc="donxinnghihoc";
     public final String FieldMSHS="mshs";
     public final String FieldHocKy = "hocky";
@@ -41,6 +43,7 @@ public class DBHelper {
     public final String FieldAnDanh = "andanh";
     public final String FieldXem = "xem";
     public final String FieldIDNguoiGui = "idnguoigui";
+    public final String FieldIDNguoiNhan = "idnguoinhan";
     public final String FieldIDGiaoVien = "idgiaovien";
     public final String FieldNoiDung = "noidung";
     public final String FieldTieuDe = "tieude";

@@ -58,7 +58,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-
     RadioGroup rb_role;
     Button btn_dk,btn_dn;
     LinearLayout btn_dkgg;
@@ -71,14 +70,10 @@ public class Login extends AppCompatActivity {
     DangKiGV_AuController dangKiGVAuController=new DangKiGV_AuController();
     public static final String SHARED_PREFS="sharePrefs";
 
-
     int RC_SIGNIN_GG =40;
     GoogleSignInClient mGoogleInClient;
     GoogleApiClient mGoogleApiClient;
     FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -325,7 +320,6 @@ public class Login extends AppCompatActivity {
             return false;
         }
 
-// Kiểm tra xem tk có đúng định dạng email hay không
         if (!Patterns.EMAIL_ADDRESS.matcher(tk.getText().toString()).matches() && Objects.equals(role, "GV")) {
             tk.setError("Invalid email address");
             return false;

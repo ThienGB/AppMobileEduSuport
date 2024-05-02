@@ -1,38 +1,27 @@
 package com.example.edusuport.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SearchView;
 
 import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
-import com.example.edusuport.adapter.DonXinNghiHocAdapter;
 import com.example.edusuport.adapter.HopThuGopYAdapter;
-import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
-import com.example.edusuport.adapter.ViewHolderClick;
-import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.adapter.ThongBaoAdapter;
 import com.example.edusuport.databinding.ActivityHopThuGopYBinding;
+import com.example.edusuport.databinding.ActivityXemThongBaoBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.GiaoVien;
-import com.example.edusuport.model.LopHoc;
+import com.example.edusuport.model.HocSinh;
+import com.example.edusuport.model.PhuHuynh;
+import com.example.edusuport.model.ThongBao;
 import com.example.edusuport.model.ThuGopY;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,50 +35,58 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HopThuGopYActivity extends AppCompatActivity {
+public class XemThongBaoActivity extends AppCompatActivity {
     DBHelper dbHelper;
-    ActivityHopThuGopYBinding binding;
-    ArrayList<ThuGopY> listThu = new ArrayList<>();
-    ArrayAdapter<ThuGopY> adapter;
+    ActivityXemThongBaoBinding binding;
+    ArrayList<ThongBao> listTB = new ArrayList<>();
+    ArrayAdapter<ThongBaoAdapter> adapter;
     Calendar calendar;
     Timestamp selectedTimestamp;
-    private GiaoVien giaoVien = Home.giaoVien;
+    private HocSinh hocSinh = HomeHsActivity.hocSinh;
+    private PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
+    String role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHopThuGopYBinding.inflate(getLayoutInflater());
+        binding = ActivityXemThongBaoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         dbHelper = new DBHelper();
         calendar = Calendar.getInstance();
         binding.searchView.requestFocus();
-        GetThuGopY(giaoVien.getIDGiaoVien());
+        Intent intent = getIntent();
+        role = (String) intent.getSerializableExtra("role");
+        String id = "";
+        if (role.equals("hocsinh")){
+            id = hocSinh.getMSHS();
+        }else {
+            id = phuHuynh.getMSPH();
+        }
+
+        GetThongBao(id);
         AddEvents();
     }
-    public void GetThuGopY(String IDGiaoVien){
+    public void GetThongBao(String ID){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(dbHelper.ColecThuGopY);
+        DatabaseReference myRef = database.getReference(dbHelper.ColecThongBao);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                listThu = new ArrayList<>();
+                listTB = new ArrayList<>();
                 for (DataSnapshot thuSnapshot : dataSnapshot.getChildren()) {
-                    String idGV = thuSnapshot.child(dbHelper.FieldIDGiaoVien).getValue(String.class);
-                    if (idGV.equals(IDGiaoVien))
+                    String idNguoiNhan = thuSnapshot.child(dbHelper.FieldIDNguoiNhan).getValue(String.class);
+                    if (idNguoiNhan.equals(ID))
                     {
-                        String IDThu = thuSnapshot.getKey();
+                        String IDThongBao = thuSnapshot.getKey();
                         String IDNguoiGui = thuSnapshot.child(dbHelper.FieldIDNguoiGui).getValue(String.class);
-                        String TieuDe = thuSnapshot.child(dbHelper.FieldTieuDe).getValue(String.class);
                         String NoiDung = thuSnapshot.child(dbHelper.FieldNoiDung).getValue(String.class);
                         long timestampLong = thuSnapshot.child(dbHelper.FieldThoiGian).getValue(Long.class);
-                        boolean AnDanh = thuSnapshot.child(dbHelper.FieldAnDanh).getValue(boolean.class);
-                        boolean Xem = thuSnapshot.child(dbHelper.FieldXem).getValue(boolean.class);
                         Timestamp thoigian = new Timestamp(timestampLong);
-                        ThuGopY don = new ThuGopY(IDThu, IDNguoiGui, idGV, TieuDe, NoiDung, thoigian, AnDanh, Xem);
-                        listThu.add(don);
+                        ThongBao thongBao = new ThongBao(IDThongBao, IDNguoiGui, idNguoiNhan, NoiDung, thoigian);
+                        listTB.add(thongBao);
                         Log.d("ThuGopY", "ID: " + thoigian + ", Lý do: " + NoiDung);
                     }
                 }
-                SetData(listThu);
+                SetData(listTB);
 
             }
             @Override
@@ -97,8 +94,8 @@ public class HopThuGopYActivity extends AppCompatActivity {
             }
         });
     }
-    public void SetData(ArrayList<ThuGopY> list){
-        adapter = new HopThuGopYAdapter(this, R.layout.item_thu_gop_y_layout, list);
+    public void SetData(ArrayList<ThongBao> list){
+        adapter = new ThongBaoAdapter(this, R.layout.item_thong_bao, list);
         binding.lstThuGopY.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -142,8 +139,8 @@ public class HopThuGopYActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
     public void filterByDate(Timestamp selectedDate) {
-        ArrayList<ThuGopY> filteredList = new ArrayList<>();
-        for (ThuGopY item : listThu) {
+        ArrayList<ThongBao> filteredList = new ArrayList<>();
+        for (ThongBao item : listTB) {
             if (isSameDate(item.getThoiGian(), selectedDate)) {
                 filteredList.add(item);
             }
@@ -181,15 +178,7 @@ public class HopThuGopYActivity extends AppCompatActivity {
         binding.btnCancelFillerThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetData(listThu);
-            }
-        });
-        binding.lstThuGopY.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(HopThuGopYActivity.this, ThuGopYActivity.class);
-                intent.putExtra("thuGopY", listThu.get(position));
-                startActivity(intent);
+                SetData(listTB);
             }
         });
         binding.searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener(){
@@ -201,18 +190,18 @@ public class HopThuGopYActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ArrayList<ThuGopY> filteredThuGopYList = filter(listThu, newText);
+                ArrayList<ThongBao> filteredThuGopYList = filter(listTB, newText);
                 SetData(filteredThuGopYList);
                 Log.d("ListFillert", "ID: " + filteredThuGopYList.size());
                 return true;
             }
         });
     }
-    private ArrayList<ThuGopY> filter(ArrayList<ThuGopY> thuGopYList, String query) {
-        ArrayList<ThuGopY> filteredList = new ArrayList<>();
-        for (ThuGopY thuGopY : thuGopYList) {
-            if (thuGopY.getTieuDe().toLowerCase().contains(query.toLowerCase())) {
-                filteredList.add(thuGopY);
+    private ArrayList<ThongBao> filter(ArrayList<ThongBao> thuGopYList, String query) {
+        ArrayList<ThongBao> filteredList = new ArrayList<>();
+        for (ThongBao thongBao : thuGopYList) {
+            if (thongBao.getNoiDung().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(thongBao);
             }
         }
         return filteredList;
