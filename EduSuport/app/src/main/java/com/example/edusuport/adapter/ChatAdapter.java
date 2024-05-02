@@ -1,6 +1,7 @@
 package com.example.edusuport.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull ChatAdapter.MyViewHolder holder, int position) {
         ChatList list2 = chatLists.get(position);
 
-        if (list2.getidUser().equals(idCurUser)){
+        if (chatLists.get(position).getidUser().equals(idCurUser)){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppoLayout.setVisibility(View.GONE);
 

@@ -12,6 +12,9 @@ public class ChatList {
         this.time = time;
     }
 
+    public ChatList() {
+    }
+
     public String getidUser() {
         return idUser;
     }

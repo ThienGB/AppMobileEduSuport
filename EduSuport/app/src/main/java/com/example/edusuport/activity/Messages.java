@@ -26,17 +26,17 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages extends AppCompatActivity {
-    private final List<MessageList> messageLists = new ArrayList<>();
+    public static final List<MessageList> messageLists = new ArrayList<>();
     private String phone="0942523074";
     private String name="Trinh thu phuòng";
-    private String idCurUse="1";
+    private String idCurUse="12345";
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";
     private boolean dataSet = false;
     private RecyclerView messageRecyclerView;
     private MessagesAdapter messageAdapter;
-
+    ValueEventListener eventListener;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -55,32 +55,81 @@ public class Messages extends AppCompatActivity {
         messageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //
         //set adapter to recyclerview
+
         messageAdapter = new MessagesAdapter(messageLists,Messages.this);
         messageRecyclerView.setAdapter(messageAdapter);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.....");
         progressDialog.show();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        messageLists.clear();
+         eventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 unseenMsg = 0;
                 lastMsg= "";
-                chatKey= "";
+                chatKey="";
                 for (DataSnapshot dataSnapshot : snapshot.child("giaovien").getChildren()){
+                    chatKey="";
                     final String Idpartner = dataSnapshot.getKey();
+                    dataSet=false;
                     if (!Idpartner.equals(idCurUse)){
                         final String getName = dataSnapshot.child("ten").getValue(String.class);
                         final String getPicture = dataSnapshot.child("urlAva").getValue(String.class);
-                        MessageList messageList = new MessageList( Idpartner,getName,"",lastMsg,getPicture,unseenMsg, databaseReference.getKey());
-                        messageLists.add(messageList);
+
+                        databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                int getChatCounts = (int) snapshot.getChildrenCount();
+
+                                if (getChatCounts > 0) {
+                                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                        final String getKey = dataSnapshot1.getKey();
+
+
+                                        if (dataSnapshot1.hasChild("users_1") && dataSnapshot1.hasChild("users_2")) {
+                                            final String getUserOne = dataSnapshot1.child("users_1").getValue(String.class);
+                                            final String getUserTwo = dataSnapshot1.child("users_2").getValue(String.class);
+
+                                            if ((getUserOne.equals(Idpartner) && getUserTwo.equals(idCurUse)) || (getUserOne.equals(idCurUse) && getUserTwo.equals(Idpartner))) {
+                                                for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
+                                                    String getMessageKey = chatDataSnapshot.getKey();
+                                                    //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
+
+                                                    lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
+
+                                                }
+
+
+                                                chatKey = getKey;
+                                                MessageList messageList = new MessageList(Idpartner, getName, "", lastMsg, getPicture, unseenMsg, chatKey);
+                                                Log.d("CHafffffffffffffff", String.valueOf(lastMsg));
+                                                messageLists.add(messageList);
+
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+
 
                     }
+
+
                 }
-               // messageRecyclerView.setAdapter(new MessagesAdapter(messageLists, Messages.this));
                 messageRecyclerView.setAdapter(new MessagesAdapter(messageLists, Messages.this));
-                messageAdapter.notifyDataSetChanged();Log.d("CHatchit id ",String.valueOf(messageLists));
                 progressDialog.dismiss();
 
             }
@@ -89,6 +138,17 @@ public class Messages extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
+
+
+        databaseReference.addValueEventListener(eventListener);
+        messageAdapter.notifyDataSetChanged();
+
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        databaseReference.removeEventListener(eventListener);
     }
 }
