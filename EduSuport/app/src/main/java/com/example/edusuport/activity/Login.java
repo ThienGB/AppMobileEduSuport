@@ -30,10 +30,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.controllers.DangKiGV_AuController;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.model.Account;
+import com.example.edusuport.model.HocSinh;
+import com.example.edusuport.model.PhuHuynh;
+import com.example.edusuport.model.ThongBao;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -55,6 +59,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
@@ -64,12 +70,13 @@ public class Login extends AppCompatActivity {
     TextView txtQuenMK;
     EditText tk,mk;
     TextInputLayout tkhint;
+    DBHelper dbHelper = new DBHelper();
 
     String role="GV";
     boolean isAllFieldsChecked = false;
     DangKiGV_AuController dangKiGVAuController=new DangKiGV_AuController();
     public static final String SHARED_PREFS="sharePrefs";
-
+    public boolean validate = false;
     int RC_SIGNIN_GG =40;
     GoogleSignInClient mGoogleInClient;
     GoogleApiClient mGoogleApiClient;
@@ -126,14 +133,12 @@ public class Login extends AppCompatActivity {
                     btn_dk.setVisibility(View.GONE);
                     btn_dkgg.setVisibility(View.GONE);
                     tkhint.setHint("Mã số phụ huynh");
-                    tk.setInputType(InputType.TYPE_CLASS_NUMBER);
                 }
                 else
                 {
                     role="HS";
                     btn_dk.setVisibility(View.GONE);
                     btn_dkgg.setVisibility(View.GONE);
-                    tk.setInputType(InputType.TYPE_CLASS_NUMBER);
                     tkhint.setHint("Mã số sinh viên");
                 }
             }
@@ -172,10 +177,10 @@ public class Login extends AppCompatActivity {
                         });
 
                     } else if (Objects.equals(role, "PH")) {
-                        Toast.makeText(Login.this, "PH", Toast.LENGTH_SHORT).show();
+                        ValidatePH();
                     }
                     else {
-                        Toast.makeText(Login.this, "HS", Toast.LENGTH_SHORT).show();
+                        ValidateHS();
                     }
                 }
 
@@ -326,5 +331,82 @@ public class Login extends AppCompatActivity {
         }
         // after all validation return true.
         return true;
+    }
+
+    private void ValidatePH(){
+        String TK = tk.getText().toString().trim();
+        String MK = mk.getText().toString().trim();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecPhuHuynh);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot PHSnapshot : dataSnapshot.getChildren()) {
+                    String Msph = PHSnapshot.getKey().toString();
+                    String matKhau = PHSnapshot.child(dbHelper.FieldMatKhau).getValue(String.class);
+                    boolean check = Msph.equals(TK) && matKhau.equals(MK);
+                    if (check)
+                    {
+                            String Ten = PHSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
+                            String IDLopHoc = PHSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
+                            String mshs = PHSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
+                            PhuHuynh phuHuynh = new PhuHuynh(Msph, Ten, IDLopHoc, mshs);
+                            HomePhActivity.phuHuynh = phuHuynh;
+                            validate = true;
+                    }
+                }
+                handleValidationResult(validate);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    private void handleValidationResult(boolean isValid) {
+        if (isValid){
+            Intent intent=new Intent(Login.this, HomePhActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(Login.this, "MSPH hoặc mật khẩu sai, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private void ValidateHS(){
+        validate = false;
+        String TK = tk.getText().toString().trim();
+        String MK = mk.getText().toString().trim();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot PHSnapshot : dataSnapshot.getChildren()) {
+                    String Mssh = PHSnapshot.getKey().toString();
+                    String matKhau = PHSnapshot.child(dbHelper.FieldMatKhau).getValue(String.class);
+                    boolean check = Mssh.equals(TK) && matKhau.equals(MK);
+                    if (check)
+                    {
+                        String Ten = PHSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
+                        String IDLopHoc = PHSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
+                        HocSinh hocSinh = new HocSinh(Mssh, Ten, IDLopHoc);
+                        HomeHsActivity.hocSinh = hocSinh;
+                        validate = true;
+                    }
+                }
+                handleValidationHS(validate);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    private void handleValidationHS(boolean isValid) {
+        if (isValid){
+            Intent intent=new Intent(Login.this, HomeHsActivity.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(Login.this, "MSHS hoặc mật khẩu sai, vui lòng thử lại", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

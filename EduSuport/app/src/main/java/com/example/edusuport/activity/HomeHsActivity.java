@@ -19,7 +19,8 @@ import com.example.edusuport.model.HocSinh;
 import java.util.ArrayList;
 
 public class HomeHsActivity extends AppCompatActivity {
-    public static HocSinh hocSinh = new HocSinh("21110499", "Lê Quang Lâm", "12B8");
+    //public static HocSinh hocSinh = new HocSinh("21110499", "Lê Quang Lâm", "12B8");
+    public static HocSinh hocSinh;
     GridView gvChucNang;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;

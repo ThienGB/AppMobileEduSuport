@@ -20,7 +20,8 @@ import com.example.edusuport.model.PhuHuynh;
 import java.util.ArrayList;
 
 public class HomePhActivity extends AppCompatActivity {
-    public static PhuHuynh phuHuynh = new PhuHuynh("21110499PH", "Lê Quang", "12B8", "21110499");
+   // public static PhuHuynh phuHuynh = new PhuHuynh("21110499PH", "Lê Quang", "12B8", "21110499");
+   public static PhuHuynh phuHuynh;
     GridView gvChucNang;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
@@ -39,8 +40,8 @@ public class HomePhActivity extends AppCompatActivity {
     }
     private void getData() {
         ListCN.add(new ChucNang("DXPPH","Đơn xin nghỉ học"));
-        ListCN.add(new ChucNang("XTBPH","Xem thông báo"));
         ListCN.add(new ChucNang("GYPH","Góp ý giáo viên"));
+        ListCN.add(new ChucNang("TBPH","Xem thông báo"));
         chucNangHomeAdapter=new ChucNangHomeAdapter(HomePhActivity.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }

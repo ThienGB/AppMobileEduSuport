@@ -61,24 +61,24 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                 imgHinh.setImageResource(R.drawable.ic_calendar);
                 break;
             }
-//            case "TBGV":{
-//                imgHinh.setImageResource(R.drawable.icon_thongbao);
-//                break;
-//            }
-//            case "GYGV":{
-//                imgHinh.setImageResource(R.drawable.icon_feedback);break;
-//            } case "DXNGV":{
-//                imgHinh.setImageResource(R.drawable.icon_license);break;
-//            }
-//            case "TLHTGV":{
-//                imgHinh.setImageResource(R.drawable.icon_document);break;
-//            }
-//            case "NDGV":{
-//                imgHinh.setImageResource(R.drawable.icon_score);break;
-//            }
-//            case "DGHSGV":{
-//                imgHinh.setImageResource(R.drawable.icon_dghs);break;
-//            }
+            case "TBGV":{
+                imgHinh.setImageResource(R.drawable.icon_thongbao);
+                break;
+            }
+            case "GYGV":{
+                imgHinh.setImageResource(R.drawable.icon_feedback);break;
+            } case "DXNGV":{
+                imgHinh.setImageResource(R.drawable.icon_license);break;
+            }
+            case "TLHTGV":{
+                imgHinh.setImageResource(R.drawable.icon_document);break;
+            }
+            case "NDGV":{
+                imgHinh.setImageResource(R.drawable.icon_score);break;
+            }
+            case "DGHSGV":{
+                imgHinh.setImageResource(R.drawable.icon_dghs);break;
+            }
 
 
         }
@@ -89,6 +89,12 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
             @Override
             public void onClick(View v) {
                 switch (id){
+                    case "TBPH":{
+                        Intent intent = new Intent(context, XemThongBaoActivity.class);
+                        intent.putExtra("role", "phuhuynh");
+                        context.startActivity(intent);
+                        break;
+                    }
                     case "TKBGV":{
                         Intent intent=new Intent(context, ChinhsuaThoiKhoaBieuActivity.class);
                         context.startActivity(intent);
@@ -126,11 +132,6 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                     case "DXPPH":{
                         Intent intent=new Intent(context, Main_DonXinNghiHoc_PH.class);
                         context.startActivity(intent);
-                        break;
-                    }
-                    case "XTBPH":{
-                        Intent intent=new Intent(context, XemThongBaoActivity.class);
-                        intent.putExtra("role", "phuhuynh");
                         break;
                     }
                     case "GYPH":{

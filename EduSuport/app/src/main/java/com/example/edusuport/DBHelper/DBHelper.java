@@ -22,6 +22,8 @@ public class DBHelper {
     public final String ColecNhanXet = "nhanxet";
     public final String ColecDonXinNghiHoc="donxinnghihoc";
     public final String FieldMSHS="mshs";
+    public final String FieldMatKhau="matKhau";
+    public final String FieldMSPH="msph";
     public final String FieldHocKy = "hocky";
     public final String FieldDiemToan="idtoan";
     public final String FieldDiemVatLy = "idvatly";
