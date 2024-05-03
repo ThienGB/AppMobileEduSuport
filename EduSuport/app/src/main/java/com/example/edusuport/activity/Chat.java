@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edusuport.adapter.ChatAdapter;
+import com.example.edusuport.adapter.MessagesAdapter;
 import com.example.edusuport.model.ChatList;
 import com.example.edusuport.model.MemoryData;
 import com.google.firebase.database.DataSnapshot;
@@ -65,9 +66,10 @@ public class Chat extends AppCompatActivity {
         final String getProfile = getIntent().getStringExtra("profilePic");
         chatKey = getIntent().getStringExtra("chat_key");
         final String getId = getIntent().getStringExtra("id");
+        final String role = getIntent().getStringExtra("role");
 
         //get user ID
-        getUserId = "12345";//MemoryData.getData(Chat.this);
+        getUserId = "21110611PH";//MemoryData.getData(Chat.this);
         name.setText(getName);
         if(!getProfile.isEmpty()){
             Picasso.get().load(getProfile).into(profilePic);
@@ -90,8 +92,8 @@ public class Chat extends AppCompatActivity {
                     chatKey = "1";
                     if (snapshot.hasChild("chat")) {
                         chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
-                    }
 
+                    }
 
                 }
                 if (snapshot.hasChild("chat")){
@@ -137,6 +139,7 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,9 +151,10 @@ public class Chat extends AppCompatActivity {
 
                 databaseReference.child("chat").child(chatKey).child("users_1").setValue(getUserId);
                 databaseReference.child("chat").child(chatKey).child("users_2").setValue(getId);
+                databaseReference.child("chat").child(chatKey).child("role_1").setValue("phuhuynh");
+                databaseReference.child("chat").child(chatKey).child("role_2").setValue(role);
                 databaseReference.child("chat").child(chatKey).child("messages").child(currentTImestam).child("msg").setValue(getTextMsg);
                 databaseReference.child("chat").child(chatKey).child("messages").child(currentTImestam).child("ID").setValue(getUserId);
-
                 msgEditText.setText("");
 
             }
@@ -164,4 +168,5 @@ public class Chat extends AppCompatActivity {
         });
 
     }
+
 }
