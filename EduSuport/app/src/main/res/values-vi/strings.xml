@@ -1,0 +1,26 @@
+<resources>
+    <string name="caidat">Cài đặt</string>
+    <string name="thongtincanhan">Thông tin cá nhân</string>
+    <string name="luu">Lưu</string>
+    <string name="nightmode">Chế độ ban đêm</string>
+    <string name="chonngonngu">Chọn ngôn ngữ</string>
+    <string name="hovaten">Họ và tên</string>
+    <string name="Id">Mã số giáo viên</string>
+    <string name="app_name">EduSport</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="idClass">ID Lớp học</string>
+    <string name="onl">Đang hoạt động</string>
+    <string name="oldPass">Mật khẩu cũ</string>
+    <string name="newPass">Mật khẩu mới</string>
+    <string name="renewPass">Nhập lại mật khẩu mới</string>
+    <string name="hintTextChat">Nhập tin nhắn....</string>
+    <string name="tkb">Chỉnh sửa thời khóa biể</string>
+    <string name="math">Toán</string>
+    <string name="question">Câu hỏi</string>
+    <string name="answer">Câu trả lời</string>
+    <string name="titleOfDocument">Đăng tải tài liệu</string>
+    <string name="uploadStudyMaterials">Đăng tải tài liệu học tập</string>
+    <string name="hello">Xin chào.</string>
+    <string name="test">Test hehehehehheheheehhehehehe</string>
+    <string name="text_size">100pd</string>
+</resources>

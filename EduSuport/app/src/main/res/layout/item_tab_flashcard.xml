@@ -5,32 +5,40 @@
     android:padding="10dp"
     android:background="@drawable/flashcard_background"
     >
-   <LinearLayout
-    android:layout_width="wrap_content"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/flashcard"
-        />
-    <TextView
-        android:id="@+id/nameNhomThe"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="10dp"
-        android:text="FlashCard Vip"
-        />
-    <TextView
-        android:id="@+id/soluongThe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="7dp"
-        android:text="23 cards"/>
-</LinearLayout>
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/btn_moreOptFlashCard"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:src="@drawable/flashcard" />
+
+        <TextView
+            android:id="@+id/nameNhomThe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="FlashCard Vip"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/soluongThe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23 cards"
+            android:textSize="10dp" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/btn_moreOptFlashCard"
