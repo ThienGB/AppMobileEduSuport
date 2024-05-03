@@ -32,8 +32,8 @@ import com.example.edusuport.model.LopHoc;
 import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
-    public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
-    //public static GiaoVien giaoVien;
+    //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
+    public static GiaoVien giaoVien;
     GridView gvChucNang;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ArrayList<LopHoc> ListLH=new ArrayList<>();
