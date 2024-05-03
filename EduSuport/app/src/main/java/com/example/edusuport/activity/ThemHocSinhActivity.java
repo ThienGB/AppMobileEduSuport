@@ -96,48 +96,48 @@ public class ThemHocSinhActivity extends AppCompatActivity {
                                                     updates.put(dbHelper.FieldIDLopHoc, idlophoc);
                                                     updates.put(dbHelper.FieldMatKhau, matkhau);
                                                     updates.put(dbHelper.FieldUrlAvt, urlAva);
-                                                hocsinhRef.child(mssv).setValue(updates, new DatabaseReference.CompletionListener() {
-                                                    @Override
-                                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                        if (error != null) {
-                                                            Toast.makeText(ThemHocSinhActivity.this, "Thêm học sinh thất bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            // Tạo một đối tượng PhuHuynh mới
-                                                            PhuHuynh phuHuynh = new PhuHuynh(mssv, "Phụ huynh của " + hoTen, idlophoc, matkhau);
-                                                            Map<String, Object> updates = new HashMap<>();
-                                                            updates.put(dbHelper.FieldTenHS, "Phụ huynh của " + hoTen);
-                                                            updates.put(dbHelper.FieldIDLopHoc, idlophoc);
-                                                            updates.put(dbHelper.FieldMSHS, mssv);
-                                                            updates.put(dbHelper.FieldMatKhau, matkhau);
-                                                            updates.put(dbHelper.FieldUrlAvt, urlAva);
-                                                            // Thêm phụ huynh vào Firebase Database
-                                                            phuhuynhRef.child(mssv + "PH").setValue(updates);
-                                                            Toast.makeText(ThemHocSinhActivity.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
-
-                                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                                            DatabaseReference myRef = database.getReference(dbHelper.ColecLopHoc).child(idlophoc);
-                                                            myRef.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                    if (dataSnapshot.exists()) {
-                                                                            String idDon = donXPSnapshot.getKey();
-                                                                            String mshs = donXPSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
-                                                                            String lydo = donXPSnapshot.child(dbHelper.FieldLyDo).getValue(String.class);
-                                                                            long timestampTG = donXPSnapshot.child(dbHelper.FieldThoiGian).getValue(Long.class);
-                                                                            long timestampNgayNghi = donXPSnapshot.child(dbHelper.FieldNgayNghi).getValue(Long.class);
-                                                                            String trangthai = donXPSnapshot.child(dbHelper.FieldTrangThai).getValue(String.class);
-                                                                            Timestamp thoigiangui = new Timestamp(timestampTG);
-                                                                            Timestamp ngaynghi = new Timestamp(timestampNgayNghi);
-                                                                            DonXinNghiHoc don = new DonXinNghiHoc(idDon, mshs, lydo, ngaynghi, thoigiangui, trangthai);
-                                                                            listDon.add(don);
-                                                                            Log.d("Don Xin Phep", "ID: " + ngaynghi + ", Lý do: " + lydo);
-
-                                                                    }
-                                                                    SetData(listDon);
-
-                                                        }
-                                                    }
-                                                });
+//                                                hocsinhRef.child(mssv).setValue(updates, new DatabaseReference.CompletionListener() {
+//                                                    @Override
+//                                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//                                                        if (error != null) {
+//                                                            Toast.makeText(ThemHocSinhActivity.this, "Thêm học sinh thất bại: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                                                        } else {
+//                                                            // Tạo một đối tượng PhuHuynh mới
+//                                                            PhuHuynh phuHuynh = new PhuHuynh(mssv, "Phụ huynh của " + hoTen, idlophoc, matkhau);
+//                                                            Map<String, Object> updates = new HashMap<>();
+//                                                            updates.put(dbHelper.FieldTenHS, "Phụ huynh của " + hoTen);
+//                                                            updates.put(dbHelper.FieldIDLopHoc, idlophoc);
+//                                                            updates.put(dbHelper.FieldMSHS, mssv);
+//                                                            updates.put(dbHelper.FieldMatKhau, matkhau);
+//                                                            updates.put(dbHelper.FieldUrlAvt, urlAva);
+//                                                            // Thêm phụ huynh vào Firebase Database
+//                                                            phuhuynhRef.child(mssv + "PH").setValue(updates);
+//                                                            Toast.makeText(ThemHocSinhActivity.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
+//
+//                                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                                            DatabaseReference myRef = database.getReference(dbHelper.ColecLopHoc).child(idlophoc);
+//                                                            myRef.addValueEventListener(new ValueEventListener() {
+//                                                                @Override
+//                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                                    if (dataSnapshot.exists()) {
+//                                                                            String idDon = donXPSnapshot.getKey();
+//                                                                            String mshs = donXPSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
+//                                                                            String lydo = donXPSnapshot.child(dbHelper.FieldLyDo).getValue(String.class);
+//                                                                            long timestampTG = donXPSnapshot.child(dbHelper.FieldThoiGian).getValue(Long.class);
+//                                                                            long timestampNgayNghi = donXPSnapshot.child(dbHelper.FieldNgayNghi).getValue(Long.class);
+//                                                                            String trangthai = donXPSnapshot.child(dbHelper.FieldTrangThai).getValue(String.class);
+//                                                                            Timestamp thoigiangui = new Timestamp(timestampTG);
+//                                                                            Timestamp ngaynghi = new Timestamp(timestampNgayNghi);
+//                                                                            DonXinNghiHoc don = new DonXinNghiHoc(idDon, mshs, lydo, ngaynghi, thoigiangui, trangthai);
+//                                                                            listDon.add(don);
+//                                                                            Log.d("Don Xin Phep", "ID: " + ngaynghi + ", Lý do: " + lydo);
+//
+//                                                                    }
+//                                                                    SetData(listDon);
+//
+//                                                        }
+//                                                    }}}
+//                                                });
                                             }
                                         })
                                         .setPositiveButton("Hủy bỏ", null)

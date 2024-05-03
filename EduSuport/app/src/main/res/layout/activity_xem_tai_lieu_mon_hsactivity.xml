@@ -41,8 +41,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Môn học: "
-                android:textSize="20dp"
                 android:textColor="@color/main_blue"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
