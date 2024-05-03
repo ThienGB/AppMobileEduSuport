@@ -67,6 +67,7 @@ public class Home extends AppCompatActivity {
         ListCN.add(new ChucNang("TLGV","Đăng thẻ lật"));
         ListCN.add(new ChucNang("NDGV","Nhập điểm"));
         ListCN.add(new ChucNang("DGHSGV","Đánh giá học sinh"));
+        ListCN.add(new ChucNang("TLHGV","Thêm lớp học"));
         chucNangHomeAdapter=new ChucNangHomeAdapter(Home.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }

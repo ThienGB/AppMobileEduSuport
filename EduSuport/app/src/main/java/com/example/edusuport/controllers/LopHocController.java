@@ -35,10 +35,10 @@ public class LopHocController {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot lophocSnapshot : dataSnapshot.getChildren()) {
                     String idLop = lophocSnapshot.getKey();
-                    String idGiaovien = lophocSnapshot.child("idgiaovien").getValue(String.class);
+                    String idGiaovien = lophocSnapshot.child("idGiaoVien").getValue(String.class);
                     if (idGiaovien != null && idGiaovien.equals(idGV)) {
-                        String tenLop = lophocSnapshot.child("tenlop").getValue(String.class);
-                        long siSo = lophocSnapshot.child("soluong").getValue(long.class);
+                        String tenLop = lophocSnapshot.child("tenLopHoc").getValue(String.class);
+                        long siSo = lophocSnapshot.child("soLuong").getValue(long.class);
                         Log.d("Giaos ien",String.valueOf(tenLop));
                         list.add(new LopHoc(idLop,idGV,tenLop, siSo));
 
