@@ -1,17 +1,39 @@
 package com.example.edusuport.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edusuport.R;
+import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
 import com.example.edusuport.adapter.MessagesAdapter;
+import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
+import com.example.edusuport.adapter.ViewHolderClick;
+import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.controllers.MessController;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MemoryData;
 import com.example.edusuport.model.MessageList;
+import com.example.edusuport.model.TaiLieuHocTap;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,109 +46,179 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages extends AppCompatActivity {
-    private final List<MessageList> messageLists = new ArrayList<>();
-    private String phone;
-    private String name;
-    private String id;
+    public  List<MessageList> messageLists = new ArrayList<>();
+    private RadioGroup rb_role;String textRole="HS";
+    private String phone="0942523074";
+    private String name="Trinh thu phuòng";
+    private String idCurUse="12345";
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";
     private boolean dataSet = false;
     private RecyclerView messageRecyclerView;
+    SearchView filter;
     private MessagesAdapter messageAdapter;
-
+    ValueEventListener eventListener;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    String IDLop = "";
+    LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
+    ArrayList<LopHoc> listLop=new ArrayList<LopHoc>();
+    RecyclerView rv_lophoc;
+    ImageView xemthemlophoc;
+    LopHocController lopHocController=new LopHocController();
+    String IDGiaoVien="1";
+    MessController messController=new MessController();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_message);
         final CircleImageView profilePicture = findViewById(R.id.profilePicture);
-        //messageRecyclerView = findViewById(R.id.msgRecylerView);
+        messageRecyclerView = findViewById(R.id.msgRecylerView);
+        filter= findViewById(R.id.filter);
 
 //        get intent data from login
         phone = getIntent().getStringExtra("phone");
         name = getIntent().getStringExtra("name");
-        id = getIntent().getStringExtra("id");
+      //  idCurUse = getIntent().getStringExtra("idCurUse");
 //
-//        messageRecyclerView.setHasFixedSize(true);
-//        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        chonLop();
+        filter.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<MessageList> temp=new ArrayList<MessageList>();
+                for(MessageList file: messageLists){
+                    if(file.getName().toLowerCase().contains(newText.toLowerCase()) ||file.getIdpartner().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(file);
+                    }
+                }
+                messageAdapter = new MessagesAdapter(temp,Messages.this);
+                messageRecyclerView.setAdapter(messageAdapter);
+                messageAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+        messageRecyclerView.setHasFixedSize(true);
+        messageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //
         //set adapter to recyclerview
+
         messageAdapter = new MessagesAdapter(messageLists,Messages.this);
         messageRecyclerView.setAdapter(messageAdapter);
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading.....");
         progressDialog.show();
+        messageLists.clear();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        messController.loadPartner_idCuren(idCurUse,messageRecyclerView,Messages.this);
+        progressDialog.dismiss();
+
+        messageAdapter.updateData(messageLists);
+
+
+    }
+    public void chonLop(){
+        rv_lophoc=(RecyclerView) findViewById(R.id.rv_chonLop);
+        xemthemlophoc = (ImageView) findViewById(R.id.xemthem_lophoc);
+        rb_role=findViewById(R.id.radioBtn_role);
+        rb_role.setVisibility(View.GONE);
+
+        xemthemlophoc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onClick(View v) {
+                rb_role.setVisibility(View.GONE);
                 messageLists.clear();
-                unseenMsg = 0;
-                lastMsg= "";
-                chatKey= "";
-                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
-                    final String getPhone = dataSnapshot.getKey();
-                    dataSet = false;
-                    if (!getPhone.equals(phone)){
-                        final String getName = dataSnapshot.child("name").getValue(String.class);
-                        final String getPicture = dataSnapshot.child("profilePic").getValue(String.class);
-
-                        databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                int getChatCounts = (int)snapshot.getChildrenCount();
-
-                                if (getChatCounts > 0) {
-                                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()){
-                                        final String getKey = dataSnapshot1.getKey();
-                                        chatKey = getKey;
-
-                                        if (dataSnapshot1.hasChild("user_1") && dataSnapshot1.hasChild("user_2") && dataSnapshot1.hasChild("messages")){
-                                            final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
-                                            final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
-
-                                            if ((getUserOne.equals(getPhone) && getUserTwo.equals(phone)) || (getUserOne.equals(phone) && getUserTwo.equals(getPhone))){
-                                                for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
-                                                    final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
-                                                    final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
-
-                                                    lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
-                                                    if (getMessageKey > getLastSeenMessage){
-                                                        unseenMsg++;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (dataSet){
-                                    dataSet=true;
-                                    MessageList messageList = new MessageList(getName, getPhone,lastMsg,getPicture,unseenMsg,chatKey);
-                                    messageLists.add(messageList);
-                                    messageAdapter.updateData(messageLists);
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                    }
-                }
-                messageRecyclerView.setAdapter(new MessagesAdapter(messageLists, Messages.this));
+                messController.loadPartner_idCuren(idCurUse,messageRecyclerView,Messages.this);
             }
-
+        });
+        lopHocController.getListLopHoc_idGV(IDGiaoVien, new LopHocController.DataRetrievedCallback_LopHoc() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+
+                listLop=monHocList;
+                lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+                rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
+                rv_lophoc.setLayoutManager(new LinearLayoutManager(Messages.this, LinearLayoutManager.HORIZONTAL, false));
+
 
             }
         });
+
+
+
+        rv_lophoc.addOnItemTouchListener(new ViewHolderClick(Messages.this, rv_lophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String id) {
+                ProgressDialog progressDialog = new ProgressDialog(Messages.this);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Loading.....");
+                progressDialog.show();
+                rb_role.setVisibility(View.VISIBLE);
+                IDLop=listLop.get(position).getIdLopHoc();
+                messageLists.clear();
+                reloadCycleHS(idCurUse,id);
+                rb_role.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if(checkedId==R.id.radioBtn_HS){
+                            textRole="HS"; reloadCycleHS(idCurUse,id);
+                        } else{
+                            textRole="PH";reloadCyclePH(idCurUse,id);
+                        }
+
+                    }
+                });
+                progressDialog.dismiss();
+
+
+//                reLoadListf();
+//                reLoadListGFC();
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
     }
+
+    private void reloadCycleHS(String idCurUse,String idLopHoc){
+
+        messController.getListUserHS_idGV(idCurUse,idLopHoc, new MessController.DataRetrievedCallback_MessageList() {
+            @Override
+            public void onDataRetrieved(ArrayList<MessageList> MessageList) {
+                messageLists=MessageList;
+                messageAdapter = new MessagesAdapter(messageLists,Messages.this);
+                messageRecyclerView.setAdapter(messageAdapter);
+                Log.d("List mới",String.valueOf(messageLists));
+                messageAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+    }
+    private void reloadCyclePH(String idCurent,String idLopHoc){
+
+        messController.getListUserPH_idGV(idCurent,idLopHoc, new MessController.DataRetrievedCallback_MessageList() {
+            @Override
+            public void onDataRetrieved(ArrayList<MessageList> MessageList) {
+                messageLists=MessageList;
+                messageAdapter = new MessagesAdapter(messageLists,Messages.this);
+                messageRecyclerView.setAdapter(messageAdapter);
+                Log.d("List mới",String.valueOf(messageLists));
+                messageAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+    }
+
 }

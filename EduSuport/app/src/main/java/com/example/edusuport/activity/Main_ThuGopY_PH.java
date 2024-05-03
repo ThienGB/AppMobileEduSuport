@@ -16,6 +16,7 @@ import com.example.edusuport.R;
 import com.example.edusuport.adapter.HopThuGopYAdapter;
 import com.example.edusuport.adapter.HopThuGopYPHAdapter;
 import com.example.edusuport.databinding.ActivityMainThuGopYphBinding;
+import com.example.edusuport.model.PhuHuynh;
 import com.example.edusuport.model.ThuGopY;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,7 @@ public class Main_ThuGopY_PH extends AppCompatActivity {
     ArrayAdapter<ThuGopY> adapter;
     Calendar calendar;
     Timestamp selectedTimestamp;
-    String IDPH = "21110928PH";
+    private PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class Main_ThuGopY_PH extends AppCompatActivity {
         dbHelper = new DBHelper();
         calendar = Calendar.getInstance();
         binding.searchView.requestFocus();
-        GetThuGopY(IDPH);
+        GetThuGopY(phuHuynh.getMSPH());
         AddEvents();
     }
     public void GetThuGopY(String IDPhuHuynh){
@@ -155,6 +156,12 @@ public class Main_ThuGopY_PH extends AppCompatActivity {
         return dateString1.equals(dateString2);
     }
     public void AddEvents(){
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         binding.btnCancelFillerThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +195,7 @@ public class Main_ThuGopY_PH extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Main_ThuGopY_PH.this, Main_them_gopy_PH.class);
-                intent.putExtra("idPH", IDPH);
+                intent.putExtra("idPH", phuHuynh.getMSHS());
                 startActivity(intent);
             }
         });
@@ -202,5 +209,8 @@ public class Main_ThuGopY_PH extends AppCompatActivity {
         }
         return filteredList;
     }
-
+    public void Back(){
+        Intent intent = new Intent(Main_ThuGopY_PH.this, HomePhActivity.class);
+        startActivity(intent);
+    }
 }

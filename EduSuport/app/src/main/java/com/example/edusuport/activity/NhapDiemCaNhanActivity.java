@@ -152,6 +152,8 @@ public class NhapDiemCaNhanActivity extends AppCompatActivity {
 
                 Map<String, Object> updates = new HashMap<>();
                 String key = "ID" + hocSinh.getMSHS() +"_"+ hocKy;
+                updates.put(dbHelper.FieldHocKy, hocKy);
+                updates.put(dbHelper.FieldMSHS, hocSinh.getMSHS());
                 updates.put(dbHelper.FieldDiemToan, DiemToan);
                 updates.put(dbHelper.FieldDiemVatLy, DiemVatLy);
                 updates.put(dbHelper.FieldDiemHoaHoc, DiemHoaHoc);
@@ -199,8 +201,7 @@ public class NhapDiemCaNhanActivity extends AppCompatActivity {
         });
     }
     public void Back(){
-        Intent intent = new Intent(NhapDiemCaNhanActivity.this, NhapDiemChungActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
     }
 
 }

@@ -2,18 +2,21 @@ package com.example.edusuport.model;
 
 public class ChatList {
 
-    private String mobile, name, message, date, time;
+    private String idUser, name, message, date, time;
 
-    public ChatList(String mobile, String name, String message, String date, String time) {
-        this.mobile = mobile;
+    public ChatList(String idUser, String name, String message, String date, String time) {
+        this.idUser = idUser;
         this.name = name;
         this.message = message;
         this.date = date;
         this.time = time;
     }
 
-    public String getMobile() {
-        return mobile;
+    public ChatList() {
+    }
+
+    public String getidUser() {
+        return idUser;
     }
 
     public String getName() {

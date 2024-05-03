@@ -79,15 +79,14 @@ public class LopHoc_IdGV_Nav_Adapter  extends RecyclerView.Adapter<LopHoc_IdGV_N
             ten.setTextColor(Color.parseColor("#5F61F0"));
 
         } else {
-            ten.setBackgroundResource(R.drawable.background_subject_radius); // Đặt lại background ban đầu
+            ten.setBackgroundResource(R.drawable.background_subject_radius_lop); // Đặt lại background ban đầu
+            ten.setTextColor(Color.parseColor("#686868"));
          //   textView.setTextColor(ContextCompat.getColor(context, R.color.black));
         }
 
 
 
     }
-
-
     @Override
     public int getItemCount() {
         return List.size();

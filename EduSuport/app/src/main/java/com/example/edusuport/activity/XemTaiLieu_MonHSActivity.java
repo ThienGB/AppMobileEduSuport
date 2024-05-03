@@ -75,12 +75,9 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
         });
     }
     public void loadTabs(){
-
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
         // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
-
-
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
             public void onDataRetrieved(String tenmon) {
