@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.edusuport.model.GiaoVien;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,8 +32,8 @@ import java.util.UUID;
 
 import com.example.edusuport.R;
 
-public class EditInformation extends AppCompatActivity {
-    GiaoVien giaoVien = Home.giaoVien;
+public class EditInformation_PH extends AppCompatActivity {
+
     private Button btnSave, btnUpdate, btnBack;
     private FloatingActionButton btnImg;
     private ImageView imgAvt;
@@ -45,16 +44,15 @@ public class EditInformation extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.form_information);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_edit_information_phhs);
 
         btnImg = findViewById(R.id.floatingActionButton2);
         btnEdit = findViewById(R.id.btnEdit);
-
+        edtName.setEnabled(false);
         edtEmail.setEnabled(false);
         edtPhone.setEnabled(false);
 
@@ -90,7 +88,7 @@ public class EditInformation extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditInformation.this, Home.class);
+                Intent intent = new Intent(EditInformation_PH.this, Home.class);
                 startActivity(intent);
             }
         });
@@ -112,8 +110,14 @@ public class EditInformation extends AppCompatActivity {
     }
 
     private void showUserData() {
-        edtName.setText(giaoVien.getTenGiaoVien());
+        edtName = findViewById(R.id.edtName);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPhone = findViewById(R.id.edtPhone);
+
+
+        edtName.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        edtPhone.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     @Override
@@ -151,16 +155,16 @@ public class EditInformation extends AppCompatActivity {
                             }
                         }
                     });
-                    Toast.makeText(EditInformation.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformation_PH.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(EditInformation.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformation_PH.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void updateProfilePicture(String url,String tennew ) {
-        FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/urlAva").setValue(url);
-        FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(tennew);
+        FirebaseDatabase.getInstance().getReference("phuhuynh/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/urlAva").setValue(url);
+        FirebaseDatabase.getInstance().getReference("phuhuynh/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(tennew);
     }
 }

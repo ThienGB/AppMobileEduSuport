@@ -150,6 +150,7 @@
         </LinearLayout>
     </ScrollView>
     <include
+        android:id="@+id/navbar_layout"
         layout="@layout/navbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

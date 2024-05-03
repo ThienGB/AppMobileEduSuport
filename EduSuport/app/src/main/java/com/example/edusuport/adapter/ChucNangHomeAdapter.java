@@ -30,6 +30,7 @@ import com.example.edusuport.activity.ThemLopHocActivity;
 import com.example.edusuport.activity.ThuGopYPhActivity;
 import com.example.edusuport.activity.XemDiemActivity;
 import com.example.edusuport.activity.XemNhanXetActivity;
+import com.example.edusuport.activity.XemTaiLieuMon;
 import com.example.edusuport.activity.XemTaiLieu_MonHSActivity;
 import com.example.edusuport.activity.XemThoiKhoaBieuActivity;
 import com.example.edusuport.activity.XemThongBaoActivity;
@@ -172,7 +173,7 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         break;
                     }
                     case "XTLHS":{
-                        Intent intent=new Intent(context, XemTaiLieu_MonHSActivity.class);
+                        Intent intent=new Intent(context, XemTaiLieuMon.class);
                         context.startActivity(intent);
                         break;
                     }

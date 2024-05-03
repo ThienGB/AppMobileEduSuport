@@ -1,5 +1,9 @@
 package com.example.edusuport.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,11 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.edusuport.R;
+import com.example.edusuport.databinding.ActivityEditInformationBinding;
 import com.example.edusuport.model.GiaoVien;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,16 +32,12 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.UUID;
 
-import com.example.edusuport.R;
-
-public class EditInformation extends AppCompatActivity {
+public class EditInformationActivity extends AppCompatActivity {
+    ActivityEditInformationBinding binding;
     GiaoVien giaoVien = Home.giaoVien;
-    private Button btnSave, btnUpdate, btnBack;
     private FloatingActionButton btnImg;
-    private ImageView imgAvt;
     private Uri imgPath;
-    private EditText edtName, edtEmail, edtPhone;
-    private ImageButton btnEdit;
+
     String phone, userID;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
@@ -49,48 +46,43 @@ public class EditInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.form_information);
-
-        btnImg = findViewById(R.id.floatingActionButton2);
-        btnEdit = findViewById(R.id.btnEdit);
-
-        edtEmail.setEnabled(false);
-        edtPhone.setEnabled(false);
+binding = ActivityEditInformationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        binding.edtName.setEnabled(false);
+        binding.edtEmail.setEnabled(false);
+        binding.edtPhone.setEnabled(false);
+
+
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edtName.setEnabled(true);
-                edtPhone.setEnabled(true);
-                btnEdit.setImageResource(R.drawable.icon_save);
+                binding.edtName.setEnabled(true);
+                binding.edtPhone.setEnabled(true);
+                binding.btnEdit.setImageResource(R.drawable.icon_save);
             }
         });
 
-        edtName = findViewById(R.id.edtName);
-        edtEmail = findViewById(R.id.edtEmail);
-        edtPhone = findViewById(R.id.edtPhone);
-        imgAvt = findViewById(R.id.imageView);
         showUserData();
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnEdit.setImageResource(R.drawable.icon_edit);
+                binding.btnEdit.setImageResource(R.drawable.icon_edit);
                 SaveImage();
             }
         });
 
-        btnImg.setOnClickListener(v -> {
+        binding.floatingActionButton2.setOnClickListener(v -> {
             Intent photoIntent = new Intent(Intent.ACTION_PICK);
             photoIntent.setType("image/*");
             startActivityForResult(photoIntent, 1);
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditInformation.this, Home.class);
+                Intent intent = new Intent(EditInformationActivity.this, Home.class);
                 startActivity(intent);
             }
         });
@@ -100,20 +92,20 @@ public class EditInformation extends AppCompatActivity {
     public void changePhone() {
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        if (TextUtils.isEmpty(edtPhone.getText())) {
+        if (TextUtils.isEmpty(binding.edtPhone.getText())) {
             Toast.makeText(this, "Số điện thoại không được để trống.", Toast.LENGTH_SHORT).show();
         } else {
             firebaseDatabase = FirebaseDatabase.getInstance();
             databaseReference = firebaseDatabase.getReference().child("user");
-            databaseReference.child(id).child("phone").setValue(edtPhone.getText().toString());
-            phone = edtPhone.getText().toString();
+            databaseReference.child(id).child("phone").setValue(binding.edtPhone.getText().toString());
+            phone = binding.edtPhone.getText().toString();
             Toast.makeText(this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void showUserData() {
-        edtName.setText(giaoVien.getTenGiaoVien());
-        edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        binding.edtName.setText(giaoVien.getTenGiaoVien());
+        binding.edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     @Override
@@ -134,7 +126,7 @@ public class EditInformation extends AppCompatActivity {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        imgAvt.setImageBitmap(bitmap);
+        binding.imgAvt.setImageBitmap(bitmap);
     }
 
     private void SaveImage() {
@@ -146,14 +138,14 @@ public class EditInformation extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                String tennew=edtName.getText().toString();
+                                String tennew=binding.edtName.getText().toString();
                                 updateProfilePicture(task.getResult().toString(),tennew);
                             }
                         }
                     });
-                    Toast.makeText(EditInformation.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformationActivity.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(EditInformation.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformationActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

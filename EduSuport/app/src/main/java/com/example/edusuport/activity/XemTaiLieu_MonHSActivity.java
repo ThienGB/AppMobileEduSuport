@@ -28,6 +28,7 @@ import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapterHS;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
@@ -47,7 +48,9 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapterHS nhomTheAdapterHS;
-    String idMon,idGV=DangTaiTaiLieuActivity.idGV, tenFile,idLop="1";
+    String idMon,idGV=DangTaiTaiLieuActivity.idGV, tenFile;
+    private static HocSinh hocSinh = HomeHsActivity.hocSinh;
+    String idLop=hocSinh.getIDLopHoc();
     Intent data=null;
 
     android.app.AlertDialog.Builder builder;

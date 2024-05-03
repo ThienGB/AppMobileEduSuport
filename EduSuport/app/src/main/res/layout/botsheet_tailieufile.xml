@@ -44,14 +44,16 @@
                     android:paddingBottom="5dp"
                     android:text="Tài liệu học tập cực vip..."
                     android:textSize="14dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/black_high_emp"/>
 
                 <TextView
                     android:id="@+id/bot_timeFile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload day 24/03/2003"
-                    android:textSize="10dp" />
+                    android:textSize="10dp"
+                    android:textColor="@color/black_high_emp"/>
 
             </LinearLayout>
 
@@ -83,10 +85,11 @@
                         android:id="@+id/gg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chỉnh sửa tên tài liệu."
+                        android:text="@string/editMaterialsName"
                         android:textSize="14dp"
                         android:textStyle="bold"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:textColor="@color/black_high_emp"/>
                 </LinearLayout>
             </TableRow>
             <TableRow
@@ -111,9 +114,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Xóa tài liệu"
+                        android:text="@string/delMaterials"
                         android:textSize="14dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black_high_emp"/>
                 </LinearLayout>
             </TableRow>
             <TableRow
@@ -139,9 +143,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Tải tài liệu"
+                        android:text="@string/down"
                         android:textSize="14dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black_high_emp"/>
                 </LinearLayout>
             </TableRow>
             <TableRow
@@ -165,9 +170,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Chia sẻ tài liệu"
+                        android:text="@string/share"
                         android:textSize="14dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/black_high_emp"/>
                 </LinearLayout>
             </TableRow>
         </TableLayout>

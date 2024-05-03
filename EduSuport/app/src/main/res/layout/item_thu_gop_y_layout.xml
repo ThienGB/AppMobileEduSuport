@@ -57,7 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20/3/2024"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:textColor="@color/black_high_emp"/>
             <TextView
                 android:id="@+id/txvTrangThaiThu"
                 android:layout_width="match_parent"
@@ -65,7 +66,8 @@
                 android:layout_gravity="end"
                 android:gravity="end"
                 android:text="Trạng thái: Chưa xem"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:textColor="@color/black_high_emp"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

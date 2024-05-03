@@ -12,14 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Nhập username bạn đăng kí: " />
+        android:text="@string/registerUsername"
+        android:textColor="@color/textColor"/>
 
     <EditText
         android:id="@+id/emailGV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/textColor"/>
 
 
 

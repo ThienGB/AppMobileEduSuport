@@ -32,12 +32,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Danh Sách Học Sinh " />
+                android:text="@string/studentList"
+                android:textColor="@color/black"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="10dp"
+            style="@style/itemHomeColor">
 
             <ImageView
                 android:layout_centerInParent= "true"
@@ -58,6 +60,7 @@
                     android:layout_marginBottom="1dp"
                     android:text="Xin chào !"
                     android:textSize="10dp"
+                    android:textColor="@color/black"
                     />
 
                 <TextView
@@ -79,7 +82,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Danh Sách Lớp :" />
+                android:text="@string/classList"
+                android:textColor="@color/black"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -92,7 +96,7 @@
             android:id="@+id/lsvDanhSachLop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            style="@style/itemHomeColor"/>
 
     </LinearLayout>
 </RelativeLayout>

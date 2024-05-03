@@ -3,6 +3,7 @@ package com.example.edusuport.activity;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -54,6 +55,34 @@ public class HomePhActivity extends AppCompatActivity {
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }
     public void AddEvents(){
+
+        View includedLayout = findViewById(R.id.navbar_layout); // navbar_layout là ID của layout được include
+        ConstraintLayout layoutHome = includedLayout.findViewById(R.id.layoutHome);
+        ConstraintLayout layoutMessage = includedLayout.findViewById(R.id.layoutMessage);
+        ConstraintLayout layoutEditProfile = includedLayout.findViewById(R.id.layoutEditProfile);
+        layoutHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePhActivity.this, HomePhActivity.class);
+                startActivity(intent);
+            }
+        });
+        layoutMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePhActivity.this, Messages_PH.class);
+                startActivity(intent);
+            }
+        });
+        layoutEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomePhActivity.this, EditInformation.class);
+                startActivity(intent);
+            }
+        });
+
+
         ImageButton btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override

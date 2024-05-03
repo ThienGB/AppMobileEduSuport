@@ -1,44 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout  xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         android:padding="5dp"
         tools:context=".activity.HopThuGopYActivity">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:elevation="10dp" android:layout_marginBottom="10dp" android:background="@drawable/button_background">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="10dp" android:paddingTop="10dp">
-                <ImageButton android:id="@+id/btnBack" android:layout_width="40dp" android:layout_height="40dp" android:background="@drawable/fullbutton_background" android:padding="10dp" android:src="@drawable/back_icon" android:scaleType="fitCenter"/>
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:text="Hộp thư góp ý"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_background"
+            android:elevation="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/fullbutton_background"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/back_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/petitiontBox"
+                    android:textColor="@color/black_high_emp"/>
             </LinearLayout>
         </LinearLayout>
-               <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            style="@style/backgroundColor">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/backgroun_boder_letter">
+
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/searchView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:queryHint="Search..."
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:queryHint="@string/search" />
+
                 <ImageButton
                     android:id="@+id/btnCalender"
-                    android:onClick="showDatePickerDialog"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_gravity="center"
                     android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
                     android:layout_marginEnd="0dp"
+                    android:onClick="showDatePickerDialog"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/calendar" />
+
                 <ImageButton
                     android:id="@+id/btnCancelFillerThu"
                     android:layout_width="40dp"
@@ -50,11 +87,12 @@
                     android:src="@drawable/cancel" />
             </LinearLayout>
         </LinearLayout>
-        <ListView android:id="@+id/lstThuGopY"
+
+        <ListView
+            android:id="@+id/lstThuGopY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="10dp"
-            android:clickable="true"/>
+            android:clickable="true"
+            style="@style/backgroundColor"/>
     </LinearLayout>
 </layout>

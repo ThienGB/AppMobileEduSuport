@@ -7,7 +7,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="5dp"
-        android:background="@color/white"
+        style="@style/Widget.Support.CoordinatorLayout"
+
         tools:context=".activity.XemDiemActivity">
 
         <LinearLayout
@@ -39,7 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Kết quả học tập " />
+                        android:text="@string/studyResults"
+                        android:textColor="@color/black_high_emp"/>
                 </LinearLayout>
 
 
@@ -73,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginBottom="1dp"
-                        android:text="Xin chào!"
+                        android:text="@string/hello"
                         android:textColor="@color/black_high_emp"
                         android:textSize="10dp" />
 
@@ -121,6 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:entries="@array/options_array"
+                    style="@style/textColor"
                     />
 
                 <TextView
@@ -130,7 +133,8 @@
                     android:text="Xếp loại: Giỏi "
                     android:textAlignment="textEnd"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/black_high_emp"/>
 
             </LinearLayout>
 
@@ -139,7 +143,7 @@
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/white_low_emp"
+            android:background="@color/midDark"
             android:padding="10dp"
 
             android:scrollbars="none">
@@ -164,12 +168,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toán học "
+                        android:text="@string/math"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:textColor="@color/black_high_emp"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -202,12 +207,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ngữ văn "
+                        android:text="@string/literature"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -240,12 +246,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vật lý "
+                        android:text="@string/physics"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -277,12 +284,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hóa học "
+                        android:text="@string/chemistry"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -314,12 +322,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sinh học "
+                        android:text="@string/biology"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -351,12 +360,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lịch sử "
+                        android:text="@string/history"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -388,12 +398,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Địa lý "
+                        android:text="@string/geography"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -426,12 +437,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tiếng anh"
+                        android:text="@string/english"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -463,12 +475,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giáo dục công dân"
+                        android:text="@string/civicEducation"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -500,12 +513,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giáo dục thể chất"
+                        android:text="@string/physicalEducation"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -537,12 +551,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tin học"
+                        android:text="@string/it"
                         android:textStyle="bold"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:layout_gravity="center"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        style="@style/textSubject"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"

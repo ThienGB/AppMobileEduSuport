@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -27,6 +29,7 @@ import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.controllers.MessController;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MessageList;
+import com.example.edusuport.model.PhuHuynh;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -37,12 +40,13 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages_PH extends AppCompatActivity {
+    PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
     public List<MessageList> messageLists = new ArrayList<>();
     ImageView xemthemlophoc;
     private RadioGroup rb_role;String textRole="HS";
     private String phone="0942523074";
-    private String name="Trinh thu phuòng";
-    private String idCurUse="21110611PH";
+    private String name=phuHuynh.getTen();
+    private String idCurUse=phuHuynh.getMSPH();
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";
@@ -52,7 +56,7 @@ public class Messages_PH extends AppCompatActivity {
     private MessagesAdapter messageAdapter;
     ValueEventListener eventListener;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    String IDLop = "10A1";
+    String IDLop = phuHuynh.getIDLopHoc();
 
     String IDGiaoVien="1";
     MessController messController=new MessController();
@@ -70,6 +74,13 @@ public class Messages_PH extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         //  idCurUse = getIntent().getStringExtra("idCurUse");
 //
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         chooseRole();
         filter.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -166,6 +177,9 @@ public class Messages_PH extends AppCompatActivity {
 
 
     }
-
+    public void Back(){
+        Intent intent = new Intent(Messages_PH.this, HomePhActivity.class);
+        startActivity(intent);
+    }
 
 }

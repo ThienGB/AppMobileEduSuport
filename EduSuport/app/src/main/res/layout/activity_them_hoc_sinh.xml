@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Thêm học sinh mới " />
+                    android:text="@string/addNewStudent" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginBottom="1dp"
-                        android:text="Xin chào !"
+                        android:text="@string/hello"
                         android:textSize="10dp"
                         />
 
@@ -91,18 +91,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Mã số học sinh: " />
+                android:text="@string/idStudent" />
             <EditText
                 android:id="@+id/add_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                 />
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Họ và tên học sinh mới: " />
+                android:text="@string/nameNewStudent" />
 
             <EditText
                 android:id="@+id/add_hocsinh"
@@ -117,7 +117,7 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:text="Xác nhận ">
+                android:text="@string/confirm">
             </Button>
         </LinearLayout>
     </LinearLayout>

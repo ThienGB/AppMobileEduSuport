@@ -7,15 +7,12 @@ public class LopHoc implements Serializable {
     private String idGiaoVien;
     private String tenLopHoc;
     private long SoLuong;
-
     public String getIdLopHoc() {
         return idLopHoc;
     }
-
     public void setIdLopHoc(String idLopHoc) {
         this.idLopHoc = idLopHoc;
     }
-
     public String getIdGiaoVien() {
         return idGiaoVien;
     }

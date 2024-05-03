@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        style="@style/backgroundColor"
         android:padding="5dp"
         tools:context=".activity.DonXinPhepNghiHocActivity">
         <LinearLayout
@@ -36,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Duyệt đơn xin phép nghỉ học" />
+                    android:text="@string/approveLeaveForm"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -93,8 +94,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginBottom="1dp"
-                    android:textColor="@color/black_high_emp"
-                    android:text="Đến tôi"
+                    style="@style/black_high_emp"
+                    android:text="@string/toMe"
                     android:textSize="10dp"
                     />
             </LinearLayout>
@@ -104,14 +105,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            style="@style/itemHomeColor"
             android:background="@drawable/backgroun_boder_letter"
-            android:padding="10dp">
+            android:padding="10dp"
+            >
 
             <TextView
                 android:id="@+id/txvNgayNghi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ngày xin nghỉ: 15/4/2023 " />
+                android:text="Ngày xin nghỉ: 15/4/2023 "
+                style="@style/textColor"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,6 +128,7 @@
                 android:id="@+id/txvLyDo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                style="@style/textColor"
                 android:text=" Hiện tại tôi đã thấy giáo viên có thái" />
         </LinearLayout>
 
@@ -135,7 +140,7 @@
                 android:id="@+id/btnTuChoiDuyet"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Từ chối"
+                android:text="@string/reject"
                 android:layout_weight="1"
                 android:textSize="20dp"
                 android:layout_marginLeft="10dp"
@@ -151,7 +156,7 @@
                 android:backgroundTint="#25B52B"
                 android:padding="10dp"
                 android:layout_weight="1"
-                android:text="Đồng ý"
+                android:text="@string/agree"
                 android:background="@drawable/fullbutton_background"
                 android:textSize="20dp" />
         </LinearLayout>

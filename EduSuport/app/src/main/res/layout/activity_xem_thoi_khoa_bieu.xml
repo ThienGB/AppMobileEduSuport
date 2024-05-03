@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="5dp"
-        android:background="@color/white"
         tools:context=".activity.XemThoiKhoaBieuActivity">
 
 
@@ -16,6 +15,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingTop="10dp"
+            android:background="@drawable/button_background"
             >
             <ImageButton
                 android:id="@+id/btnBack"
@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Xem thời khóa biểu" />
+                android:text="@string/schedule"
+                android:textColor="@color/black_high_emp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                     android:layout_gravity="start"
                     android:layout_marginBottom="1dp"
                     android:textColor="@color/black_high_emp"
-                    android:text="Xin chào !"
+                    android:text="@string/hello"
                     android:textSize="10dp"
                     />
 
@@ -142,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:background="@color/white"
+            style="@style/backgroundColor"
             android:orientation="vertical">
             <TableLayout
                 android:layout_width="match_parent"
@@ -177,7 +178,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Morning"
+                                android:text="@string/morning"
                                 android:textSize="20dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
@@ -431,7 +432,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Afternoon"
+                                android:text="@string/afternoon"
                                 android:textSize="20dp"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />

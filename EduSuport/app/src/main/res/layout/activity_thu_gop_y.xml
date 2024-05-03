@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        style="@style/backgroundColor"
         android:padding="5dp"
         tools:context=".activity.ThuGopYActivity">
         <LinearLayout
@@ -36,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Thư góp ý" />
+                    android:text="@string/feedback"
+                    android:textColor="@color/black_high_emp"/>
             </LinearLayout>
 
 
@@ -94,7 +95,7 @@
                     android:layout_gravity="start"
                     android:layout_marginBottom="1dp"
                     android:textColor="@color/black_high_emp"
-                    android:text="Đến tôi"
+                    android:text="@string/toMe"
                     android:textSize="10dp"
                     />
             </LinearLayout>
@@ -113,12 +114,14 @@
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_marginBottom="10dp"
+                style="@style/textColor"
                 android:text="Hiện tại tôi đã thấy giáo viên có thái độ cư xử không đúng"/>
             <TextView
                 android:id="@+id/txvNoiDung"
                 android:textStyle="italic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                style="@style/textColor"
                 android:text="Hiện tại tôi đã thấy giáo viên có thái độ cư xử không đúng"/>
         </LinearLayout>
 
