@@ -46,8 +46,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MessageList list2 = messageLists.get(position);
+        Log.e("PATHHHH",list2.getProfilePic().toString());
         if (!list2.getProfilePic().isEmpty()){
-            Picasso.get().load(list2.getProfilePic()).into(holder.profilePicture);
+                Picasso.get().load(list2.getProfilePic()).into(holder.profilePicture);
         }
         else {
             Picasso.get().load(R.drawable.profile).into(holder.profilePicture);
@@ -55,14 +56,16 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
         holder.name.setText(list2.getName());
         holder.lastMsg.setText(list2.getLastMsg());
-        if (list2.getUnseenMsg() == 0){
-            holder.unseenMsg.setVisibility(View.GONE);
-            holder.lastMsg.setTextColor(Color.parseColor("#959595"));
-        } else {
-            holder.unseenMsg.setVisibility(View.VISIBLE);
-            holder.unseenMsg.setText(list2.getUnseenMsg()+"");
-            holder.lastMsg.setTextColor(context.getResources().getColor(R.color.theme_80));
-        }
+        holder.unseenMsg.setVisibility(View.GONE);
+          holder.lastMsg.setTextColor(Color.parseColor("#959595"));
+//        if (list2.getUnseenMsg() == 0){
+//            holder.unseenMsg.setVisibility(View.GONE);
+//            holder.lastMsg.setTextColor(Color.parseColor("#959595"));
+//        } else {
+//            holder.unseenMsg.setVisibility(View.VISIBLE);
+//            holder.unseenMsg.setText(list2.getUnseenMsg()+"");
+//            holder.lastMsg.setTextColor(context.getResources().getColor(R.color.theme_80));
+//        }
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +76,14 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("profilePic",list2.getProfilePic());
                 intent.putExtra("phone",list2.getPhone());
                 intent.putExtra("chat_key", list2.getChatKey());
+                intent.putExtra("role", list2.getRole());
                 Log.d("sos", list2.getChatKey()+ list2.getName());
                 context.startActivity(intent);
             }
         });
     }
+
+
     public void updateData(List<MessageList> messageLists){
         this.messageLists = messageLists;
         notifyDataSetChanged();

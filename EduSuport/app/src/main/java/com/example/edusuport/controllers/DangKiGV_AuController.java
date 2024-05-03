@@ -93,7 +93,7 @@ public class DangKiGV_AuController {
                                     context.startActivity(intent);
 
                                     FirebaseUser current= firebaseAuth.getCurrentUser();
-                                    Account gv=new Account(ten,null,null,"giaovien",null,null,"invalid");
+                                    Account gv=new Account(ten,"https://avatar.iran.liara.run/public/boy?username=Ash",null,"giaovien",null,null,"invalid");
                                     myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
 
 
