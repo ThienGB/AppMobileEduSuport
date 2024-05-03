@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.example.edusuport.adapter.MonHocAdapter;
 import com.example.edusuport.controllers.DangKiGV_AuController;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 
@@ -28,7 +30,9 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
     GridView gvmon;
     MonHocAdapter monHocAdapter;
     TextView logout;
-    public  static String idGV="1";
+    private static GiaoVien giaoVien = Home.giaoVien;
+    public  static String idGV = giaoVien.getIDGiaoVien();
+
     public static final String SHARED_PREFS="sharePrefs";
 
     DangTaiTaiLieuController dangTaiTaiLieuController =new DangTaiTaiLieuController();
@@ -62,6 +66,14 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
     }
 
     private void addEventsClick() {
+
+        ImageButton btnBack = findViewById(R.id.btnBackTL);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         gvmon.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -95,5 +107,8 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
         Intent intent=new Intent(this, Login.class);
         startActivity(intent);
         finish();
+    }
+    public void Back(){
+        super.onBackPressed();
     }
 }

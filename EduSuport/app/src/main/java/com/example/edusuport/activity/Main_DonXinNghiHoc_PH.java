@@ -47,29 +47,8 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
         binding = ActivityMainDonXinNghiHocPhBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         dbHelper = new DBHelper();
-        Intent intent = getIntent();
-        phuHuynh = (PhuHuynh) intent.getSerializableExtra("phuHuynh");
-        phuHuynh = new PhuHuynh("21110928PH", "Hoàng Công", "12B3", "21110928");
+        phuHuynh = HomePhActivity.phuHuynh;
         AddEvents();
-    }
-    public void GetHocSinh(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh).child(phuHuynh.getMSHS());
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot hsthuSnapshot : dataSnapshot.getChildren()) {
-                    String MSHS = hsthuSnapshot.getKey();
-                    String TenHocSinh = hsthuSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
-                    String IDLopHoc = hsthuSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
-                    hocSinh = new HocSinh(MSHS, TenHocSinh, IDLopHoc);
-                    Log.d("HOCSINH", "ID: " + hocSinh.getMSHS() + ", Tên: " + hocSinh.getTen());
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
     private void AddEvents(){
         binding.btnchonNgayNghi.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +103,7 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
         });
     }
     public void Back(){
-        Intent intent = new Intent(Main_DonXinNghiHoc_PH.this, DuyetDonXinNghiHocActivity.class);
+        Intent intent = new Intent(Main_DonXinNghiHoc_PH.this, HomePhActivity.class);
         startActivity(intent);
     }
     public boolean Send(){
@@ -139,13 +118,14 @@ public class Main_DonXinNghiHoc_PH extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập lý do", Toast.LENGTH_SHORT).show();
             return false;
         }
-
+        long currentTime = System.currentTimeMillis();
         String IDDon = UUID.randomUUID().toString();
         Map<String, Object> donXinPhep = new HashMap<>();
         donXinPhep.put(dbHelper.FieldIDLopHoc, phuHuynh.getIDLopHoc());
         donXinPhep.put(dbHelper.FieldLyDo, LyDo);
         donXinPhep.put(dbHelper.FieldMSHS, phuHuynh.getMSHS());
-        donXinPhep.put(dbHelper.FieldThoiGian, selectedTimestamp);
+        donXinPhep.put(dbHelper.FieldThoiGian, currentTime);
+        donXinPhep.put(dbHelper.FieldNgayNghi, selectedTimestamp);
         donXinPhep.put(dbHelper.FieldTrangThai, dbHelper.ValueTTChuaDuyet);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

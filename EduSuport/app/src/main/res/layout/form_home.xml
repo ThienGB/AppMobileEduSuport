@@ -64,6 +64,7 @@
                             android:textSize="10dp" />
 
                         <TextView
+                            android:id="@+id/txvTenGV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
@@ -73,7 +74,19 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:gravity="end"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:id="@+id/btnLogout"
+                            android:layout_marginRight="5dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/fullbutton_background"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_logout"/>
+                    </LinearLayout>
                 </LinearLayout>
 
 <!--                <SearchView-->
@@ -126,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:horizontalSpacing="20dp"
+                    android:horizontalSpacing="15dp"
                     android:numColumns="4"
                     android:padding="10dp"
                     android:scrollbars="horizontal"

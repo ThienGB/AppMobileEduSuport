@@ -4,18 +4,18 @@ import android.net.Uri;
 
 public class Account {
     private String idTK;
-    private String name;
+    private String ten;
     private String urlAva;
-    private String phoneNum;
+    private String sdt;
     private String role;
     private String ngonNgu;
     private String themeDL;
     private String trangThai;
 
-    public Account(String name, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
-        this.name = name;
+    public Account(String ten, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
+        this.ten = ten;
         this.urlAva = urlAva;
-        this.phoneNum = phoneNum;
+        this.sdt = phoneNum;
         this.role = role;
         this.ngonNgu = ngonNgu;
         this.themeDL = themeDL;
@@ -24,9 +24,9 @@ public class Account {
 
     public Account(String idTK, String name, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
         this.idTK = idTK;
-        this.name = name;
+        this.ten = name;
         this.urlAva = urlAva;
-        this.phoneNum = phoneNum;
+        this.sdt = phoneNum;
         this.role = role;
         this.ngonNgu = ngonNgu;
         this.themeDL = themeDL;
@@ -42,11 +42,11 @@ public class Account {
     }
 
     public String getName() {
-        return name;
+        return ten;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.ten = name;
     }
 
     public String getUrlAva() {
@@ -58,11 +58,11 @@ public class Account {
     }
 
     public String getPhoneNum() {
-        return phoneNum;
+        return sdt;
     }
 
     public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+        this.sdt = phoneNum;
     }
 
     public String getRole() {

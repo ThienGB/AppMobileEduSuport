@@ -1,11 +1,12 @@
 package com.example.edusuport.model;
 
 public class MessageList {
-    private String name, phone, lastMsg, profilePic, chatKey;
+    private String idpartner, name, phone, lastMsg, profilePic, chatKey;
     private int unseenMsg;
 
-    public MessageList(String name, String phone, String lastMsg, String profilePic, int unseenMsg, String chatKey) {
+    public MessageList(String idpartner,String name, String phone, String lastMsg, String profilePic, int unseenMsg, String chatKey) {
         this.name = name;
+        this.idpartner=idpartner;
         this.phone = phone;
         this.lastMsg = lastMsg;
         this.profilePic = profilePic;
@@ -13,7 +14,24 @@ public class MessageList {
         this.chatKey = chatKey;
     }
 
+    public MessageList(String idpartner,String name, String phone, String lastMsg, String profilePic, int unseenMsg) {
+        this.name = name;
+        this.idpartner=idpartner;
+        this.phone = phone;
+        this.lastMsg = lastMsg;
+        this.profilePic = profilePic;
+        this.unseenMsg = unseenMsg;
+    }
+
     public MessageList() {
+    }
+
+    public String getIdpartner() {
+        return idpartner;
+    }
+
+    public void setIdpartner(String idpartner) {
+        this.idpartner = idpartner;
     }
 
     public String getName() {

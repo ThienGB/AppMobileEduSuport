@@ -37,15 +37,10 @@ public class XemDiemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityXemDiemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         dbHelper = new DBHelper();
         AddEvents();
-//        Intent intent = getIntent();
-//        hocSinh = (HocSinh) intent.getSerializableExtra("hocSinh");
-        hocSinh = new HocSinh("21110928","Công Thiện", "12B3");
+        hocSinh = HomeHsActivity.hocSinh;
         GetDiem(hocSinh.getMSHS());
-
-
     }
     public void GetDiem(String MSHS){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -150,6 +145,12 @@ public class XemDiemActivity extends AppCompatActivity {
         binding.getRoot().invalidate();
     }
     public void AddEvents(){
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         binding.spinnerHocKy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -173,5 +174,8 @@ public class XemDiemActivity extends AppCompatActivity {
                 // Không cần xử lý trong trường hợp này
             }
         });
+    }
+    public void Back(){
+        super.onBackPressed();
     }
 }

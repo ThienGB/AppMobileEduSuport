@@ -1,15 +1,24 @@
 package com.example.edusuport.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -17,8 +26,13 @@ import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.DonXinNghiHocAdapter;
 import com.example.edusuport.adapter.HopThuGopYAdapter;
+import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
+import com.example.edusuport.adapter.ViewHolderClick;
+import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.databinding.ActivityHopThuGopYBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
+import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.ThuGopY;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,17 +53,16 @@ public class HopThuGopYActivity extends AppCompatActivity {
     ArrayAdapter<ThuGopY> adapter;
     Calendar calendar;
     Timestamp selectedTimestamp;
-    String IDGiaoVienDF = "123";
+    private GiaoVien giaoVien = Home.giaoVien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHopThuGopYBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         dbHelper = new DBHelper();
         calendar = Calendar.getInstance();
         binding.searchView.requestFocus();
-        GetThuGopY(IDGiaoVienDF);
+        GetThuGopY(giaoVien.getIDGiaoVien());
         AddEvents();
     }
     public void GetThuGopY(String IDGiaoVien){
@@ -159,6 +172,12 @@ public class HopThuGopYActivity extends AppCompatActivity {
         return dateString1.equals(dateString2);
     }
     public void AddEvents(){
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         binding.btnCancelFillerThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,5 +216,8 @@ public class HopThuGopYActivity extends AppCompatActivity {
             }
         }
         return filteredList;
+    }
+    public void Back(){
+        super.onBackPressed();
     }
 }

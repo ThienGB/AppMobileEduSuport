@@ -56,7 +56,6 @@ public class ThuGopYPhActivity extends AppCompatActivity {
         });
     }
     public void Back(){
-        Intent intent = new Intent(ThuGopYPhActivity.this, Main_ThuGopY_PH.class);
-        startActivity(intent);
+        super.onBackPressed();
     }
 }

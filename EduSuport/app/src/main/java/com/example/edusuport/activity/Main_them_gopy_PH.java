@@ -16,6 +16,7 @@ import com.example.edusuport.adapter.GiaoVienAdapter;
 import com.example.edusuport.adapter.HopThuGopYPHAdapter;
 import com.example.edusuport.databinding.ActivityMainThemGopyPhBinding;
 import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.PhuHuynh;
 import com.example.edusuport.model.ThuGopY;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,10 +33,10 @@ import java.util.UUID;
 public class Main_them_gopy_PH extends AppCompatActivity {
     DBHelper dbHelper;
     ActivityMainThemGopyPhBinding binding;
-    String idPH;
     ArrayList<GiaoVien> listGiaoVien = new ArrayList<>();
     ArrayList<GiaoVien> listGVDuocChon = new ArrayList<>();
     ArrayAdapter<GiaoVien> adapter;
+    private PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +44,6 @@ public class Main_them_gopy_PH extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         dbHelper = new DBHelper();
-        Intent intent = getIntent();
-        idPH = (String) intent.getSerializableExtra("idPH");
 
         GetGiaoVien();
         AddEvents();
@@ -146,7 +145,7 @@ public class Main_them_gopy_PH extends AppCompatActivity {
             return false;
         }
 
-        String IDNguoiGui = this.idPH;
+        String IDNguoiGui = this.phuHuynh.getMSPH();
         String IDThu = UUID.randomUUID().toString();
         boolean Xem = false;
         long thoigian = System.currentTimeMillis();
