@@ -1,83 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.NhanXetChungActivity">
-
-    <LinearLayout
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".activity.NhanXetChungActivity">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:elevation="10dp"
-            android:background="@drawable/button_background">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp">
+                android:orientation="vertical"
+                android:elevation="10dp"
+                android:background="@drawable/button_background">
 
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/fullbutton_background"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/back_icon" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Đánh giá - Nhận xét" />
-            </LinearLayout>
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/fullbutton_background"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/back_icon" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_chonLop"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Đánh giá - Nhận xét" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingBottom="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-                <ImageView
-                    android:id="@+id/xemthem_lophoc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_add_24"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="5dp"
-                    android:background="@drawable/fullbutton_background"
-                    app:tint="@color/main_blue" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_chonLop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    <ImageView
+                        android:id="@+id/xemthem_lophoc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_add_24"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp"
+                        android:background="@drawable/fullbutton_background"
+                        app:tint="@color/main_blue" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:queryHint="Search..."
+                android:layout_weight="2" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp">
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Danh sách đánh giá - nhận xét"
+                android:text="Danh sách học sinh"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -86,9 +100,12 @@
         </LinearLayout>
 
         <ListView
+            android:id="@+id/lstHocSinh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     </LinearLayout>
 
 </RelativeLayout>
+
+    </layout>

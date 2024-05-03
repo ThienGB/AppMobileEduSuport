@@ -70,7 +70,8 @@ public class XemNhanXetActivity extends AppCompatActivity {
                         String IDThongBao = thuSnapshot.getKey();
                         String IDNguoiGui = thuSnapshot.child(dbHelper.FieldIDGiaoVien).getValue(String.class);
                         String NoiDung = thuSnapshot.child(dbHelper.FieldNoiDung).getValue(String.class);
-                     //   nhanXet = new NhanXet(IDThongBao, IDNguoiGui, idNguoiNhan, NoiDung, thoigian);
+                        String DanhGia = thuSnapshot.child(dbHelper.FieldDanhGia).getValue(String.class);
+                        nhanXet = new NhanXet(IDThongBao, IDNguoiGui, mshs, NoiDung, DanhGia);
                     }
                 }
                 SetData(nhanXet);
@@ -83,8 +84,8 @@ public class XemNhanXetActivity extends AppCompatActivity {
     }
     public void SetData(NhanXet nhanXet){
         binding.txvTenHS.setText("Học sinh: "+ hocSinh.getTen());
-        binding.txvNoiDungNX.setText("Học sinh: "+ nhanXet.getNoiDung());
-        binding.txvDanhGia.setText("Học sinh: "+ nhanXet.getDanhGia());
+        binding.txvNoiDungNX.setText(nhanXet.getNoiDung());
+        binding.txvDanhGia.setText(nhanXet.getDanhGia());
 //        dbHelper.getTenGiaoVienByID(nhanXet.getIDGiaoVien(), new DBHelper.TenHocSinhCallback() {
 //            @Override
 //            public void onTenHocSinhFetched(String tenPhuHuynh) {

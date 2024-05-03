@@ -20,6 +20,7 @@ import com.example.edusuport.activity.GuiThongBaoActivity;
 import com.example.edusuport.activity.Home;
 import com.example.edusuport.activity.HopThuGopYActivity;
 import com.example.edusuport.activity.Main_DonXinNghiHoc_PH;
+import com.example.edusuport.activity.Main_TheLat_GV;
 import com.example.edusuport.activity.Main_ThuGopY_PH;
 import com.example.edusuport.activity.NhanXetChungActivity;
 import com.example.edusuport.activity.NhapDiemChungActivity;
@@ -102,6 +103,10 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                     }
                     case "TBGV":{
                         Intent intent=new Intent(context, GuiThongBaoActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    } case "TLGV":{
+                        Intent intent=new Intent(context, Main_TheLat_GV.class);
                         context.startActivity(intent);
                         break;
                     }

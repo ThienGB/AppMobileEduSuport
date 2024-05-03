@@ -25,6 +25,7 @@ import com.example.edusuport.adapter.HocSinhAdapter;
 import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
 import com.example.edusuport.adapter.ViewHolderClick;
 import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.databinding.ActivityNhanXetChungBinding;
 import com.example.edusuport.databinding.ActivityNhapDiemChungBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.GiaoVien;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 public class NhapDiemChungActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
-    ActivityNhapDiemChungBinding binding;
+    ActivityNhanXetChungBinding binding;
     ArrayAdapter<HocSinhAdapter> adapter;
     ArrayList<HocSinh> listHS = new ArrayList<>();
     public  static GiaoVien giaoVien = Home.giaoVien;
@@ -55,7 +56,7 @@ public class NhapDiemChungActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNhapDiemChungBinding.inflate(getLayoutInflater());
+        binding = ActivityNhanXetChungBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         chonLop();
         dbHelper = new DBHelper();
