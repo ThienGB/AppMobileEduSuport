@@ -23,7 +23,7 @@
                 android:background="@drawable/opo_msg_back"
                 android:padding="20dp"
                 android:text="This is opponent message"
-                android:textColor="#424242" />
+                android:textColor="@color/black_high_emp"/>
 
             <TextView
                 android:id="@+id/oppoMsgTime"
@@ -31,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="01-01-2024 00:01 AM"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:textColor="@color/black_high_emp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +51,7 @@
                 android:background="@drawable/my_msg_back"
                 android:padding="20dp"
                 android:text="This is my message"
-                android:textColor="#424242" />
+                android:textColor="@color/black_high_emp" />
 
             <TextView
                 android:layout_gravity="end"
@@ -59,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="01-01-2024 00:01 AM"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:textColor="@color/black_high_emp"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

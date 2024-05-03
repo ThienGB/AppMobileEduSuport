@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NhanXetChungActivity">
+    tools:context=".activity.NhanXetChungActivity"
+    style="@style/backgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Đánh giá - Nhận xét" />
+                    android:text="@string/cmt_rv"
+                    android:textColor="@color/black_high_emp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -60,7 +62,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginBottom="1dp"
-                        android:text="Xin chào !"
+                        android:text="@string/hello"
+                        android:textColor="@color/black_high_emp"
                         android:textSize="10dp"
                         />
 
@@ -83,11 +86,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lớp:"/>
+                android:text="@string/class_"
+                style="@style/textColor"/>
             <Spinner
                 android:id="@+id/spinnerLopHoc"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                style="@style/textColor"
                 />
 
         </LinearLayout>
@@ -100,17 +105,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Danh sách đánh giá - nhận xét"
+                android:text="@string/listCmt_Rv"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                style="@style/textColor"
                 android:paddingBottom="10dp"
-                android:paddingLeft="10dp"/>
+                android:paddingLeft="10dp" />
         </LinearLayout>
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            style="@style/textColor"/>
 
     </LinearLayout>
 

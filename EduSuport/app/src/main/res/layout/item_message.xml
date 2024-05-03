@@ -11,7 +11,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background">
 
             <ImageView
                 android:id="@+id/profilePicture"
@@ -40,7 +41,8 @@
                     android:maxLines="1"
                     android:text="Full name"
                     android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/black_high_emp" />
 
                 <TextView
                     android:id="@+id/lastMsg"
@@ -51,7 +53,7 @@
                     android:textColor="@color/theme_80"
                     android:textStyle="bold"
                     android:textSize="14dp"
-                    android:hint="This is the last message"/>
+                    android:hint="This is the last message" />
 
             </LinearLayout>
             

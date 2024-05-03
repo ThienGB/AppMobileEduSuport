@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:text="Em ăn cơm chưa"
             android:textSize="14dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/textColor"/>
 
 
 
@@ -42,6 +43,7 @@
             android:text="Em ăn cơm với gau heheheehehehe"
             android:paddingTop="5dp"
             android:textSize="10dp"
+            style="@style/textColor"
             />
 
     </LinearLayout>

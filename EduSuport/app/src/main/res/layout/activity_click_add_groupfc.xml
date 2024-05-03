@@ -6,13 +6,14 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    >
+    style="@style/backgroundColor">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Tên flashcard: " />
+        android:text="@string/nameFlashcard"
+        android:textColor="@color/textColor" />
 
     <EditText
         android:id="@+id/tenGroupFC"
@@ -20,21 +21,24 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:imeOptions="actionDone"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="@color/textColor" />
+
     <TextView
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Mô tả flashcard: " />
+        android:text="@string/desFlashcard"
+        android:textColor="@color/textColor" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/motaGroupFC"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:imeOptions="actionDone"-->
-<!--        android:inputType="text" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/motaGroupFC"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="10dp"-->
+    <!--        android:imeOptions="actionDone"-->
+    <!--        android:inputType="text" />-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
@@ -49,10 +53,8 @@
             android:lines="5"
             android:maxLines="10"
             android:scrollbars="vertical"
-            />
+            android:textColor="@color/textColor" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 
 
 </LinearLayout>

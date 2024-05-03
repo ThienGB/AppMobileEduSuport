@@ -42,8 +42,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="12dp"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
+            app:layout_constraintEnd_toEndOf="@+id/imgAvatar"
             app:srcCompat="@drawable/img_camera" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -72,7 +72,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Họ và tên"
+        android:hint="@string/name"
         app:startIconDrawable="@drawable/img_person">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -90,7 +90,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Số điện thoại liên hệ"
+        android:hint="@string/phone"
         app:startIconDrawable="@drawable/img_phone">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -108,7 +108,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="ID Lớp học"
+        android:hint="@string/idClass"
         app:startIconDrawable="@drawable/img_class">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -127,6 +127,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:padding="10dp"
-        android:text="Lưu" />
+        android:text="@string/save" />
 
 </LinearLayout>

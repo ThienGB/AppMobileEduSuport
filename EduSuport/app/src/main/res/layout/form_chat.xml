@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    style="@style/backgroundColor">
     
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white_low_emp">
 
         <ImageView
             android:id="@+id/btnback"
@@ -45,12 +46,13 @@
                 android:text="User name"
                 android:maxLines="1"
                 android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:textSize="18dp"
+                android:textColor="@color/black_low_emp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Online"
+                android:text="@string/onl"
                 android:textSize="13sp"
                 android:layout_marginTop="2dp"
                 android:textColor="#00C853"/>
@@ -64,7 +66,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/chattingRecylerView"
-        android:layout_above="@+id/bottom_bar"/>
+        android:layout_above="@+id/bottom_bar"
+        style="@style/textColor"/>
 
     <RelativeLayout
         android:id="@+id/bottom_bar"
@@ -83,7 +86,8 @@
             android:textSize="14dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"
-            android:hint="Type something...."/>
+            android:hint="@string/hintTextChat"
+            style="@style/textColor"/>
         
         <ImageView
             android:id="@+id/btnSend"
@@ -92,7 +96,7 @@
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -38,7 +38,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Morning"
+                        android:text="@string/morning"
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
@@ -288,7 +288,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Afternoon"
+                        android:text="@string/afternoon"
                         android:textSize="20dp"
                         android:textColor="@color/black"
                         android:textStyle="bold" />

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterAccount">
+    tools:context=".activity.RegisterAccount">
 
     <ImageView
         android:id="@+id/imgback"
@@ -29,9 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:text="Đăng ký"
+        android:text="@string/register"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        style="@style/textColor"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -39,14 +40,15 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Mã số giáo viên"
+        android:hint="@string/idteacher"
         app:startIconDrawable="@drawable/img_id">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="number"
+            style="@style/textColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,14 +58,15 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Họ và tên"
+        android:hint="@string/name"
         app:startIconDrawable="@drawable/img_person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/textColor"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +75,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:hint="Mật khẩu"
+        android:hint="@string/password"
         app:startIconDrawable="@drawable/img_pass">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -80,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:maxLength="10" />
+            android:maxLength="10"
+            style="@style/textColor"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,8 +94,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:padding="15dp"
-        android:text="Đăng ký"
-        android:textSize="20dp" />
+        android:text="@string/register"
+        android:textSize="20dp"
+        style="@style/textColor"/>
 
     <TextView
         android:id="@+id/text_to_login"

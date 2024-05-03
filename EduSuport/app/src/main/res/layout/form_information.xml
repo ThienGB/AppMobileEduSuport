@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="@style/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background="@color/white_mid_emp"
-    tools:context=".EditInformation">
+    tools:context=".activity.EditInformation">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:background="@drawable/button_background"
             android:elevation="10dp"
-            android:background="@drawable/button_background">
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,14 +38,15 @@
                         android:background="@drawable/fullbutton_background"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/back_icon" />
+                        android:src="@drawable/back_icon"
+                        android:id="@+id/imgBack"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-
-                        android:text="Profile" />
+                        android:text="@string/information"
+                        android:textColor="@color/black_high_emp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -51,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="10dp"
-                    android:gravity="end"/>
+                    android:gravity="end" />
 
             </LinearLayout>
 
@@ -59,8 +62,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:padding="10dp"
-                >
+                android:padding="10dp">
 
 
             </LinearLayout>
@@ -71,17 +73,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="50dp"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:gravity="center">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:padding="5dp"
-                android:src="@drawable/ava"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ava"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,16 +93,17 @@
                 app:strokeWidth="5dp"
                 tools:ignore="MissingConstraints" />
 
-            <ImageView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="10dp"
-                android:background="@drawable/fullbutton_background"
-                android:src="@drawable/img_camera"
-                android:elevation="10dp"
                 android:layout_alignEnd="@+id/imageView"
                 android:layout_marginTop="100dp"
+                android:background="@drawable/fullbutton_background"
+                android:elevation="10dp"
+                android:padding="10dp"
+                android:src="@drawable/img_camera"
+                app:fabCustomSize="40dp"
                 app:tint="@color/main_dark_blue" />
 
         </RelativeLayout>
@@ -108,226 +111,259 @@
 
 
     <LinearLayout
+        style="@style/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:padding="10dp"
         android:elevation="10dp"
-        android:background="@drawable/fullbutton_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Thông tin cá nhân"
-               android:textSize="17dp"
-               android:layout_marginLeft="10dp"
-               android:textStyle="bold"/>
-           <View
-               android:layout_width="0dp"
-               android:layout_height="0dp"
-               android:layout_weight="1"/>
-           <ImageButton
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:padding="10dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-               android:scaleType="centerCrop"
-               android:src="@drawable/icon_edit"
-               android:background="@drawable/fullbutton_background"/>
-       </LinearLayout>
+            <TextView
+                style="@style/textColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Thông tin cá nhân"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/fullbutton_background"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_edit" />
+        </LinearLayout>
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
+
                 <TextView
+                    style="@style/textColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Họ và tên: "
-                    />
+                    android:text="@string/name" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/edtName"
+                    style="@style/textEdit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="end"
-                    android:textColor="@color/main_darker_blue"
-                    android:text="Trinh Thu Phuương"
-                    />
+                    android:text="asdasd"
+                    android:textSize="12dp" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
+
                 <TextView
+                    style="@style/textColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email: "
-                    />
+                    android:text="Email: " />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    />
-                <TextView
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    style="@style/textEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
                     android:layout_gravity="end"
                     android:ellipsize="end"
-                    android:textColor="@color/main_darker_blue"
-                    android:text="phuongtrinhhoaian@gmail.com"
-                    />
+                    android:singleLine="true"
+                    android:textSize="12dp"
+                    android:text="phuongtrinhhoaian@gmail.com" />
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
+
                 <TextView
+                    style="@style/textColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Số điện thoại: "
-                    />
+                    android:text="@string/phone" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <TextView
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/edtPhone"
+                    style="@style/textEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:textColor="@color/main_darker_blue"
                     android:text="094252305455"
-                    />
+                    android:textSize="12dp"/>
             </TableRow>
 
         </TableLayout>
 
     </LinearLayout>
+
     <LinearLayout
+        style="@style/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:padding="10dp"
         android:elevation="10dp"
-        android:background="@drawable/fullbutton_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
+            style="@style/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="Hệ thống"
             android:textSize="17dp"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:padding="10dp">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:padding="10dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/radius_50_bg"
                     android:layout_gravity="center"
+                    android:background="@drawable/radius_50_bg"
+                    android:padding="10dp"
 
                     android:src="@drawable/icon_dark" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chế độ sáng tối"/>
-                    <Switch
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:background="@drawable/radius_50_bg"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="end"
-                    android:src="@drawable/icon_lang" />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end">
+
                     <TextView
+                        style="@style/textColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tiếng việt "/>
-                    <Switch
+                        android:padding="10dp"
+                        android:text="@string/nightmode" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchTheme"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:padding="10dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="end"
                     android:background="@drawable/radius_50_bg"
-                    android:src="@drawable/icon_share" />
+                    android:padding="10dp"
+                    android:src="@drawable/icon_lang" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="10dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="end"
+                    android:background="@drawable/radius_50_bg"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_share" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
                 <Button
+                    style="@style/textColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="Đăng xuất" />
+                    android:text="@string/logout" />
             </TableRow>
 
         </TableLayout>

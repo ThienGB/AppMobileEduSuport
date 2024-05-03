@@ -91,7 +91,7 @@ public class ChangePassword extends AppCompatActivity {
                         if (!TextUtils.equals(newPassword, reNewPassword)) {
                             Toast.makeText(ChangePassword.this, "Mật khẩu mới không khớp. Vui lòng nhập lại", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child("123121").child("password").setValue(edtNewPass.getText().toString());
+                            databaseReference.child(finalId).child("password").setValue(edtNewPass.getText().toString());
                             Toast.makeText(ChangePassword.this, "Đổi mật khẩu thành công.", Toast.LENGTH_SHORT).show();
                         }
                     }

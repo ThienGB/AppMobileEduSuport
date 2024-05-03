@@ -9,7 +9,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background">
 
         <ImageView
             android:layout_width="35dp"
@@ -23,10 +24,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Message"
+            android:text="@string/msg"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:textColor="@color/black_high_emp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="35dp"
@@ -43,5 +45,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/msgRecylerView"/>
+        android:id="@+id/msgRecylerView"
+        style="@style/textColor"/>
 </LinearLayout>

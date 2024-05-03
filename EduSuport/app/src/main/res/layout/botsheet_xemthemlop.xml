@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:text="Các lớp của giáo viên:" />
+            android:text="@string/teacherClasses"
+            android:textColor="@color/black_high_emp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,7 +38,8 @@
                 android:id="@+id/filterLop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:queryHint="Tìm theo tên lớp" />
+                android:queryHint="@string/searchByClassName"
+                android:textColor="@color/black_high_emp"/>
 
         </RelativeLayout>
 
@@ -45,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="10dp"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/more_lophoc"
@@ -55,6 +58,7 @@
                 android:paddingRight="10dp"
                 android:orientation="vertical"
                 android:paddingBottom="10dp"
+                android:textColor="@color/black_high_emp"
                 app:spanCount="3"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 />

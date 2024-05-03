@@ -30,14 +30,16 @@
             android:ellipsize="end"
             android:text="FlashCard Vip"
             android:textSize="14dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/textColor"/>
 
         <TextView
             android:id="@+id/soluongThe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23 cards"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            style="@style/textColor"/>
     </LinearLayout>
 
     <ImageButton

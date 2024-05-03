@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:padding="5dp"
     tools:context=".activity.DangTaiTaiLieu_MonActivity">
 
@@ -13,12 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
             android:paddingTop="10dp"
-            >
+            android:paddingBottom="20dp">
 
             <ImageButton
                 android:id="@+id/back_TaiLieuMain"
@@ -40,12 +40,13 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Môn học: "
-                android:textSize="20dp"
+                android:text="@string/subject"
                 android:textColor="@color/main_blue"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,24 +60,28 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
+                android:textColor="@color/textColor"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-<ImageView
-    android:id="@+id/xemthem_lophoc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/baseline_add_24"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:padding="5dp"
-    android:background="@drawable/fullbutton_background"
-    app:tint="@color/main_blue" />
+
+            <ImageView
+                android:id="@+id/xemthem_lophoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/fullbutton_background"
+                android:padding="5dp"
+                android:src="@drawable/baseline_add_24"
+                app:tint="@color/main_blue" />
 
 
         </LinearLayout>
+
         <TabHost
             android:id="@+id/tabHost_tailieu"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -86,20 +91,24 @@
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/button_background"
                     android:elevation="10dp"
-                    android:background="@drawable/button_background"></TabWidget>
+                    style="@style/textColor">
+                </TabWidget>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:paddingTop="10dp"
-                    android:layout_height="match_parent">
+                    style="@style/itemHomeColor">
 
                     <RelativeLayout
                         android:id="@+id/tab1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -108,8 +117,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
                                 android:gravity="center"
+                                android:orientation="vertical"
                                 >
 
                                 <RelativeLayout
@@ -130,6 +139,7 @@
                                         android:queryHint="Tìm tài liệu" />
 
                                 </RelativeLayout>
+
                                 <LinearLayout
                                     android:id="@+id/sort_listTL"
                                     android:layout_width="wrap_content"
@@ -144,21 +154,23 @@
                                         android:layout_height="40dp"
 
                                         />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Loại file"/>
+                                        android:text="Loại file"
+                                        android:textColor="@color/textColor"/>
                                 </LinearLayout>
                             </LinearLayout>
+
                             <ListView
                                 android:id="@+id/lv_fileTaiLieu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                />
+                                style="@style/backgroundColor"/>
 
                         </LinearLayout>
-
 
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -179,16 +191,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
                                 android:gravity="center"
-                                >
+                                android:orientation="vertical">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -208,6 +221,7 @@
                                         android:queryHint="Tìm tài liệu" />
 
                                 </RelativeLayout>
+
                                 <LinearLayout
                                     android:id="@+id/sort_listFC"
                                     android:layout_width="wrap_content"
@@ -222,24 +236,27 @@
                                         android:layout_height="40dp"
 
                                         />
+
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Loại file"/>
+                                        android:text="Loại file" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <GridView
                                 android:id="@+id/grid_flashcard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
+                                android:clickable="true"
                                 android:horizontalSpacing="10dp"
                                 android:numColumns="2"
                                 android:scrollbars="horizontal"
-                                android:verticalSpacing="10dp"
-                                android:clickable="true"/>
+                                android:verticalSpacing="10dp" />
                         </LinearLayout>
+
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/btn_addFlashCard"
                             android:layout_width="wrap_content"

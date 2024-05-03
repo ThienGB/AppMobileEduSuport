@@ -36,7 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Thêm học sinh mới " />
+                    android:text="@string/addNewClass"
+                    android:textColor="@color/black_high_emp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -61,8 +62,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginBottom="1dp"
-                        android:text="Xin chào !"
+                        android:text="@string/hello"
                         android:textSize="10dp"
+                        android:textColor="@color/black_high_emp"
                         />
 
                     <TextView
@@ -90,21 +92,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Mã số lớp: " />
+                android:text="@string/idClass"
+                style="@style/textColor"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="1103 " />
+                android:text="1103 "
+                style="@style/textColor"/>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Tên lớp: " />
+                android:text="@string/nameClass"
+                style="@style/textColor"/>
 
             <EditText
                 android:id="@+id/add_hocsinh"
@@ -113,25 +118,29 @@
                 android:layout_margin="10dp"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="11A3 " />
+                android:text="11A3 "
+                style="@style/textColor"/>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Số lượng: " />
+                android:text="@string/slots"
+                style="@style/textColor"/>
             <EditText
                 android:id="@+id/add_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="110238/tự động" />
+                android:text="110238/tự động"
+                style="@style/textColor"/>
             <Button
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:text="Xác nhận ">
+                android:text="@string/confirm"
+                style="@style/textColor">
             </Button>
         </LinearLayout>
     </LinearLayout>

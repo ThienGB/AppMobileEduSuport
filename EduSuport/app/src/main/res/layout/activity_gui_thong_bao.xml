@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    style="@style/backgroundColor"
     android:padding="5dp"
     tools:context=".activity.GuiThongBaoActivity">
 
@@ -38,7 +38,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Gửi thông báo" />
+                    android:text="@string/sendNoti"
+                    android:textColor="@color/black_high_emp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +116,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        style="@style/backgroundColor">
 
         <TableRow
             android:layout_width="match_parent"
@@ -125,7 +127,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gửi đến:"
+                android:text="@string/to"
+                style="@style/textColor"
                 />
             <EditText
                 android:layout_width="239dp"
@@ -173,7 +176,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:text="Tệp đính kèm:" />
+                android:text="@string/attach"
+                style="@style/textColor"/>
 
 
         </TableRow>
@@ -190,7 +194,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tiêu đề thông báo:" />
+                android:text="@string/titleOfNoti"
+                style="@style/textColor"/>
 
             <EditText
                 android:layout_width="239dp"
@@ -211,7 +216,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nội dung thông báo: " />
+                android:text="@string/content"
+                style="@style/textColor"/>
 
         </TableRow>
     </TableLayout>
@@ -221,7 +227,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        android:hint="Enter text">
+        android:hint="Enter text"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
@@ -229,6 +236,7 @@
             android:layout_height="match_parent"
             android:inputType="textMultiLine"
             android:lines="10"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            style="@style/textColor"/>
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
