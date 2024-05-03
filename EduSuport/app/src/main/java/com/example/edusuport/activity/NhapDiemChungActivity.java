@@ -231,7 +231,7 @@ public class NhapDiemChungActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-    public void BackLopHoc(){
+    public void Back(){
         Intent intent = new Intent(NhapDiemChungActivity.this, Home.class);
         startActivity(intent);
     }
