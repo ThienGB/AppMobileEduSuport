@@ -6,6 +6,7 @@ public class HocSinh implements Serializable {
     private String MSHS;
     private String Ten;
     private String IDLopHoc;
+    private String Matkhau;
 
     public HocSinh(String MSSV, String ten, String IDLopHoc) {
         this.MSHS = MSSV;
@@ -13,6 +14,11 @@ public class HocSinh implements Serializable {
         this.IDLopHoc = IDLopHoc;
     }
 
+    public HocSinh(String ten, String mssv, String idlophoc, String matkhau) {
+        this.Ten = ten;
+        this.IDLopHoc = idlophoc;
+        this.Matkhau = matkhau;
+    }
     public String getMSHS() {
         return MSHS;
     }
@@ -36,7 +42,13 @@ public class HocSinh implements Serializable {
     public void setIDLopHoc(String IDLopHoc) {
         this.IDLopHoc = IDLopHoc;
     }
+    public String getMatkhau() {
+        return Matkhau;
+    }
 
+    public void setMatkhau(String matkhau) {
+        this.Matkhau = matkhau;
+    }
     public HocSinh() {
     }
 }

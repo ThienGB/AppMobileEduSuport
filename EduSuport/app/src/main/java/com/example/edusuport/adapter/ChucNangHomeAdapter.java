@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.example.edusuport.R;
 import com.example.edusuport.activity.ChinhsuaThoiKhoaBieuActivity;
 import com.example.edusuport.activity.DangTaiTaiLieuActivity;
+import com.example.edusuport.activity.DanhSachHocSinh;
 import com.example.edusuport.activity.DanhSachLopHoc;
 import com.example.edusuport.activity.DuyetDonXinNghiHocActivity;
 import com.example.edusuport.activity.GuiThongBaoActivity;
@@ -25,6 +26,7 @@ import com.example.edusuport.activity.Main_TheLat_GV;
 import com.example.edusuport.activity.Main_ThuGopY_PH;
 import com.example.edusuport.activity.NhanXetChungActivity;
 import com.example.edusuport.activity.NhapDiemChungActivity;
+import com.example.edusuport.activity.ThemLopHocActivity;
 import com.example.edusuport.activity.ThuGopYPhActivity;
 import com.example.edusuport.activity.XemDiemActivity;
 import com.example.edusuport.activity.XemNhanXetActivity;
@@ -186,7 +188,7 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         break;
                     }
                     case "DSHSGV":{
-                        Intent intent=new Intent(context, DanhSachLopHoc.class);
+                        Intent intent=new Intent(context, DanhSachHocSinh.class);
                         context.startActivity(intent);
                         break;
                     }
@@ -198,6 +200,10 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                     case "XLGV":{
                         Intent intent=new Intent(context, XemNhanXetActivity.class);
                         intent.putExtra("role", "hocsinh");
+                        context.startActivity(intent);
+                        break;
+                    }case "TLHGV":{
+                        Intent intent=new Intent(context, ThemLopHocActivity.class);
                         context.startActivity(intent);
                         break;
                     }

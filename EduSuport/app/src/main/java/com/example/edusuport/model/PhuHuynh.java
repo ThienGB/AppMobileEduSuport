@@ -7,6 +7,7 @@ public class PhuHuynh implements Serializable {
     private String Ten;
     private String IDLopHoc;
     private String MSHS;
+    private String Matkhau;
 
     public String getMSPH() {
         return MSPH;
@@ -39,8 +40,21 @@ public class PhuHuynh implements Serializable {
     public void setMSHS(String MSHS) {
         this.MSHS = MSHS;
     }
+    public String getMatkhau() {
+        return Matkhau;
+    }
+
+    public void setMatkhau(String matkhau) {
+        this.Matkhau = matkhau;
+    }
 
     public PhuHuynh() {
+    }
+    public PhuHuynh(String MSPH,String mssv, String ten, String idlophoc, String matkhau) {
+        this.MSHS= mssv;
+        this.Ten = ten;
+        this.IDLopHoc = idlophoc;
+        this.Matkhau = matkhau;
     }
 
     public PhuHuynh(String MSPH, String ten, String IDLopHoc, String MSHS) {

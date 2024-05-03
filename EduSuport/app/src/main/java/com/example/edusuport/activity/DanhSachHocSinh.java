@@ -101,6 +101,13 @@ public class DanhSachHocSinh extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
     public void AddEvents(){
+        binding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DanhSachHocSinh.this, ThemHocSinhActivity.class);
+                startActivity(intent);
+            }
+        });
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -271,6 +278,8 @@ public class DanhSachHocSinh extends AppCompatActivity {
         GetDSHocSinh(lopHoc.getIdLopHoc());
     }
     public void Back(){
-        super.onBackPressed();
+        Intent intent = new Intent(DanhSachHocSinh.this, QuanLyLopHocActivity.class);
+        intent.putExtra("lopHoc", lopHoc);
+        startActivity(intent);
     }
 }
