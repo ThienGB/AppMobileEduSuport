@@ -1,5 +1,6 @@
 package com.example.edusuport.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +54,7 @@ import java.util.Map;
 public class DanhSachHocSinh extends AppCompatActivity {
     DBHelper dbHelper;
     ActivityDanhSachHocSinhBinding binding;
+    private long SoLuong = 0;
     ArrayAdapter<HocSinhAdapter> adapter;
     ArrayList<HocSinh> listHS = new ArrayList<>();
     public  static GiaoVien giaoVien = Home.giaoVien;
@@ -174,15 +176,15 @@ public class DanhSachHocSinh extends AppCompatActivity {
                 txtTenHS.setText(HS.getTen());
 
                 EditText txtMaHS=(EditText) alertView.findViewById(R.id.sua_txtMaHS);
-                txtMaHS.setText(HS.getMSHS());
+                txtMaHS.setText(HS.getIDLopHoc());
                 txtTenHS.setTextColor(ContextCompat.getColor(DanhSachHocSinh.this, R.color.black_low_emp));
                 txtMaHS.setTextColor(ContextCompat.getColor(DanhSachHocSinh.this, R.color.black_low_emp));
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogmini, int which) {
                         String tenNew= txtTenHS.getText().toString();
-                        String mshsNew= txtMaHS.getText().toString();
-                        HocSinh hs = new HocSinh(HS.getMSHS(), tenNew, mshsNew);
+                        String idLopNew= txtMaHS.getText().toString();
+                        HocSinh hs = new HocSinh(HS.getMSHS(), tenNew, idLopNew);
                         editHS(hs);
                         dialog.dismiss();
 
@@ -228,16 +230,6 @@ public class DanhSachHocSinh extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-//    public void editHS(HocSinh HS){
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
-//        Map<String, Object> updates = new HashMap<>();
-//        updates.put(dbHelper.FieldTenHS, HS.getTen());
-//        updates.put(dbHelper.FieldIDLopHoc, HS.getIDLopHoc());
-//        myRef.child(HS.getMSHS()).updateChildren(updates);
-//        Toast.makeText(this, "Chỉnh sửa học sinh thành công", Toast.LENGTH_SHORT).show();
-//        GetDSHocSinh(lopHoc.getIdLopHoc());
-//    }
     private void updateHocSinh(HocSinh HS) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
@@ -249,11 +241,10 @@ public class DanhSachHocSinh extends AppCompatActivity {
         GetDSHocSinh(lopHoc.getIdLopHoc());
     }
     public void editHS(HocSinh HS){
-        // Khởi tạo Firebase database reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference lopHocRef = database.getReference(dbHelper.ColecLopHoc);
+        DatabaseReference lopHocRef = database.getReference(dbHelper.ColecLopHoc).child(HS.getIDLopHoc());
 
-        lopHocRef.child(HS.getIDLopHoc()).addListenerForSingleValueEvent(new ValueEventListener() {
+        lopHocRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -270,16 +261,46 @@ public class DanhSachHocSinh extends AppCompatActivity {
         });
     }
     public void deleteHS(String mshs){
+        GetSoLuong();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         String path = dbHelper.ColecHocSinh+"/"+mshs;
         DatabaseReference nodeReference = databaseReference.child(path);
         nodeReference.removeValue();
+        path = dbHelper.ColecHocSinh+"/"+mshs+"PH";
+        nodeReference = databaseReference.child(path);
+        nodeReference.removeValue();
         Toast.makeText(this, "Xóa học sinh thành công", Toast.LENGTH_SHORT).show();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference lophocRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
+        SoLuong--;
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(dbHelper.FieldSoLuong, SoLuong);
+        lophocRef.updateChildren(updates);
         GetDSHocSinh(lopHoc.getIdLopHoc());
     }
     public void Back(){
         Intent intent = new Intent(DanhSachHocSinh.this, QuanLyLopHocActivity.class);
         intent.putExtra("lopHoc", lopHoc);
         startActivity(intent);
+    }
+    public void GetSoLuong(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    DataSnapshot fieldSoLuongSnapshot = dataSnapshot.child(dbHelper.FieldSoLuong);
+                    if (fieldSoLuongSnapshot.exists()) {
+                        SoLuong = fieldSoLuongSnapshot.getValue(Long.class);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
     }
 }

@@ -12,13 +12,14 @@
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@drawable/background_subject_excellent_score"
+        android:background="@drawable/flashcard_background"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avaGV"
             android:layout_centerInParent= "true"
-            android:layout_width= "40dp"
-            android:layout_height= "40dp"
+            android:layout_width= "50dp"
+            android:layout_height= "50dp"
+            android:padding="10dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:src="@drawable/ava" />
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Hoàng Công Thiện"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,8 +45,9 @@
                     android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mã giáo viên: 123"
-                    android:textStyle="italic"/>
+                    android:text="Mã hoc sinh : 123"
+                    android:textSize="10dp"
+                    />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

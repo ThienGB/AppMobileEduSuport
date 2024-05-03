@@ -32,19 +32,21 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="0dp"
+                    android:layout_marginEnd="1dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
+                    android:background="@drawable/background_subject_radius_click"
                     android:src="@drawable/calendar" />
                 <ImageButton
                     android:id="@+id/btnCancelFillerThu"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="0dp"
+                    android:layout_marginEnd="1dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/cancel" />
+                    android:background="@drawable/background_subject_radius_click"
+                    android:src="@drawable/icon_x" />
             </LinearLayout>
         </LinearLayout>
         <ListView android:id="@+id/lstThuGopY"
