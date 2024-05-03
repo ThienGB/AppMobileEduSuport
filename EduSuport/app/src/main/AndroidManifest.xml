@@ -13,24 +13,38 @@
         android:theme="@style/Base.Theme.EduSuport"
         tools:targetApi="31">
         <activity
+            android:name=".activity.QuanLyLopHocActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.XemNhanXetActivity"
             android:exported="false" />
         <activity
             android:name=".activity.XemThongBaoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.HomeHsActivity"
+            android:name=".activity.Messages_PH"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".activity.Messages_HS"
             android:exported="true">
 
         </activity>
         <activity
-            android:name=".activity.HomePhActivity"
-            android:exported="true"></activity>
-        <activity
             android:name=".activity.ThuGopYPhActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.HomeHsActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".activity.HomePhActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.ThemHocSinhActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Chat"
             android:exported="true" />
         <activity
             android:name=".activity.ThemLopHocActivity"
@@ -70,7 +84,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.Login"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

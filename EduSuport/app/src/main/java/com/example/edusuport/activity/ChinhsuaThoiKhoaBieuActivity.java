@@ -380,7 +380,6 @@ public class ChinhsuaThoiKhoaBieuActivity extends AppCompatActivity {
                 listtkb = new ArrayList<>();
                 GetThoiKhoaBieu(IDLopHoc, "thu2");
                 currentThu = "thu2";
-
             }
 
             @Override

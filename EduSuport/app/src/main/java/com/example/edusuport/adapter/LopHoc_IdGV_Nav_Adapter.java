@@ -87,8 +87,6 @@ public class LopHoc_IdGV_Nav_Adapter  extends RecyclerView.Adapter<LopHoc_IdGV_N
 
 
     }
-
-
     @Override
     public int getItemCount() {
         return List.size();

@@ -35,6 +35,7 @@ import com.example.edusuport.R;
 import com.example.edusuport.controllers.DangKiGV_AuController;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.model.Account;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.PhuHuynh;
 import com.example.edusuport.model.ThongBao;
@@ -162,7 +163,6 @@ public class Login extends AppCompatActivity {
                         dangKiGVAuController.checkLogin_GV(tk.getText().toString(), mk.getText().toString(), Login.this, new DangKiGV_AuController.UploadCallback() {
                             @Override
                             public void onUploadComplete() {
-                                Toast.makeText(Login.this, "GV", Toast.LENGTH_SHORT).show();
                                 SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
                                 SharedPreferences.Editor editor= sharedPreferences.edit();
                                 editor.putString("name","true");
@@ -229,12 +229,11 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference();
-
-
-                                 Intent intent = new Intent(Login.this, Home.class);
+                                FirebaseUser current= firebaseAuth.getCurrentUser();
+                                dangKiGVAuController.getGVbyID(current.getUid(), Login.this);
+                                Intent intent = new Intent(Login.this, Home.class);
                                 startActivityForResult(intent,1);
 
-                                FirebaseUser current= firebaseAuth.getCurrentUser();
                                 myRef.child("giaovien").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid())
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -243,10 +242,8 @@ public class Login extends AppCompatActivity {
                                                     Account gv=new Account(current.getDisplayName(),current.getPhotoUrl().toString(),current.getPhoneNumber(),"giaovien",null,null,"valid");
                                                     myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).setValue(gv);
                                                     Toast.makeText(Login.this,current.getUid().toString(),Toast.LENGTH_SHORT).show();
-
                                                 }
                                             }
-
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                                 Toast.makeText(Login.this,"má",Toast.LENGTH_SHORT).show();

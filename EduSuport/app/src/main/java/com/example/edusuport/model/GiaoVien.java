@@ -3,6 +3,13 @@ package com.example.edusuport.model;
 public class GiaoVien {
     private String IDGiaoVien;
     private String TenGiaoVien;
+    private String url;
+
+    public GiaoVien(String IDGiaoVien, String tenGiaoVien, String url) {
+        this.IDGiaoVien = IDGiaoVien;
+        TenGiaoVien = tenGiaoVien;
+        this.url = url;
+    }
 
     public String getIDGiaoVien() {
         return IDGiaoVien;

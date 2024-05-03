@@ -16,19 +16,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.ChucNangHomeAdapter;
+import com.example.edusuport.adapter.LopHocAdapter;
+import com.example.edusuport.adapter.ViewHolderClick;
+import com.example.edusuport.adapter.ViewHolderClickLH;
+import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.LopHoc;
 
 import java.util.ArrayList;
 
 public class Home extends AppCompatActivity {
-    public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
+    //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
+    public static GiaoVien giaoVien;
     GridView gvChucNang;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
+    ArrayList<LopHoc> ListLH=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
+    LopHocController lopHocController=new LopHocController();
+    LopHocAdapter adapter;
+    RecyclerView rcvLopHoc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +55,7 @@ public class Home extends AppCompatActivity {
         txvTenGV.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
         getForm();
         getData();
+        GetLopHoc();
         AddEvents();
     }
     private void getData() {
@@ -91,8 +104,38 @@ public class Home extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         });
+        rcvLopHoc.addOnItemTouchListener(new ViewHolderClickLH(Home.this, rcvLopHoc, new ViewHolderClickLH.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String id) {
+                LopHoc lopHoc = ListLH.get(position);
+                Intent intent=new Intent(Home.this, QuanLyLopHocActivity.class);
+                intent.putExtra("lopHoc", lopHoc);
+                startActivity(intent);
+            }
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
     }
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
+        rcvLopHoc = findViewById(R.id.rcvLopHoc);
     }
+    private void SetDataLopHoc(ArrayList<LopHoc> arrList){
+        adapter = new LopHocAdapter(arrList);
+        rcvLopHoc.setLayoutManager(new LinearLayoutManager(Home.this, LinearLayoutManager.HORIZONTAL, false));
+        rcvLopHoc.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+    private void GetLopHoc(){
+        lopHocController.getListLopHoc_idGV(giaoVien.getIDGiaoVien(), new LopHocController.DataRetrievedCallback_LopHoc() {
+            @Override
+            public void onDataRetrieved(ArrayList<LopHoc> lopHocList) {
+                ListLH=lopHocList;
+                SetDataLopHoc(ListLH);
+            }
+        });
+    }
+
 }
