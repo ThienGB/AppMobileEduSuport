@@ -8,7 +8,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="5dp"
-        tools:context=".activity.DangTaiTaiLieuActivity">
+        tools:context=".activity.DonXinPhepNghiHocActivity">
 
 
         <LinearLayout

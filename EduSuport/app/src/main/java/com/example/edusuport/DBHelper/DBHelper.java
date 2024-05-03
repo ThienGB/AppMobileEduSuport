@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DBHelper {
     private DatabaseReference databaseRef;
     public final String ColecThoiKhoaBieu = "thoikhoabieu";
+    public final String ColecLopHoc = "lophoc";
     public final String ColecDiem = "diem";
     public final String ColecHocSinh = "hocsinh";
     public final String ColecThongBao = "thongbao";

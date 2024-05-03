@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.example.edusuport.R;
 import com.example.edusuport.activity.ChinhsuaThoiKhoaBieuActivity;
 import com.example.edusuport.activity.DangTaiTaiLieuActivity;
+import com.example.edusuport.activity.DanhSachLopHoc;
 import com.example.edusuport.activity.DuyetDonXinNghiHocActivity;
 import com.example.edusuport.activity.GuiThongBaoActivity;
 import com.example.edusuport.activity.Home;
@@ -58,30 +59,37 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
         txtTen.setText(list.get(position).getTenChucNang());
         String id = list.get(position).getIdChucNang();
         switch (id){
+            case "XTKBHS":
             case "TKBGV":{
                 imgHinh.setImageResource(R.drawable.ic_calendar);
                 break;
             }
+            case "XTBHS":
             case "TBGV":{
                 imgHinh.setImageResource(R.drawable.icon_thongbao);
                 break;
             }
+            case "GYPH":
             case "GYGV":{
                 imgHinh.setImageResource(R.drawable.icon_feedback);break;
-            } case "DXNGV":{
+            }
+            case "DXNGV":
+            case "DXPPH": {
                 imgHinh.setImageResource(R.drawable.icon_license);break;
             }
+            case "XTLHS":
             case "TLHTGV":{
                 imgHinh.setImageResource(R.drawable.icon_document);break;
             }
+            case "XDHS":
             case "NDGV":{
                 imgHinh.setImageResource(R.drawable.icon_score);break;
             }
+            case "XNHHS":
+            case "XNHPH":
             case "DGHSGV":{
                 imgHinh.setImageResource(R.drawable.icon_dghs);break;
             }
-
-
         }
 
 
@@ -177,8 +185,22 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         context.startActivity(intent);
                         break;
                     }
-
-
+                    case "DSHSGV":{
+                        Intent intent=new Intent(context, DanhSachLopHoc.class);
+                        context.startActivity(intent);
+                        break;
+                    }
+                    case "DTLGV":{
+                        Intent intent=new Intent(context, XemNhanXetActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    }
+                    case "XLGV":{
+                        Intent intent=new Intent(context, XemNhanXetActivity.class);
+                        intent.putExtra("role", "hocsinh");
+                        context.startActivity(intent);
+                        break;
+                    }
                 }
             }
         });
