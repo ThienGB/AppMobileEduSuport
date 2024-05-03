@@ -1,5 +1,6 @@
 package com.example.edusuport.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,6 +54,9 @@ import java.util.Map;
 public class DanhSachHocSinh extends AppCompatActivity {
     DBHelper dbHelper;
     ActivityDanhSachHocSinhBinding binding;
+    LopHoc_IdGV_Nav_Adapter lopHocIdGVNavAdapter;
+    String idShare="";
+    private long SoLuong = 0;
     ArrayAdapter<HocSinhAdapter> adapter;
     ArrayList<HocSinh> listHS = new ArrayList<>();
     public  static GiaoVien giaoVien = Home.giaoVien;
@@ -156,6 +160,7 @@ public class DanhSachHocSinh extends AppCompatActivity {
 
         TableRow sua=dialog.findViewById(R.id.bot_chinhsuaGFC);
         TableRow xoa=dialog.findViewById(R.id.bot_xoaGFC);
+        TableRow chuyenlop=dialog.findViewById(R.id.bot_shareGFC);
         TextView ten=dialog.findViewById(R.id.txvTenHSBT);
         TextView mahs = dialog.findViewById(R.id.txvMaHSBT);
         ten.setText(HS.getTen());
@@ -165,7 +170,7 @@ public class DanhSachHocSinh extends AppCompatActivity {
             public void onClick(View v) {
                 android.app.AlertDialog.Builder builder = new AlertDialog.Builder(DanhSachHocSinh.this);
                 LayoutInflater layoutInflater = LayoutInflater.from(DanhSachHocSinh.this);
-                builder.setTitle("Chỉnh sửa học sinh");
+                builder.setTitle("Chỉnh sửa tên học sinh");
 
                 final View alertView = layoutInflater.inflate(R.layout.layout_sua_hoc_sinh, null);
                 builder.setView(alertView);
@@ -173,17 +178,15 @@ public class DanhSachHocSinh extends AppCompatActivity {
                 EditText txtTenHS=(EditText) alertView.findViewById(R.id.sua_txtTenHS);
                 txtTenHS.setText(HS.getTen());
 
-                EditText txtMaHS=(EditText) alertView.findViewById(R.id.sua_txtMaHS);
-                txtMaHS.setText(HS.getMSHS());
+
                 txtTenHS.setTextColor(ContextCompat.getColor(DanhSachHocSinh.this, R.color.black_low_emp));
-                txtMaHS.setTextColor(ContextCompat.getColor(DanhSachHocSinh.this, R.color.black_low_emp));
+
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogmini, int which) {
                         String tenNew= txtTenHS.getText().toString();
-                        String mshsNew= txtMaHS.getText().toString();
-                        HocSinh hs = new HocSinh(HS.getMSHS(), tenNew, mshsNew);
-                        editHS(hs);
+
+                        editHS(HS.getMSHS(),tenNew);
                         dialog.dismiss();
 
                     }
@@ -222,22 +225,121 @@ public class DanhSachHocSinh extends AppCompatActivity {
             }
 
         });
+        chuyenlop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                showBottomSheetShareLop(HS);
+            }
+
+        });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-//    public void editHS(HocSinh HS){
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
-//        Map<String, Object> updates = new HashMap<>();
-//        updates.put(dbHelper.FieldTenHS, HS.getTen());
-//        updates.put(dbHelper.FieldIDLopHoc, HS.getIDLopHoc());
-//        myRef.child(HS.getMSHS()).updateChildren(updates);
-//        Toast.makeText(this, "Chỉnh sửa học sinh thành công", Toast.LENGTH_SHORT).show();
-//        GetDSHocSinh(lopHoc.getIdLopHoc());
-//    }
+    public void showBottomSheetShareLop(HocSinh hs){
+        final Dialog dialog=new Dialog(DanhSachHocSinh.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.botsheet_xemthemlop);
+
+
+        SearchView filterlop=dialog.findViewById(R.id.filterLop);
+        RecyclerView morelophoc=dialog.findViewById(R.id.more_lophoc);
+
+        // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
+
+
+        lopHocController.getListLopHoc_idGV(giaoVien.getIDGiaoVien(), new LopHocController.DataRetrievedCallback_LopHoc() {
+            @Override
+            public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
+
+                listLop=monHocList;
+                lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop );
+                morelophoc.setAdapter(lopHocIdGVNavAdapter);
+                Log.d("lít lóppspsp",morelophoc.toString());
+
+            }
+        });
+
+
+        filterlop.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<LopHoc> temp=new ArrayList<LopHoc>();
+                for(LopHoc lh: listLop){
+                    if(lh.getTenLopHoc().toLowerCase().contains(newText.toLowerCase())){
+                        temp.add(lh);
+
+                    }
+                }
+                LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(temp);
+                morelophoc.setAdapter(lh);
+                //morelophoc.setLayoutManager(new LinearLayoutManager(DangTaiTaiLieu_MonActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                lh.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        //lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
+        morelophoc.addOnItemTouchListener(new ViewHolderClick(DanhSachHocSinh.this, morelophoc, new ViewHolderClick.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position,String  id) {
+                idShare= id;
+                AlertDialog.Builder builder = new AlertDialog.Builder(DanhSachHocSinh.this);
+                builder.setTitle("Xác nhận chia sẻ");
+                builder.setMessage("Bạn có chắc chuyển hs này tới "+listLop.get(position).getTenLopHoc());
+
+                // Nút xác nhận
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogmini, int which) {
+                        // Gọi hàm deleteTL() để xóa tài liệu
+                        if(!hs.getIDLopHoc().equals(idShare)){
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference();
+                            myRef.child("hocsinh").child(hs.getMSHS()).child("idlophoc").setValue(idShare);
+                        }
+                        else {
+                            Toast.makeText(DanhSachHocSinh.this, "Lớp bị trùng lăpj, chọn lớp khác", Toast.LENGTH_SHORT).show();
+                        }
+                        dialogmini.dismiss();
+                        dialog.dismiss();
+                    }
+                });
+
+                // Nút hủy
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng hộp thoại xác nhận
+                    }
+                });
+
+                // Hiển thị hộp thoại xác nhận
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
     private void updateHocSinh(HocSinh HS) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
@@ -248,38 +350,52 @@ public class DanhSachHocSinh extends AppCompatActivity {
         Toast.makeText(this, "Chỉnh sửa học sinh thành công", Toast.LENGTH_SHORT).show();
         GetDSHocSinh(lopHoc.getIdLopHoc());
     }
-    public void editHS(HocSinh HS){
-        // Khởi tạo Firebase database reference
+    public void editHS(String mshs,String tennew){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference lopHocRef = database.getReference(dbHelper.ColecLopHoc);
-
-        lopHocRef.child(HS.getIDLopHoc()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    updateHocSinh(HS);
-                } else {
-                    Toast.makeText(DanhSachHocSinh.this, "idLopHoc không tồn tại", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Xử lý khi truy vấn bị hủy
-            }
-        });
+        DatabaseReference myRef = database.getReference();
+        myRef.child("hocsinh").child(mshs).child("ten").setValue(tennew);
     }
     public void deleteHS(String mshs){
+        GetSoLuong();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         String path = dbHelper.ColecHocSinh+"/"+mshs;
         DatabaseReference nodeReference = databaseReference.child(path);
         nodeReference.removeValue();
+        path = dbHelper.ColecHocSinh+"/"+mshs+"PH";
+        nodeReference = databaseReference.child(path);
+        nodeReference.removeValue();
         Toast.makeText(this, "Xóa học sinh thành công", Toast.LENGTH_SHORT).show();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference lophocRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
+        SoLuong--;
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(dbHelper.FieldSoLuong, SoLuong);
+        lophocRef.updateChildren(updates);
         GetDSHocSinh(lopHoc.getIdLopHoc());
     }
     public void Back(){
         Intent intent = new Intent(DanhSachHocSinh.this, QuanLyLopHocActivity.class);
         intent.putExtra("lopHoc", lopHoc);
         startActivity(intent);
+    }
+    public void GetSoLuong(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    DataSnapshot fieldSoLuongSnapshot = dataSnapshot.child(dbHelper.FieldSoLuong);
+                    if (fieldSoLuongSnapshot.exists()) {
+                        SoLuong = fieldSoLuongSnapshot.getValue(Long.class);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
     }
 }

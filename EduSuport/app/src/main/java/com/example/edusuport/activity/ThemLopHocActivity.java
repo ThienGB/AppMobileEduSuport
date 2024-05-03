@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
@@ -22,6 +23,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class ThemLopHocActivity extends AppCompatActivity {
 
@@ -56,15 +61,13 @@ public class ThemLopHocActivity extends AppCompatActivity {
                     Toast.makeText(ThemLopHocActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    // Tạo một đối tượng LopHoc mới
-                    LopHoc lopHoc = new LopHoc();
-
-                    // Tạo mã lớp mới bằng cách sử dụng push().key()
-                    String maLop = databaseReference.push().getKey();
-                    lopHoc.setIdLopHoc(maLop);
-                    lopHoc.setIdGiaoVien(giaoVien.getIDGiaoVien());
-                    lopHoc.setTenLopHoc(tenLop);
-                    lopHoc.setSoLuong(0);
+                    DBHelper dbHelper = new DBHelper();
+                    String maLop = UUID.randomUUID().toString();
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put(dbHelper.FieldIDLopHoc, maLop);
+                    updates.put(dbHelper.FieldIDGiaoVien, giaoVien.getIDGiaoVien());
+                    updates.put(dbHelper.FieldTenLop, tenLop);
+                    updates.put(dbHelper.FieldSoLuong, 0);
                     databaseReference.orderByChild("tenLopHoc").equalTo(tenLop).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,7 +82,7 @@ public class ThemLopHocActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // Thêm lớp học vào Firebase Database
-                                                databaseReference.child(maLop).setValue(lopHoc, new DatabaseReference.CompletionListener() {
+                                                databaseReference.child(maLop).setValue(updates, new DatabaseReference.CompletionListener() {
                                                     @Override
                                                     public void onComplete(@NonNull DatabaseError error, @NonNull DatabaseReference ref) {
                                                         if (error != null) {

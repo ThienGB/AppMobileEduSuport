@@ -25,6 +25,7 @@ public class DBHelper {
     public final String FieldMSHS="mshs";
     public final String FieldMatKhau="matKhau";
     public final String FieldUrlAvt="urlAva";
+    public final String FieldSoLuong="soLuong";
     public final String FieldMSPH="msph";
     public final String FieldDanhGia="danhgia";
     public final String FieldHocKy = "hocky";
@@ -53,6 +54,7 @@ public class DBHelper {
     public final String FieldNoiDung = "noidung";
     public final String FieldTieuDe = "tieude";
     public final String FieldIDLopHoc = "idlophoc";
+    public final String FieldTenLop = "tenlop";
     public final String FieldTenMon = "tenmon";
     public final String FieldIDMon = "idmon";
     public final String FieldTiet = "tiet";
