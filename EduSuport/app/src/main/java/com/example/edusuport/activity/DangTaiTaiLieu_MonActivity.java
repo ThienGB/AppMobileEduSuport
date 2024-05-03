@@ -125,7 +125,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position,String id) {
                 idLop=listLop.get(position).getIdLopHoc();
-               // lopHocIdGVNavAdapter.setItemFocus(position, true);
+                // lopHocIdGVNavAdapter.setItemFocus(position, true);
                 reLoadListf();
                 reLoadListGFC();
 
@@ -156,7 +156,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
         SearchView filterlop=dialog.findViewById(R.id.filterLop);
         RecyclerView morelophoc=dialog.findViewById(R.id.more_lophoc);
 
-       // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
+        // LopHoc_IdGV_Nav_Adapter lh =new LopHoc_IdGV_Nav_Adapter(listLop);
         LopHoc_IdGV_Nav_Adapter lh;
         lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
         morelophoc.setAdapter(lopHocIdGVNavAdapter);
@@ -210,7 +210,7 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
 
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
-       // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
 
 
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapterHS nhomTheAdapterHS;
-    String idMon,idGV=DangTaiTaiLieuActivity.idGV, tenFile;
+    String idMon, tenFile;
     private static HocSinh hocSinh = HomeHsActivity.hocSinh;
     String idLop=hocSinh.getIDLopHoc();
     Intent data=null;
@@ -187,6 +188,7 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
             @Override
             public void onDataRetrieved(ArrayList<NhomThe> nhomtheList) {
                 listGFC=nhomtheList;
+                Log.d("heeee",idLop);
                 nhomTheAdapterHS = new NhomTheAdapterHS(XemTaiLieu_MonHSActivity.this,R.layout.item_tab_flashcard, listGFC );
                 gdCard.setAdapter(nhomTheAdapterHS);
             }

@@ -80,34 +80,16 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 MonHoc monHoc =(MonHoc)  monHocAdapter.getItem(position);
                 Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
-               // intent.putExtra("idGV","1");
+                // intent.putExtra("idGV","1");
                 //LopHocController lopHocController=new LopHocController();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
-        logout=findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
+
     }
 
-    private void logout(){
 
-        SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedPreferences.edit();
-        editor.putString("name","");
-        editor.apply();
-        Log.d("??????",sharedPreferences.getString("name",""));
-        DangKiGV_AuController dangKiGVAuController= new DangKiGV_AuController();
-        dangKiGVAuController.logout_GV();
-        Intent intent=new Intent(this, Login.class);
-        startActivity(intent);
-        finish();
-    }
     public void Back(){
         super.onBackPressed();
     }

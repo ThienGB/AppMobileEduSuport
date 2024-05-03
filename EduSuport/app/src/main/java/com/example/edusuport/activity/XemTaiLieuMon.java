@@ -27,10 +27,9 @@ import java.util.ArrayList;
 public class XemTaiLieuMon extends AppCompatActivity {
     GridView gvmon;
     MonHocAdapter monHocAdapter;
-    TextView logout;
+
     private static HocSinh hocSinh = HomeHsActivity.hocSinh;
 
-    public static final String SHARED_PREFS="sharePrefs";
 
     DangTaiTaiLieuController dangTaiTaiLieuController =new DangTaiTaiLieuController();
     @Override
@@ -81,28 +80,10 @@ public class XemTaiLieuMon extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        logout=findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
+
     }
 
-    private void logout(){
 
-        SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedPreferences.edit();
-        editor.putString("name","");
-        editor.apply();
-        Log.d("??????",sharedPreferences.getString("name",""));
-        DangKiGV_AuController dangKiGVAuController= new DangKiGV_AuController();
-        dangKiGVAuController.logout_GV();
-        Intent intent=new Intent(this, Login.class);
-        startActivity(intent);
-        finish();
-    }
     public void Back(){
         super.onBackPressed();
     }

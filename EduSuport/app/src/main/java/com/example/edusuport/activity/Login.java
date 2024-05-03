@@ -231,8 +231,6 @@ public class Login extends AppCompatActivity {
                                 DatabaseReference myRef = database.getReference();
                                 FirebaseUser current= firebaseAuth.getCurrentUser();
                                 dangKiGVAuController.getGVbyID(current.getUid(), Login.this);
-                                Intent intent = new Intent(Login.this, Home.class);
-                                startActivityForResult(intent,1);
 
                                 myRef.child("giaovien").orderByKey().equalTo(firebaseAuth.getCurrentUser().getUid())
                                         .addListenerForSingleValueEvent(new ValueEventListener() {

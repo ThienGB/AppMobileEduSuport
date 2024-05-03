@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.UUID;
 
 public class EditInformationActivity extends AppCompatActivity {
@@ -42,7 +48,7 @@ public class EditInformationActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
 
-
+    public static final String[] languages = {"Select Language", "Tiếng Việt", "English"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,33 @@ binding = ActivityEditInformationBinding.inflate(getLayoutInflater());
         binding.edtEmail.setEnabled(false);
         binding.edtPhone.setEnabled(false);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        binding.spinnerLanguage.setAdapter(adapter);
+
+
+        binding.spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedLanguage = languages[position];
+
+                if (selectedLanguage.equals("Tiếng Việt")) {
+                    setLocal(EditInformationActivity.this, "vi");
+                    finish();
+                    startActivity(getIntent());
+                } else if (selectedLanguage.equals("English")) {
+                    setLocal(EditInformationActivity.this, "en");
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Xử lý khi không có giá trị nào được chọn
+            }
+        });
 
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,5 +187,13 @@ binding = ActivityEditInformationBinding.inflate(getLayoutInflater());
     private void updateProfilePicture(String url,String tennew ) {
         FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/urlAva").setValue(url);
         FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(tennew);
+    }
+    public void setLocal(Activity activity, String langCode) {
+        Locale locale = new Locale(langCode);
+        locale.setDefault(locale);
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
 }

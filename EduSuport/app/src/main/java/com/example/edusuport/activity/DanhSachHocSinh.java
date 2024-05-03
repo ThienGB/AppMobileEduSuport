@@ -197,6 +197,7 @@ public class DanhSachHocSinh extends AppCompatActivity {
         xoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                GetSoLuong();
                 AlertDialog.Builder builder = new AlertDialog.Builder(DanhSachHocSinh.this);
                 builder.setTitle("Xác nhận xóa");
                 builder.setMessage("Bạn có chắc chắn muốn xóa không?");
@@ -261,7 +262,7 @@ public class DanhSachHocSinh extends AppCompatActivity {
         });
     }
     public void deleteHS(String mshs){
-        GetSoLuong();
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         String path = dbHelper.ColecHocSinh+"/"+mshs;
         DatabaseReference nodeReference = databaseReference.child(path);
@@ -270,7 +271,6 @@ public class DanhSachHocSinh extends AppCompatActivity {
         nodeReference = databaseReference.child(path);
         nodeReference.removeValue();
         Toast.makeText(this, "Xóa học sinh thành công", Toast.LENGTH_SHORT).show();
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference lophocRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
         SoLuong--;
@@ -290,12 +290,14 @@ public class DanhSachHocSinh extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                long sl = 0;
                 if (dataSnapshot.exists()) {
                     DataSnapshot fieldSoLuongSnapshot = dataSnapshot.child(dbHelper.FieldSoLuong);
                     if (fieldSoLuongSnapshot.exists()) {
-                        SoLuong = fieldSoLuongSnapshot.getValue(Long.class);
+                        sl = fieldSoLuongSnapshot.getValue(Long.class);
                     }
                 }
+                SoLuong = sl;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

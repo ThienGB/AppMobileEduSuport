@@ -46,7 +46,7 @@ public class FlashCardAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        if(position==getCount()-1){
+        if(position==getCount()){
             View endLayout = layoutInflater.inflate(R.layout.congrat_finish_fc, container, false);
             LinearLayout reload =(LinearLayout) endLayout.findViewById(R.id.btn_congrat_reload);
             LinearLayout out=(LinearLayout) endLayout.findViewById(R.id.btn_congrat_out);
@@ -54,7 +54,7 @@ public class FlashCardAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     // Đặt lại vị trí của ViewPager về 0
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(0);
                 }
             });
             out.setOnClickListener(new View.OnClickListener() {
