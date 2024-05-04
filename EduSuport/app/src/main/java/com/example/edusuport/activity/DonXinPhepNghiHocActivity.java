@@ -110,7 +110,6 @@ public class DonXinPhepNghiHocActivity extends AppCompatActivity {
                 });
     }
     public void Back(){
-        Intent intent = new Intent(DonXinPhepNghiHocActivity.this, DuyetDonXinNghiHocActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
     }
 }

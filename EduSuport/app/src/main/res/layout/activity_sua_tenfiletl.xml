@@ -6,13 +6,14 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    >
+    style="@style/backgroundColor">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Tiêu đề tài liệu: " />
+        android:text="@string/titleOfDocument"
+        style="@style/textColor"/>
 
     <EditText
         android:id="@+id/sua_txtTenFile"
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:imeOptions="actionDone"
-        android:inputType="text" />
+        android:inputType="text"
+        style="@style/textColor"/>
 
 
 

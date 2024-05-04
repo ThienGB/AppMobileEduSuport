@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.R;
 import com.example.edusuport.databinding.ActivityXemThoiKhoaBieuBinding;
+import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.MonHoc;
 import com.example.edusuport.model.ThoiKhoaBieu;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +30,8 @@ public class XemThoiKhoaBieuActivity extends AppCompatActivity {
     ActivityXemThoiKhoaBieuBinding binding;
     DBHelper dbHelper;
     String currentThu;
-    String IDLopHoc = "12B3";
+    String IDLopHoc = "";
+    private HocSinh hocSinh = HomeHsActivity.hocSinh;
     ArrayList<ThoiKhoaBieu> listtkb;
     ArrayList<MonHoc> listMonHoc = new ArrayList<>();
 
@@ -40,6 +42,7 @@ public class XemThoiKhoaBieuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         listtkb = new ArrayList<>();
         dbHelper = new DBHelper();
+        IDLopHoc = hocSinh.getIDLopHoc();
         GetMonHoc();
         AddEvents();
     }
@@ -123,6 +126,12 @@ public class XemThoiKhoaBieuActivity extends AppCompatActivity {
         });
     }
     public void AddEvents(){
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         binding.btnT2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,5 +180,8 @@ public class XemThoiKhoaBieuActivity extends AppCompatActivity {
                 currentThu = "thu7";
             }
         });
+    }
+    public void Back(){
+        super.onBackPressed();
     }
 }

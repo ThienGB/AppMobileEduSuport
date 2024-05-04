@@ -27,6 +27,7 @@ import com.example.edusuport.adapter.ViewHolderClick;
 import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.databinding.ActivityNhapDiemChungBinding;
 import com.example.edusuport.model.DonXinNghiHoc;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.LopHoc;
 import com.google.firebase.database.DataSnapshot;
@@ -43,8 +44,8 @@ public class NhapDiemChungActivity extends AppCompatActivity {
     ActivityNhapDiemChungBinding binding;
     ArrayAdapter<HocSinhAdapter> adapter;
     ArrayList<HocSinh> listHS = new ArrayList<>();
-
-     String IDLH = "12B3";    String IDGiaoVienDF = "1";
+    public  static GiaoVien giaoVien = Home.giaoVien;
+    String IDLH = "";
     RecyclerView rv_lophoc;
     ImageView xemthemlophoc;
     ArrayList<LopHoc> listLop=new ArrayList<LopHoc>();
@@ -59,7 +60,6 @@ public class NhapDiemChungActivity extends AppCompatActivity {
         chonLop();
         dbHelper = new DBHelper();
         AddEvents();
-        GetDonXinhPhep(IDLH);
     }
     public void GetDonXinhPhep(String IDLopHoc){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -94,6 +94,12 @@ public class NhapDiemChungActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
     public void AddEvents(){
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         binding.lstHocSinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -136,7 +142,7 @@ public class NhapDiemChungActivity extends AppCompatActivity {
                 showBottomSheetMoreLop();
             }
         });
-        lopHocController.getListLopHoc_idGV(IDGiaoVienDF, new LopHocController.DataRetrievedCallback_LopHoc() {
+        lopHocController.getListLopHoc_idGV(giaoVien.getIDGiaoVien(), new LopHocController.DataRetrievedCallback_LopHoc() {
             @Override
             public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
 
@@ -144,8 +150,6 @@ public class NhapDiemChungActivity extends AppCompatActivity {
                 lopHocIdGVNavAdapter=new LopHoc_IdGV_Nav_Adapter(listLop);
                 rv_lophoc.setAdapter(lopHocIdGVNavAdapter);
                 rv_lophoc.setLayoutManager(new LinearLayoutManager(NhapDiemChungActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
-
             }
         });
 
@@ -153,9 +157,7 @@ public class NhapDiemChungActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position,String id) {
                 IDLH=listLop.get(position).getIdLopHoc();
-                // lopHocIdGVNavAdapter.setItemFocus(position, true);
-//                reLoadListf();
-//                reLoadListGFC();
+                GetDonXinhPhep(IDLH);
 
             }
 
@@ -213,8 +215,7 @@ public class NhapDiemChungActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position,String  id) {
                 IDLH= id;
-//                reLoadListf();
-//                reLoadListGFC();
+                GetDonXinhPhep(id);
 
             }
 
@@ -223,11 +224,14 @@ public class NhapDiemChungActivity extends AppCompatActivity {
 
             }
         }));
-
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations= com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+    public void Back(){
+        Intent intent = new Intent(NhapDiemChungActivity.this, Home.class);
+        startActivity(intent);
     }
 }

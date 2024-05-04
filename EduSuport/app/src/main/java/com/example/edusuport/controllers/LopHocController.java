@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.edusuport.DBHelper.DBHelper;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,23 +34,19 @@ public class LopHocController {
         myRef.child("lophoc").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                DBHelper dbHelper = new DBHelper();
                 for (DataSnapshot lophocSnapshot : dataSnapshot.getChildren()) {
                     String idLop = lophocSnapshot.getKey();
-                    String tenLop = lophocSnapshot.child("tenlop").getValue(String.class);
-                    String idGiaovien = lophocSnapshot.child("idgiaovien").getValue(String.class);
-
+                    String idGiaovien = lophocSnapshot.child(dbHelper.FieldIDGiaoVien).getValue(String.class);
                     if (idGiaovien != null && idGiaovien.equals(idGV)) {
-                        // Lớp học có idgiaovien là 1, bạn có thể xử lý ở đây
+                        String tenLop = lophocSnapshot.child(dbHelper.FieldTenLop).getValue(String.class);
+                        long siSo = lophocSnapshot.child(dbHelper.FieldSoLuong).getValue(long.class);
                         Log.d("Giaos ien",String.valueOf(tenLop));
-                        list.add(new LopHoc(idLop,idGV,tenLop));
-
+                        list.add(new LopHoc(idLop,idGV,tenLop, siSo));
                     }
-
                 }
-
                 callbackLopHoc.onDataRetrieved(list);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("nônnooono",String.valueOf(databaseError));

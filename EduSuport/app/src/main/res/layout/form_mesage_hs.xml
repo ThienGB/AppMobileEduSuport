@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
+                    android:id="@+id/btnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/fullbutton_background"
@@ -144,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Giaos viên"
+                android:text="Giáo viên"
                 android:textSize="10dp" />
 
 

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,11 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.edusuport.model.GiaoVien;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,44 +34,49 @@ import java.util.UUID;
 import com.example.edusuport.R;
 
 public class EditInformation extends AppCompatActivity {
-
-    private Button btnSave, btnUpdate;
+    GiaoVien giaoVien = Home.giaoVien;
+    private Button btnSave, btnUpdate, btnBack;
     private FloatingActionButton btnImg;
     private ImageView imgAvt;
     private Uri imgPath;
-    private TextInputEditText edtId, edtName, edtPhone, edtClass;
+    private EditText edtName, edtEmail, edtPhone;
+    private ImageButton btnEdit;
     String phone, userID;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.form_editinformation);
 
-        edtId = findViewById(R.id.edtID);
-        edtName = findViewById(R.id.editName);
-        edtPhone = findViewById(R.id.editphone);
-        edtClass = findViewById(R.id.editIdClass);
+        setContentView(R.layout.form_information);
+
         btnImg = findViewById(R.id.floatingActionButton2);
-        edtId.setEnabled(false);
-        edtName.setEnabled(false);
-        edtClass.setEnabled(false);
-       // btnSave = findViewById(R.id.btnSaveImage);
-        btnUpdate = findViewById(R.id.btnUpdate);
-        imgAvt = findViewById(R.id.imgAvatar);
-        showUserData();
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        btnEdit = findViewById(R.id.btnEdit);
+
+        edtEmail.setEnabled(false);
+        edtPhone.setEnabled(false);
+
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePhone();
+                edtName.setEnabled(true);
+                edtPhone.setEnabled(true);
+                btnEdit.setImageResource(R.drawable.icon_save);
             }
         });
 
+        edtName = findViewById(R.id.edtName);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPhone = findViewById(R.id.edtPhone);
+        imgAvt = findViewById(R.id.imageView);
+        showUserData();
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnEdit.setImageResource(R.drawable.icon_edit);
                 SaveImage();
             }
         });
@@ -81,8 +86,17 @@ public class EditInformation extends AppCompatActivity {
             photoIntent.setType("image/*");
             startActivityForResult(photoIntent, 1);
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditInformation.this, Home.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    //
     public void changePhone() {
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -90,7 +104,7 @@ public class EditInformation extends AppCompatActivity {
             Toast.makeText(this, "Số điện thoại không được để trống.", Toast.LENGTH_SHORT).show();
         } else {
             firebaseDatabase = FirebaseDatabase.getInstance();
-            databaseReference = firebaseDatabase.getReference().child("users");
+            databaseReference = firebaseDatabase.getReference().child("user");
             databaseReference.child(id).child("phone").setValue(edtPhone.getText().toString());
             phone = edtPhone.getText().toString();
             Toast.makeText(this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
@@ -98,19 +112,8 @@ public class EditInformation extends AppCompatActivity {
     }
 
     private void showUserData() {
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        String name = intent.getStringExtra("name");
-        String mphone = intent.getStringExtra("phone");
-        String idClass = intent.getStringExtra("class");
-
-        edtId.setText(id);
-        edtName.setText(name);
-        edtPhone.setText(mphone);
-        edtClass.setText(idClass);
-
-//        userID = edtId.getText().toString();
-//        phone = edtPhone.getText().toString();
+        edtName.setText(giaoVien.getTenGiaoVien());
+        edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
     }
 
     @Override
@@ -143,7 +146,8 @@ public class EditInformation extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
-                                updateProfilePicture(task.getResult().toString());
+                                String tennew=edtName.getText().toString();
+                                updateProfilePicture(task.getResult().toString(),tennew);
                             }
                         }
                     });
@@ -155,9 +159,8 @@ public class EditInformation extends AppCompatActivity {
         });
     }
 
-    private void updateProfilePicture(String url) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users");
-        databaseReference.child("7336").child("profilePic").setValue(url);
+    private void updateProfilePicture(String url,String tennew ) {
+        FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/urlAva").setValue(url);
+        FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(tennew);
     }
 }

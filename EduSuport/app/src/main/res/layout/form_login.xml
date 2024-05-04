@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
 
             android:gravity="center"
-            android:text="Wellcome"
+            android:text="Welcome"
             android:textColor="@color/main_blue"
             android:textSize="20dp" />
 
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:checked="true"
-                    android:text=" Giáo viên"
+                    android:text="@string/teacher"
                     android:textSize="10dp" />
 
                 <RadioButton
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Phụ huynh"
+                    android:text="@string/parent"
                     android:textSize="10dp" />
 
                 <RadioButton
@@ -77,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Học sinh"
+                    android:text="@string/student"
                     android:textSize="10dp" />
             </RadioGroup>
         </LinearLayout>
@@ -88,13 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Email giáo viên"
+            android:hint="@string/mailTeacher"
             android:padding="10dp"
             app:startIconDrawable="@drawable/img_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtTK"
                 android:layout_width="match_parent"
+                android:textColor="#333"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fullbutton_background"
                 android:inputType="textEmailAddress" />
@@ -106,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Mật khẩu"
+            android:hint="@string/password"
             android:padding="10dp"
             app:endIconMode="password_toggle"
             app:startIconDrawable="@drawable/img_pass">
@@ -130,14 +131,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quên mật khẩu ? "
+                android:text="@string/forgotPassword"
                 android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/txtQuenMK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lấy lại ngay"
+                android:text="@string/clickHere"
                 android:textColor="@color/main_blue"
                 android:textSize="13dp"
                 android:textStyle="bold" />
@@ -152,7 +153,7 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/main_darker_blue"
             android:padding="10dp"
-            android:text="Đăng nhập"
+            android:text="@string/login"
             android:textSize="15dp" />
 
         <Button
@@ -164,14 +165,14 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/main_darkest_blue"
             android:padding="10dp"
-            android:text="Đăng kí bằng Gmail"
+            android:text="@string/registerMail"
             android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="or"
+            android:text="@string/or"
             android:textSize="13dp" />
 
         <LinearLayout
@@ -190,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Đăng nhập bằng GG"
+                android:text="@string/loginGg"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 

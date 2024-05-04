@@ -54,7 +54,7 @@ public class FlashCardAdapter extends PagerAdapter {
                 @Override
                 public void onClick(View v) {
                     // Đặt lại vị trí của ViewPager về 0
-                    viewPager.setCurrentItem(1);
+                    viewPager.setCurrentItem(0);
                 }
             });
             out.setOnClickListener(new View.OnClickListener() {

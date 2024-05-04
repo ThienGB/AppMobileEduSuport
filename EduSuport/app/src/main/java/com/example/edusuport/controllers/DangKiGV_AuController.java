@@ -14,6 +14,8 @@ import com.example.edusuport.activity.DangTaiTaiLieuActivity;
 import com.example.edusuport.activity.Home;
 import com.example.edusuport.activity.Login;
 import com.example.edusuport.model.Account;
+import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.HocSinh;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,9 +28,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ktx.Firebase;
+
+import java.util.ArrayList;
 
 public class DangKiGV_AuController {
     FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
@@ -53,10 +60,10 @@ public class DangKiGV_AuController {
                         if(task.isSuccessful()){
                             progressDialog.dismiss();
                             if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                                FirebaseUser current= firebaseAuth.getCurrentUser();
                                 Toast.makeText(context,"Login thành công",Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(context, Home.class);
-
-                                context.startActivity(intent);
+                                String IDGV = current.getUid();
+                                getGVbyID(IDGV, context);
                                 myRef.child("giaovien").child(firebaseAuth.getCurrentUser().getUid()).child("trangThai").setValue("valid");
                                 callback.onUploadComplete();
                             }
@@ -132,5 +139,53 @@ public class DangKiGV_AuController {
     public void logout_GV(){
         firebaseAuth.signOut();
 
+    }
+    public interface DataRetrievedCallback_Giaovien {
+        void onDataRetrieved(GiaoVien giaoVien);
+    }
+    public void getGVbyID(String id, Context context){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("giaovien").child(id);
+        myRef.addValueEventListener(new ValueEventListener() {
+            GiaoVien gv = new GiaoVien();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                        String IDGiaoVien = dataSnapshot.getKey();
+                        String Ten = dataSnapshot.child("ten").getValue(String.class);
+                        gv = new GiaoVien(IDGiaoVien, Ten);
+                }
+                Home.giaoVien = gv;
+                Intent intent=new Intent(context, Home.class);
+                context.startActivity(intent);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void getGV_idGV(String idGV, DataRetrievedCallback_Giaovien callback){
+        myRef.child("giaovien").orderByKey().equalTo(idGV).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                GiaoVien gv = new GiaoVien();
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    DataSnapshot dataSnapshot = task.getResult().getChildren().iterator().next();
+                    String id = dataSnapshot.getKey();
+                    String ten = dataSnapshot.child("name").getValue(String.class);
+                    String urlAva = dataSnapshot.child("urlAva").getValue(String.class);
+                    Log.d("logggggg",id+ten+urlAva);
+                    gv = new GiaoVien(id,ten,urlAva);
+
+                }
+                callback.onDataRetrieved(gv);
+            }
+
+        });
     }
 }

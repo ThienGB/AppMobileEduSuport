@@ -17,6 +17,7 @@
         android:text="Lớp 1Ab"
         android:textSize="15dp"
         android:singleLine="true"
+        style="@style/textColor"
         android:ellipsize="end"
         android:background="@drawable/background_subject_radius_lop"
         android:padding="10dp"/>

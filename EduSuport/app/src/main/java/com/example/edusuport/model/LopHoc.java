@@ -1,19 +1,18 @@
 package com.example.edusuport.model;
 
-public class LopHoc {
+import java.io.Serializable;
+
+public class LopHoc implements Serializable {
     private String idLopHoc;
     private String idGiaoVien;
     private String tenLopHoc;
-    private String SoLuong;
-
+    private long SoLuong;
     public String getIdLopHoc() {
         return idLopHoc;
     }
-
     public void setIdLopHoc(String idLopHoc) {
         this.idLopHoc = idLopHoc;
     }
-
     public String getIdGiaoVien() {
         return idGiaoVien;
     }
@@ -30,7 +29,7 @@ public class LopHoc {
         this.tenLopHoc = tenLopHoc;
     }
 
-    public String getSoLuong() {
+    public long getSoLuong() {
         return SoLuong;
     }
 
@@ -40,7 +39,7 @@ public class LopHoc {
         this.tenLopHoc = tenLopHoc;
     }
 
-    public void setSoLuong(String soLuong) {
+    public void setSoLuong(long soLuong) {
         SoLuong = soLuong;
     }
 
@@ -52,7 +51,7 @@ public class LopHoc {
     public LopHoc() {
     }
 
-    public LopHoc(String idLopHoc, String idGiaoVien, String tenLopHoc, String soLuong) {
+    public LopHoc(String idLopHoc, String idGiaoVien, String tenLopHoc, long soLuong) {
         this.idLopHoc = idLopHoc;
         this.idGiaoVien = idGiaoVien;
         this.tenLopHoc = tenLopHoc;

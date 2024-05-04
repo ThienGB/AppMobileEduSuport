@@ -2,6 +2,7 @@ package com.example.edusuport.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -28,6 +30,7 @@ import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.adapter.ViewHolderClick;
 import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.controllers.MessController;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MemoryData;
 import com.example.edusuport.model.MessageList;
@@ -66,7 +69,8 @@ public class Messages extends AppCompatActivity {
     RecyclerView rv_lophoc;
     ImageView xemthemlophoc;
     LopHocController lopHocController=new LopHocController();
-    String IDGiaoVien="1";
+    GiaoVien giaoVien = Home.giaoVien;
+    String IDGiaoVien=giaoVien.getIDGiaoVien();
     MessController messController=new MessController();
 
     @Override
@@ -82,6 +86,13 @@ public class Messages extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
       //  idCurUse = getIntent().getStringExtra("idCurUse");
 //
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Back();
+            }
+        });
         chonLop();
         filter.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -220,5 +231,8 @@ public class Messages extends AppCompatActivity {
 
 
     }
-
+    public void Back(){
+        Intent intent = new Intent(Messages.this, Home.class);
+        startActivity(intent);
+    }
 }

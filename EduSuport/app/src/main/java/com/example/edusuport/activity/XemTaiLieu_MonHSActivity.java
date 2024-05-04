@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.example.edusuport.adapter.TaiLieuHocTapAdapter;
 import com.example.edusuport.adapter.TaiLieuHocTapAdapterHS;
 import com.example.edusuport.controllers.DangTaiTaiLieuController;
 import com.example.edusuport.controllers.LopHocController;
+import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.NhomThe;
 import com.example.edusuport.model.TaiLieuHocTap;
@@ -47,7 +49,9 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
     ArrayList<TaiLieuHocTap> listf=new ArrayList<TaiLieuHocTap>();
     ArrayList<NhomThe> listGFC=new ArrayList<NhomThe>();
     NhomTheAdapterHS nhomTheAdapterHS;
-    String idMon,idGV=DangTaiTaiLieuActivity.idGV, tenFile,idLop="1";
+    String idMon, tenFile;
+    private static HocSinh hocSinh = HomeHsActivity.hocSinh;
+    String idLop=hocSinh.getIDLopHoc();
     Intent data=null;
 
     android.app.AlertDialog.Builder builder;
@@ -75,12 +79,9 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
         });
     }
     public void loadTabs(){
-
         textTenMonHoc = (TextView) findViewById(R.id.textTenMonHoc);
         idMon=getIntent().getStringExtra("idMon");
         // Toast.makeText(DangTaiTaiLieu_MonActivity.this, idLop.toString(), Toast.LENGTH_SHORT).show();
-
-
         dangTaiTaiLieuController.getMonHoc_idmon(idMon, new DangTaiTaiLieuController.DataRetrievedCallback_String() {
             @Override
             public void onDataRetrieved(String tenmon) {
@@ -187,6 +188,7 @@ public class XemTaiLieu_MonHSActivity extends AppCompatActivity {
             @Override
             public void onDataRetrieved(ArrayList<NhomThe> nhomtheList) {
                 listGFC=nhomtheList;
+                Log.d("heeee",idLop);
                 nhomTheAdapterHS = new NhomTheAdapterHS(XemTaiLieu_MonHSActivity.this,R.layout.item_tab_flashcard, listGFC );
                 gdCard.setAdapter(nhomTheAdapterHS);
             }

@@ -39,14 +39,16 @@
             android:textStyle="bold"
             android:singleLine="true"
             android:ellipsize="end"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            style="@style/textColor"/>
 
         <TextView
             android:id="@+id/date_dangtailieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upload day 24/03/2003"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            style="@style/textColor"/>
 
 
     </LinearLayout>
