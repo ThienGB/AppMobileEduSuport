@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.EduSuport"
         tools:targetApi="31">
+
         <activity
             android:name=".activity.EditInfomationPhActivity"
             android:exported="false" />
@@ -156,8 +157,6 @@
         <activity
             android:name=".activity.DangTaiTaiLieuActivity"
             android:exported="false" />
-
-
     </application>
 
 </manifest>

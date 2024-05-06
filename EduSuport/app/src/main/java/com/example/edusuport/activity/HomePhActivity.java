@@ -29,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomePhActivity extends AppCompatActivity {
    // public static PhuHuynh phuHuynh = new PhuHuynh("21110499PH", "Lê Quang", "12B8", "21110499");
-    public static PhuHuynh phuHuynh;
+    public static PhuHuynh phuHuynh=null;
     GridView gvChucNang;
     CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
@@ -97,7 +97,7 @@ public class HomePhActivity extends AppCompatActivity {
                 builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        HomePhActivity.phuHuynh = new PhuHuynh();
+                        HomePhActivity.phuHuynh = null;
                         Intent intent=new Intent(HomePhActivity.this, Login.class);
                         startActivity(intent);
                     }

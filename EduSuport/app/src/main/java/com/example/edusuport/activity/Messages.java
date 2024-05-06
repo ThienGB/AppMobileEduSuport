@@ -34,6 +34,7 @@ import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MemoryData;
 import com.example.edusuport.model.MessageList;
+import com.example.edusuport.model.PhuHuynh;
 import com.example.edusuport.model.TaiLieuHocTap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,11 +50,13 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages extends AppCompatActivity {
+    private static GiaoVien giaoVien= Home.giaoVien;
     public  List<MessageList> messageLists = new ArrayList<>();
     private RadioGroup rb_role;String textRole="HS";
     private String phone="0942523074";
     private String name="Trinh thu phuòng";
-    private String idCurUse="12345";
+
+    public static String idCurUse=giaoVien.getIDGiaoVien();
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";
@@ -69,8 +72,7 @@ public class Messages extends AppCompatActivity {
     RecyclerView rv_lophoc;
     ImageView xemthemlophoc;
     LopHocController lopHocController=new LopHocController();
-    GiaoVien giaoVien = Home.giaoVien;
-    String IDGiaoVien=giaoVien.getIDGiaoVien();
+
     MessController messController=new MessController();
 
     @Override
@@ -148,7 +150,7 @@ public class Messages extends AppCompatActivity {
                 messController.loadPartner_idCuren(idCurUse,messageRecyclerView,Messages.this);
             }
         });
-        lopHocController.getListLopHoc_idGV(IDGiaoVien, new LopHocController.DataRetrievedCallback_LopHoc() {
+        lopHocController.getListLopHoc_idGV(idCurUse, new LopHocController.DataRetrievedCallback_LopHoc() {
             @Override
             public void onDataRetrieved(ArrayList<LopHoc> monHocList) {
 
@@ -210,7 +212,7 @@ public class Messages extends AppCompatActivity {
                 messageAdapter = new MessagesAdapter(messageLists,Messages.this);
                 messageRecyclerView.setAdapter(messageAdapter);
                 Log.d("List mới",String.valueOf(messageLists));
-                messageAdapter.notifyDataSetChanged();
+                messageAdapter.updateData(messageLists);
             }
         });
 
@@ -225,7 +227,7 @@ public class Messages extends AppCompatActivity {
                 messageAdapter = new MessagesAdapter(messageLists,Messages.this);
                 messageRecyclerView.setAdapter(messageAdapter);
                 Log.d("List mới",String.valueOf(messageLists));
-                messageAdapter.notifyDataSetChanged();
+                messageAdapter.updateData(messageLists);
             }
         });
 

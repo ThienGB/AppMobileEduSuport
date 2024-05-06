@@ -40,13 +40,13 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages_PH extends AppCompatActivity {
-    PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
+    static PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
     public List<MessageList> messageLists = new ArrayList<>();
     ImageView xemthemlophoc;
     private RadioGroup rb_role;String textRole="HS";
     private String phone="0942523074";
     private String name=phuHuynh.getTen();
-    private String idCurUse=phuHuynh.getMSPH();
+    public static String idCurUse=phuHuynh.getMSPH();
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";

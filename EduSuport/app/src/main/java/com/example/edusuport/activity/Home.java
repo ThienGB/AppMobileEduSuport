@@ -37,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
     //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
-    public static GiaoVien giaoVien;
+    public static GiaoVien giaoVien=null;
     GridView gvChucNang;
     CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
@@ -113,7 +113,7 @@ public class Home extends AppCompatActivity {
                 builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Home.giaoVien = new GiaoVien();
+                        Home.giaoVien =null;
                         Intent intent=new Intent(Home.this, Login.class);
                         startActivity(intent);
                     }

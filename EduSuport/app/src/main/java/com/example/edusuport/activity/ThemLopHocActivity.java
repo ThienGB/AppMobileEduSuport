@@ -23,16 +23,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ThemLopHocActivity extends AppCompatActivity {
 
     EditText edtTenLop;
+
     Button btnXacNhan;
     ImageButton btnBackLopHoc;
+    CircleImageView imgAva;
     DatabaseReference databaseReference;
     TextView txvTenGV; // thay đổi tên GV ở trên ô Xin chào
     private GiaoVien giaoVien = Home.giaoVien;
@@ -47,7 +52,16 @@ public class ThemLopHocActivity extends AppCompatActivity {
         edtTenLop = findViewById(R.id.edtTenLop);
         btnXacNhan = findViewById(R.id.btnXacNhan);
         btnBackLopHoc = findViewById(R.id.btnBackLopHoc);
+        txvTenGV= findViewById(R.id.txvTenGV);
+        imgAva=findViewById(R.id.imgAvatar);
+        if(!giaoVien.getUrl().isEmpty()){
+            Picasso.get().load(giaoVien.getUrl()).into(imgAva);
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(imgAva);
+        }
 
+        txvTenGV.setText("Giao viên " +giaoVien.getTenGiaoVien().toString());
         // Xử lý sự kiện khi nhấn nút Xác nhận
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override

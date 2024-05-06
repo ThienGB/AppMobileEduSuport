@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeHsActivity extends AppCompatActivity {
     //public static HocSinh hocSinh = new HocSinh("21110499", "Lê Quang Lâm", "12B8");
-    public static HocSinh hocSinh;
+    public static HocSinh hocSinh=null;
     GridView gvChucNang;
     CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
@@ -98,7 +98,7 @@ public class HomeHsActivity extends AppCompatActivity {
                 builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        HomeHsActivity.hocSinh = new HocSinh();
+                        HomeHsActivity.hocSinh = null;
                         Intent intent=new Intent(HomeHsActivity.this, Login.class);
                         startActivity(intent);
                     }

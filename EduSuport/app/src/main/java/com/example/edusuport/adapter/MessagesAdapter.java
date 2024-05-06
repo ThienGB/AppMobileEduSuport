@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 
 import com.example.edusuport.R;
 import com.example.edusuport.activity.Chat;
+import com.example.edusuport.activity.Messages;
+import com.example.edusuport.activity.Messages_HS;
+import com.example.edusuport.activity.Messages_PH;
 import com.example.edusuport.model.MessageList;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +49,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         MessageList list2 = messageLists.get(position);
-        Log.e("PATHHHH",list2.getProfilePic().toString());
         if (!list2.getProfilePic().isEmpty()){
                 Picasso.get().load(list2.getProfilePic()).into(holder.profilePicture);
         }
@@ -58,14 +60,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         holder.lastMsg.setText(list2.getLastMsg());
         holder.unseenMsg.setVisibility(View.GONE);
           holder.lastMsg.setTextColor(Color.parseColor("#959595"));
-//        if (list2.getUnseenMsg() == 0){
-//            holder.unseenMsg.setVisibility(View.GONE);
-//            holder.lastMsg.setTextColor(Color.parseColor("#959595"));
-//        } else {
-//            holder.unseenMsg.setVisibility(View.VISIBLE);
-//            holder.unseenMsg.setText(list2.getUnseenMsg()+"");
-//            holder.lastMsg.setTextColor(context.getResources().getColor(R.color.theme_80));
-//        }
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +72,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("chat_key", list2.getChatKey());
                 intent.putExtra("role", list2.getRole());
                 Log.d("sos", list2.getChatKey()+ list2.getName());
+                if(context.getClass()==Messages.class){
+                    intent.putExtra("roleUser", "giaovien");
+                }
+                if(context.getClass()== Messages_HS.class){
+                    intent.putExtra("roleUser", "hocsinh");
+                }
+                if(context.getClass()== Messages_PH.class){
+                    intent.putExtra("roleUser", "phuhuynh");
+                }
                 context.startActivity(intent);
             }
         });
