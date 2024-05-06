@@ -25,10 +25,13 @@ import com.example.edusuport.model.PhuHuynh;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomePhActivity extends AppCompatActivity {
    // public static PhuHuynh phuHuynh = new PhuHuynh("21110499PH", "Lê Quang", "12B8", "21110499");
     public static PhuHuynh phuHuynh;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
     @Override

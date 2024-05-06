@@ -45,9 +45,10 @@ public class ViewHolderClickLH implements RecyclerView.OnItemTouchListener{
             @Override
             public void onLongPress(MotionEvent e) {
                 View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
-                child.findViewById(R.id.ten_navLopHoc).setBackgroundResource(R.drawable.background_subject_radius_click);
+                //Lỡ nhấn trúng lỗi, mà đ sài nên t tắt
+               // child.findViewById(R.id.ten_navLopHoc).setBackgroundResource(R.drawable.background_subject_radius_click);
                 if (child != null && mListener != null) {
-                    mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+
                 }
             }
 

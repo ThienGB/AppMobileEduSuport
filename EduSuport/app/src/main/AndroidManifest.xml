@@ -79,6 +79,15 @@
             android:name=".activity.Messages"
             android:exported="true" />
         <activity
+            android:name=".activity.XemTaiLieuMon"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Main_TheLat_HS_viewCard"
+            android:exported="true" />
+        <activity
+            android:name=".activity.XemTaiLieu_MonHSActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.EditInformation_PH"
             android:exported="true" />
         <activity
@@ -147,15 +156,7 @@
         <activity
             android:name=".activity.DangTaiTaiLieuActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.XemTaiLieuMon"
-            android:exported="false" />
-        <activity
-            android:name=".activity.XemTaiLieu_MonHSActivity"
-            android:exported="false" />
-        <activity
-        android:name=".activity.Main_TheLat_HS_viewCard"
-        android:exported="false" />
+
 
     </application>
 

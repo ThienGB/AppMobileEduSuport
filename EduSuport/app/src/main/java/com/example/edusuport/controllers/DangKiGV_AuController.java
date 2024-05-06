@@ -154,7 +154,8 @@ public class DangKiGV_AuController {
                 if (dataSnapshot.exists()) {
                         String IDGiaoVien = dataSnapshot.getKey();
                         String Ten = dataSnapshot.child("ten").getValue(String.class);
-                        gv = new GiaoVien(IDGiaoVien, Ten);
+                    String urlAva = dataSnapshot.child("urlAva").getValue(String.class);
+                        gv = new GiaoVien(IDGiaoVien, Ten,urlAva);
                 }
                 Home.giaoVien = gv;
                 Intent intent=new Intent(context, Home.class);
@@ -166,26 +167,5 @@ public class DangKiGV_AuController {
             }
         });
     }
-    public void getGV_idGV(String idGV, DataRetrievedCallback_Giaovien callback){
-        myRef.child("giaovien").orderByKey().equalTo(idGV).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                GiaoVien gv = new GiaoVien();
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    DataSnapshot dataSnapshot = task.getResult().getChildren().iterator().next();
-                    String id = dataSnapshot.getKey();
-                    String ten = dataSnapshot.child("name").getValue(String.class);
-                    String urlAva = dataSnapshot.child("urlAva").getValue(String.class);
-                    Log.d("logggggg",id+ten+urlAva);
-                    gv = new GiaoVien(id,ten,urlAva);
 
-                }
-                callback.onDataRetrieved(gv);
-            }
-
-        });
-    }
 }

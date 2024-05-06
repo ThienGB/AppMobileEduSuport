@@ -22,14 +22,18 @@ import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
 import com.example.edusuport.model.MonHoc;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
     GridView gvmon;
     MonHocAdapter monHocAdapter;
-    TextView logout;
+    TextView ten;
+    CircleImageView imgAva;
     private static GiaoVien giaoVien = Home.giaoVien;
     public  static String idGV = giaoVien.getIDGiaoVien();
 
@@ -45,6 +49,15 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
         LayoutInflater inflater= (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
         gvmon=(GridView)findViewById(R.id.grid_monhoc);
+        ten=findViewById(R.id.textTen);
+        ten.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
+        imgAva=findViewById(R.id.imgAvatar);
+        if(!giaoVien.getUrl().isEmpty()){
+            Picasso.get().load(giaoVien.getUrl()).into(imgAva);
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(imgAva);
+        }
 
         dangTaiTaiLieuController.setGridiewMonHoc(new DangTaiTaiLieuController.DataRetrievedCallback_MonHoc() {
             @Override
@@ -61,9 +74,7 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
 
 
 
-    private void HandelClick(int position){
-        Toast.makeText(DangTaiTaiLieuActivity.this,"position"+position,Toast.LENGTH_SHORT).show();
-    }
+
 
     private void addEventsClick() {
 
@@ -80,7 +91,7 @@ public class DangTaiTaiLieuActivity extends AppCompatActivity {
                 MonHoc monHoc =(MonHoc)  monHocAdapter.getItem(position);
                 Intent intent= new Intent(DangTaiTaiLieuActivity.this,DangTaiTaiLieu_MonActivity.class);
                 intent.putExtra("idMon",monHoc.getIdMon());
-               // intent.putExtra("idGV","1");
+                // intent.putExtra("idGV","1");
                 //LopHocController lopHocController=new LopHocController();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

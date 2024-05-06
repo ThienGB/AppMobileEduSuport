@@ -22,13 +22,17 @@ import com.example.edusuport.adapter.ChucNangHomeAdapter;
 import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeHsActivity extends AppCompatActivity {
     //public static HocSinh hocSinh = new HocSinh("21110499", "Lê Quang Lâm", "12B8");
     public static HocSinh hocSinh;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
     @Override
@@ -119,5 +123,12 @@ public class HomeHsActivity extends AppCompatActivity {
     }
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
+        ava= findViewById(R.id.imgAvatar);
+//        if(!hocSinh.ge().isEmpty()){
+//            Picasso.get().load(giaoVien.getUrl()).into(ava);
+//        }
+//        else {
+//            Picasso.get().load(R.drawable.profile).into(ava);
+//        }
     }
 }

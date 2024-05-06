@@ -6,13 +6,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:padding="5dp"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ava" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginBottom="1dp"
+                    android:text="Xin chào"
+                    android:textColor="@color/black_high_emp"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/txvTenGV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Giao viên Trịnh Thu Phương"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <ImageButton
+                    android:id="@+id/btnLogout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/fullbutton_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_logout" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--                <SearchView-->
+        <!--                    android:id="@+id/filterFile"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_margin="20dp"-->
+        <!--                    android:background="@drawable/background_subject_radius_click"-->
+        <!--                    android:queryHint="Tìm tài liệu" />-->
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/navbar_layout"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,82 +107,12 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_background"
-                android:elevation="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
-
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ava" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginBottom="1dp"
-                            android:text="Xin chào"
-                            android:textColor="@color/black_high_emp"
-                            android:textSize="10dp" />
-
-                        <TextView
-                            android:id="@+id/txvTenGV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="Giao viên Trịnh Thu Phương"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:gravity="end"
-                        android:layout_height="wrap_content">
-                        <ImageButton
-                            android:id="@+id/btnLogout"
-                            android:layout_marginRight="5dp"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/fullbutton_background"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/icon_logout"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-<!--                <SearchView-->
-<!--                    android:id="@+id/filterFile"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="20dp"-->
-<!--                    android:background="@drawable/background_subject_radius_click"-->
-<!--                    android:queryHint="Tìm tài liệu" />-->
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
                 android:orientation="vertical">
@@ -117,8 +127,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/fullbutton_background"
                 android:elevation="10dp"
                 android:orientation="vertical"
@@ -137,13 +148,14 @@
                 <GridView
                     android:id="@+id/grid_ChucNang"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="250dp"
                     android:horizontalSpacing="15dp"
                     android:numColumns="4"
                     android:padding="10dp"
                     android:scrollbars="horizontal"
                     android:verticalSpacing="40dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,34 +169,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:text="Quản lý lớp học"
                         android:textSize="17dp"
-                        android:layout_marginLeft="10dp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xem thêm >"
-                        android:textSize="13dp"
-                        android:textColor="@color/main_dark_blue"
                         android:layout_marginLeft="10dp"
-                        />
+                        android:text="Xem thêm >"
+                        android:textColor="@color/main_dark_blue"
+                        android:textSize="13dp" />
                 </LinearLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rcvLopHoc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:paddingBottom="10dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvLopHoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             </LinearLayout>
         </LinearLayout>

@@ -29,13 +29,17 @@ import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
     //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
     public static GiaoVien giaoVien;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ArrayList<LopHoc> ListLH=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
@@ -77,6 +81,7 @@ public class Home extends AppCompatActivity {
         ConstraintLayout layoutHome = includedLayout.findViewById(R.id.layoutHome);
         ConstraintLayout layoutMessage = includedLayout.findViewById(R.id.layoutMessage);
         ConstraintLayout layoutEditProfile = includedLayout.findViewById(R.id.layoutEditProfile);
+
         layoutHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +152,13 @@ public class Home extends AppCompatActivity {
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
         rcvLopHoc = findViewById(R.id.rcvLopHoc);
+        ava= findViewById(R.id.imgAvatar);
+        if(!giaoVien.getUrl().isEmpty()){
+            Picasso.get().load(giaoVien.getUrl()).into(ava);
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(ava);
+        }
     }
     private void SetDataLopHoc(ArrayList<LopHoc> arrList){
         adapter = new LopHocAdapter(arrList);

@@ -51,7 +51,7 @@ public class Main_TheLat_HS_Stydy extends AppCompatActivity {
             public void onDataRetrieved(ArrayList<TheLat> thelatList) {
                 listtl=thelatList;
                 listtl.add(new TheLat("","","",""));
-                flashCardAdapter = new FlashCardAdapter(Main_TheLat_HS_Stydy.this, listtl,viewPager );
+                flashCardAdapter = new FlashCardAdapter(Main_TheLat_HS_Stydy.this, listtl,viewPager);
                 viewPager.setAdapter(flashCardAdapter);
                 viewPager.setCurrentItem(0);
             }
