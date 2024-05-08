@@ -350,12 +350,7 @@ public class DanhSachHocSinh extends AppCompatActivity {
     public void deleteHS(String mshs){
         GetSoLuong();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        String path = dbHelper.ColecHocSinh+"/"+mshs;
-        DatabaseReference nodeReference = databaseReference.child(path);
-        nodeReference.removeValue();
-        path = dbHelper.ColecHocSinh+"/"+mshs+"PH";
-        nodeReference = databaseReference.child(path);
-        nodeReference.removeValue();
+        lopHocController.XoaHocSinh(mshs);
         Toast.makeText(this, "Xóa học sinh thành công", Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

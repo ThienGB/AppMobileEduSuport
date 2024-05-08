@@ -37,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
     //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
-    public static GiaoVien giaoVien=null;
+    public static GiaoVien giaoVien;
     GridView gvChucNang;
     CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
@@ -171,7 +171,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onDataRetrieved(ArrayList<LopHoc> lopHocList) {
                 ListLH=lopHocList;
+
                 SetDataLopHoc(ListLH);
+                adapter.notifyDataSetChanged();
             }
         });
     }

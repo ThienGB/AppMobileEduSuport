@@ -61,6 +61,7 @@ public class XemThongBaoActivity extends AppCompatActivity {
         }else {
             id = phuHuynh.getMSPH();
         }
+        Log.e("idđ",id.toString());
 
         GetThongBao(id);
         AddEvents();
