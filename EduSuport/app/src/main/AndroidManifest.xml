@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.EduSuport"
         tools:targetApi="31">
+
         <activity
             android:name=".activity.EditInfomationPhActivity"
             android:exported="false" />
@@ -91,7 +92,7 @@
             android:name=".activity.EditInformation_PH"
             android:exported="true" />
         <activity
-            android:name=".activity.EditInformation"
+            android:name=".activity.EditInformationHS"
             android:exported="true" />
         <activity
             android:name=".activity.Home"

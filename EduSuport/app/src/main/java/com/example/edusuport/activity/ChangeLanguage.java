@@ -92,7 +92,7 @@ public class ChangeLanguage extends AppCompatActivity {
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChangeLanguage.this, EditInformation.class);
+                Intent intent = new Intent(ChangeLanguage.this, EditInformationHS.class);
                 startActivity(intent);
             }
         });

@@ -8,8 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +25,18 @@ import com.example.edusuport.adapter.ChucNangHomeAdapter;
 import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeHsActivity extends AppCompatActivity {
     //public static HocSinh hocSinh = new HocSinh("21110499", "Lê Quang Lâm", "12B8");
-    public static HocSinh hocSinh;
+    public static HocSinh hocSinh=null;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
     @Override
@@ -43,6 +51,9 @@ public class HomeHsActivity extends AppCompatActivity {
         });
         TextView txvTenGV = findViewById(R.id.txvTenHS);
         txvTenGV.setText("Học sinh: " + hocSinh.getTen());
+        CircleImageView imgavt = findViewById(R.id.imgAvatar);
+        Picasso.get().load(hocSinh.getUrl()).into(imgavt);
+        setLocaleFromDatabase(hocSinh.getNgonNgu());
         getForm();
         getData();
         AddEvents();
@@ -59,7 +70,6 @@ public class HomeHsActivity extends AppCompatActivity {
     public void AddEvents(){
 
         View includedLayout = findViewById(R.id.navbar_layout); // navbar_layout là ID của layout được include
-        ImageButton btnLogout = findViewById(R.id.btnLogout);
         ConstraintLayout layoutHome = includedLayout.findViewById(R.id.layoutHome);
         ConstraintLayout layoutMessage = includedLayout.findViewById(R.id.layoutMessage);
         ConstraintLayout layoutEditProfile = includedLayout.findViewById(R.id.layoutEditProfile);
@@ -80,37 +90,11 @@ public class HomeHsActivity extends AppCompatActivity {
         layoutEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeHsActivity.this, EditInformationActivity.class);
+                Intent intent=new Intent(HomeHsActivity.this, EditInformationHS.class);
                 startActivity(intent);
             }
         });
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(HomeHsActivity.this);
-                builder.setTitle("Xác nhận đăng xuất");
-                builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
 
-                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        HomeHsActivity.hocSinh = new HocSinh();
-                        Intent intent=new Intent(HomeHsActivity.this, Login.class);
-                        startActivity(intent);
-                    }
-                });
-
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss(); // Đóng hộp thoại khi người dùng chọn hủy
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
         gvChucNang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -119,5 +103,24 @@ public class HomeHsActivity extends AppCompatActivity {
     }
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
+        ava= findViewById(R.id.imgAvatar);
+//        if(!hocSinh.ge().isEmpty()){
+//            Picasso.get().load(giaoVien.getUrl()).into(ava);
+//        }
+//        else {
+//            Picasso.get().load(R.drawable.profile).into(ava);
+//        }
+    }
+    private void setLocaleFromDatabase(String selectedLanguage) {
+        Configuration config = getResources().getConfiguration();
+        Locale locale = new Locale(selectedLanguage);
+        config.setLocale(locale);
+
+        // Tạo một Context mới với Configuration mới
+        Context newContext = createConfigurationContext(config);
+
+        // Cập nhật ngôn ngữ cho ứng dụng
+        Resources resources = newContext.getResources();
+        getResources().updateConfiguration(config, resources.getDisplayMetrics());
     }
 }

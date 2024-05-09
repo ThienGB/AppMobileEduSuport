@@ -119,8 +119,8 @@ public class ThemHocSinhActivity extends AppCompatActivity {
                                                             // Thêm phụ huynh vào Firebase Database
                                                             phuhuynhRef.child(mssv + "PH").setValue(updates);
                                                             Toast.makeText(ThemHocSinhActivity.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
-
-
+                                                            Intent intent = new Intent(ThemHocSinhActivity.this, DanhSachHocSinh.class);
+                                                            startActivity(intent);
                                                         }
                                                     }
                                                 });

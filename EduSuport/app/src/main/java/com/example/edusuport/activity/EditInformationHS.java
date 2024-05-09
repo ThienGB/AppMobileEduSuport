@@ -1,11 +1,5 @@
 package com.example.edusuport.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,16 +13,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.edusuport.DBHelper.DBHelper;
-import com.example.edusuport.R;
 import com.example.edusuport.databinding.ActivityEditInformationBinding;
+import com.example.edusuport.databinding.ActivityEditInformationHsBinding;
 import com.example.edusuport.model.GiaoVien;
+import com.example.edusuport.model.HocSinh;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,7 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -45,9 +40,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-public class EditInformationActivity extends AppCompatActivity {
-    ActivityEditInformationBinding binding;
-    GiaoVien giaoVien = Home.giaoVien;
+import com.example.edusuport.R;
+import com.squareup.picasso.Picasso;
+
+public class EditInformationHS extends AppCompatActivity {
+    ActivityEditInformationHsBinding binding;
+    HocSinh hocSinh = HomeHsActivity.hocSinh;
     private FloatingActionButton btnImg;
     private Uri imgPath;
 
@@ -58,24 +56,24 @@ public class EditInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEditInformationBinding.inflate(getLayoutInflater());
+        binding = ActivityEditInformationHsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if(!giaoVien.getUrl().isEmpty()){
-            Picasso.get().load(giaoVien.getUrl()).into(binding.imgAvt);
+        if(!hocSinh.getUrl().isEmpty()){
+            Picasso.get().load(hocSinh.getUrl()).into(binding.imgAvt);
         }
         else {
             Picasso.get().load(R.drawable.profile).into(binding.imgAvt);
         }
         binding.edtName.setEnabled(false);
-        binding.edtEmail.setEnabled(false);
+        binding.edtMSHS.setEnabled(false);
         binding.edtPhone.setEnabled(false);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         binding.spinnerLanguage.setAdapter(adapter);
-        if (giaoVien.getNgonNgu().equals("") || giaoVien.getNgonNgu().equals("vi")){
+        if (hocSinh.getNgonNgu().equals("") || hocSinh.getNgonNgu().equals("vi")){
             binding.spinnerLanguage.setSelection(0);
         }
         else
@@ -90,21 +88,21 @@ public class EditInformationActivity extends AppCompatActivity {
                     if (selectedLanguage.equals("Tiếng Việt")) {
                         setLocaleFromDatabase("vi");
                         ngonNgu = "vi";
-                        Toast.makeText(EditInformationActivity.this, "Đổi ngôn ngữ thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditInformationHS.this, "Đổi ngôn ngữ thành công", Toast.LENGTH_SHORT).show();
                     } else if (selectedLanguage.equals("English")) {
                         setLocaleFromDatabase("en");
                         ngonNgu = "en";
-                        Toast.makeText(EditInformationActivity.this, "Change Language Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditInformationHS.this, "Change Language Successfully", Toast.LENGTH_SHORT).show();
                     }
                     DBHelper dbHelper = new DBHelper();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference lophocRef = database.getReference(dbHelper.ColecGiaoVien).child(giaoVien.getIDGiaoVien());
+                    DatabaseReference lophocRef = database.getReference(dbHelper.ColecHocSinh).child(hocSinh.getMSHS());
                     Map<String, Object> updates = new HashMap<>();
                     updates.put("ngonNgu", ngonNgu);
                     lophocRef.updateChildren(updates);
-                }else {
-                isUserInteracted = true;
-            }
+                }else{
+                    isUserInteracted = true;
+                }
             }
 
             @Override
@@ -151,14 +149,14 @@ public class EditInformationActivity extends AppCompatActivity {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditInformationActivity.this, Home.class);
+                Intent intent = new Intent(EditInformationHS.this, HomeHsActivity.class);
                 startActivity(intent);
             }
         });
         binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditInformationActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditInformationHS.this);
                 builder.setTitle("Xác nhận đăng xuất");
                 builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
 
@@ -166,7 +164,7 @@ public class EditInformationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Home.giaoVien =null;
-                        Intent intent=new Intent(EditInformationActivity.this, Login.class);
+                        Intent intent=new Intent(EditInformationHS.this, Login.class);
                         startActivity(intent);
                     }
                 });
@@ -192,14 +190,14 @@ public class EditInformationActivity extends AppCompatActivity {
             Toast.makeText(this, "Số điện thoại không được để trống.", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());
-         //   FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());
+            //   FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());
             Toast.makeText(this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void showUserData() {
-        binding.edtName.setText(giaoVien.getTenGiaoVien());
-        binding.edtEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        binding.edtName.setText(hocSinh.getTen());
+        binding.edtMSHS.setText(hocSinh.getMSHS());
     }
 
     @Override
@@ -239,16 +237,16 @@ public class EditInformationActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    Toast.makeText(EditInformationActivity.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformationHS.this, "Upload Successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(EditInformationActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInformationHS.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     private void updateProfilePicture(String url,String tennew ) {
-        FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/urlAva").setValue(url);
+        FirebaseDatabase.getInstance().getReference("hocsinh/" + hocSinh.getMSHS() + "/urlAva").setValue(url);
 
     }
     private void setLocaleFromDatabase(String selectedLanguage) {

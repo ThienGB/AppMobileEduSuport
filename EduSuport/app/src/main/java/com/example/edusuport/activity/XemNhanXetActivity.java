@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -38,6 +39,9 @@ public class XemNhanXetActivity extends AppCompatActivity {
     private PhuHuynh phuHuynh = HomePhActivity.phuHuynh;
     NhanXet nhanXet = new NhanXet();
     String role;
+    String tenHS = "";
+    String url;
+    String mshs = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +50,33 @@ public class XemNhanXetActivity extends AppCompatActivity {
         dbHelper = new DBHelper();
         Intent intent = getIntent();
         role = (String) intent.getSerializableExtra("role");
-        String mshs = "";
+
         if (role.equals("hocsinh")){
             mshs = hocSinh.getMSHS();
+            tenHS = hocSinh.getTen();
+            url = hocSinh.getUrl();
         }else {
             mshs = phuHuynh.getMSHS();
+            dbHelper.getTenHocSinhByMSHS(mshs, new DBHelper.TenHocSinhCallback() {
+                @Override
+                public void onTenHocSinhFetched(String tenHocSinh) {
+                    if (tenHocSinh != null) {
+                        tenHS = tenHocSinh;
+                    } else {
+                        // Xử lý khi không lấy được tên học sinh
+                    }
+                }
+            });
+            dbHelper.getUlrHocSinhByID(mshs, new DBHelper.TenHocSinhCallback() {
+                @Override
+                public void onTenHocSinhFetched(String urlAva) {
+                    if (urlAva != null) {
+                        url = urlAva;
+                    } else {
+                        // Xử lý khi không lấy được tên học sinh
+                    }
+                }
+            });
         }
 
         GetNhanXet(mshs);
@@ -83,18 +109,22 @@ public class XemNhanXetActivity extends AppCompatActivity {
         });
     }
     public void SetData(NhanXet nhanXet){
-        binding.txvTenHS.setText("Học sinh: "+ hocSinh.getTen());
+        Picasso.get().load(url).into(binding.ava);
+        String danhGia = nhanXet.getDanhGia();
+        binding.txvTenHS.setText("Học sinh: "+ tenHS);
         binding.txvNoiDungNX.setText(nhanXet.getNoiDung());
-        binding.txvDanhGia.setText(nhanXet.getDanhGia());
-//        dbHelper.getTenGiaoVienByID(nhanXet.getIDGiaoVien(), new DBHelper.TenHocSinhCallback() {
-//            @Override
-//            public void onTenHocSinhFetched(String tenPhuHuynh) {
-//                if (tenPhuHuynh != null) {
-//                    binding.txvTenNguoiNX.setText("Học sinh: "+ tenPhuHuynh);
-//                } else {
-//                }
-//            }
-//        });
+        binding.txvDanhGia.setText(danhGia);
+        if (danhGia.equals("Yếu")){
+            binding.ratingBar.setRating(1);
+        }else if (danhGia.equals("Trung bình")){
+            binding.ratingBar.setRating(2);
+        }else if (danhGia.equals("Khá")){
+            binding.ratingBar.setRating(3);
+        }else if (danhGia.equals("Giỏi")){
+            binding.ratingBar.setRating(4);
+        }else if (danhGia.equals("Xuất sắc")){
+            binding.ratingBar.setRating(5);
+        }
 
 
     }

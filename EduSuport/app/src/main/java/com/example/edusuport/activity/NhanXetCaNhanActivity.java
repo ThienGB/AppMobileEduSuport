@@ -19,9 +19,11 @@ import com.example.edusuport.databinding.ActivityNhanXetChungBinding;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
 import com.example.edusuport.model.NhanXet;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +34,7 @@ public class NhanXetCaNhanActivity extends AppCompatActivity {
     ActivityNhanXetCaNhanBinding binding;
     private GiaoVien giaoVien = Home.giaoVien;
     private HocSinh hocSinh;
+    NhanXet nhanXet;
     String DanhGia ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,53 @@ public class NhanXetCaNhanActivity extends AppCompatActivity {
         hocSinh = (HocSinh) intent.getSerializableExtra("hocSinh");
         binding.txvTenHS.setText("Học sinh: " + hocSinh.getTen());
         binding.txvMaHS.setText("Mã số học sinh: "+ hocSinh.getMSHS());
+        GetNhanXet(hocSinh.getMSHS());
         AddEvents();
+    }
+    public void GetNhanXet(String mshs){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(dbHelper.ColecNhanXet);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nhanXet = null;
+                for (DataSnapshot thuSnapshot : dataSnapshot.getChildren()) {
+                    String Mshs = thuSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
+                    if (Mshs.equals(mshs))
+                    {
+                        String IDThongBao = thuSnapshot.getKey();
+                        String IDNguoiGui = thuSnapshot.child(dbHelper.FieldIDGiaoVien).getValue(String.class);
+                        String NoiDung = thuSnapshot.child(dbHelper.FieldNoiDung).getValue(String.class);
+                        String DanhGia = thuSnapshot.child(dbHelper.FieldDanhGia).getValue(String.class);
+                        nhanXet = new NhanXet(IDThongBao, IDNguoiGui, mshs, NoiDung, DanhGia);
+                    }
+                }
+                if (nhanXet != null)
+                    SetData(nhanXet);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void SetData(NhanXet nx){
+        if (nx == null)
+            return;
+        String danhGia = nx.getDanhGia();
+        binding.txvDanhGia.setText(danhGia);
+        binding.edtNhanXet.setText(nx.getNoiDung());
+        if (danhGia.equals("Yếu")){
+            binding.ratingBar.setRating(1);
+        }else if (danhGia.equals("Trung bình")){
+            binding.ratingBar.setRating(2);
+        }else if (danhGia.equals("Khá")){
+            binding.ratingBar.setRating(3);
+        }else if (danhGia.equals("Giỏi")){
+            binding.ratingBar.setRating(4);
+        }else if (danhGia.equals("Xuất sắc")){
+            binding.ratingBar.setRating(5);
+        }
     }
     public void AddEvents(){
         binding.edtNhanXet.setOnFocusChangeListener(new View.OnFocusChangeListener() {

@@ -104,7 +104,7 @@ public class GuiThongBaoActivity extends AppCompatActivity {
                 } else {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(dbHelper.ColecHocSinh);
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             listHS = new ArrayList<>();
@@ -132,11 +132,23 @@ public class GuiThongBaoActivity extends AppCompatActivity {
     }
     private void sendNotificationToClass(ArrayList<HocSinh> arrayList, String NoiDung) {
         for (int i = 0; i < arrayList.size(); i++){
+
+            // Gui cho học sinh
             Map<String, Object> updates = new HashMap<>();
             String IDThongBao = UUID.randomUUID().toString();
             long thoigian = System.currentTimeMillis();
             updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
             updates.put(dbHelper.FieldIDNguoiNhan, arrayList.get(i).getMSHS());
+            updates.put(dbHelper.FieldNoiDung, NoiDung);
+            updates.put(dbHelper.FieldThoiGian, thoigian);
+            thongbaoRef.child(IDThongBao).updateChildren(updates);
+
+            // Gui cho phụ huynh
+            updates = new HashMap<>();
+            String MSPH = arrayList.get(i).getMSHS() + "PH";
+            IDThongBao = UUID.randomUUID().toString();
+            updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
+            updates.put(dbHelper.FieldIDNguoiNhan,MSPH);
             updates.put(dbHelper.FieldNoiDung, NoiDung);
             updates.put(dbHelper.FieldThoiGian, thoigian);
             thongbaoRef.child(IDThongBao).updateChildren(updates);

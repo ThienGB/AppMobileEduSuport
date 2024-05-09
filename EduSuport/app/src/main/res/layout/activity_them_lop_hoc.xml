@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white_mid_emp"
     tools:context=".activity.ThemLopHocActivity">
 
     <LinearLayout
@@ -45,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
                     android:layout_centerInParent= "true"
                     android:layout_width= "40dp"
                     android:layout_height= "40dp"
@@ -84,7 +86,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:orientation="vertical"
+            android:elevation="10dp"
+            android:background="@drawable/fullbutton_background"
             android:padding="10dp">
 
 
@@ -92,21 +97,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@string/idClass" />
+                android:text="@string/nameClass" />
 
-            <EditText
-                android:id="@+id/edtTenLop"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                 />
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="@string/nameClass"
+                app:startIconDrawable="@drawable/img_id">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTenLop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    style="@style/textColor"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnXacNhan"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:text="Xác nhận ">
             </Button>

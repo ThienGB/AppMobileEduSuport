@@ -24,8 +24,11 @@ import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class QuanLyLopHocActivity extends AppCompatActivity {
     GridView gvChucNang;
@@ -45,6 +48,10 @@ public class QuanLyLopHocActivity extends AppCompatActivity {
         lopHoc = (LopHoc) intent.getSerializableExtra("lopHoc");
         binding.txvSiSo.setText("Sỉ số: "+ lopHoc.getSoLuong());
         binding.txvTenLop.setText(lopHoc.getTenLopHoc());
+
+        binding.txvTenGV.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
+        Picasso.get().load(giaoVien.getUrl()).into(binding.imgava);
+
         getForm();
         getData();
         AddEvents();

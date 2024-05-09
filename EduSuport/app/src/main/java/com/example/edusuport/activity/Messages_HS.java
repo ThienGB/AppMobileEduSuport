@@ -40,13 +40,13 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Messages_HS extends AppCompatActivity {
-    HocSinh hocSinh = HomeHsActivity.hocSinh;
+    static HocSinh hocSinh = HomeHsActivity.hocSinh;
     public List<MessageList> messageLists = new ArrayList<>();
     ImageView xemthemlophoc;
     private RadioGroup rb_role;String textRole="HS";
     private String phone="0942523074";
     private String name=hocSinh.getTen();
-    private String idCurUse=hocSinh.getMSHS();
+    public static String idCurUse=hocSinh.getMSHS();
     private int unseenMsg = 0;
     private String lastMsg = "";
     private String chatKey="";
@@ -168,11 +168,14 @@ public class Messages_HS extends AppCompatActivity {
         messController.getPH(idCurUse, new MessController.DataRetrievedCallback_Message() {
             @Override
             public void onDataRetrieved(MessageList MessageList) {
+
                 messageLists.add(MessageList);
+
                 messageAdapter = new MessagesAdapter(messageLists,Messages_HS.this);
                 messageRecyclerView.setAdapter(messageAdapter);
                 Log.d("List mới",String.valueOf(messageLists));
-                messageAdapter.notifyDataSetChanged();
+                messageAdapter.updateData(messageLists);
+                Log.d("List mới",String.valueOf(messageLists));
             }
         });
 

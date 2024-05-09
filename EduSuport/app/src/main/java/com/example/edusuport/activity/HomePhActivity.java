@@ -1,34 +1,38 @@
 package com.example.edusuport.activity;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.ChucNangHomeAdapter;
 import com.example.edusuport.model.ChucNang;
-import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.PhuHuynh;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomePhActivity extends AppCompatActivity {
    // public static PhuHuynh phuHuynh = new PhuHuynh("21110499PH", "Lê Quang", "12B8", "21110499");
-    public static PhuHuynh phuHuynh;
+    public static PhuHuynh phuHuynh=null;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
     @Override
@@ -43,6 +47,9 @@ public class HomePhActivity extends AppCompatActivity {
         });
         TextView txvTenGV = findViewById(R.id.txvTenPH);
         txvTenGV.setText(phuHuynh.getTen());
+        CircleImageView imgavt = findViewById(R.id.imgAvatar);
+        Picasso.get().load(phuHuynh.getUrl()).into(imgavt);
+        setLocaleFromDatabase(phuHuynh.getNgonNgu());
         getForm();
         getData();
         AddEvents();
@@ -51,6 +58,8 @@ public class HomePhActivity extends AppCompatActivity {
         ListCN.add(new ChucNang("DXPPH","Đơn xin nghỉ học"));
         ListCN.add(new ChucNang("GYPH","Góp ý giáo viên"));
         ListCN.add(new ChucNang("TBPH","Xem thông báo"));
+        ListCN.add(new ChucNang("XNXPH","Xem nhận xét"));
+        ListCN.add(new ChucNang("XDPH","Xem điểm"));
         chucNangHomeAdapter=new ChucNangHomeAdapter(HomePhActivity.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }
@@ -77,38 +86,8 @@ public class HomePhActivity extends AppCompatActivity {
         layoutEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomePhActivity.this, EditInformation.class);
+                Intent intent=new Intent(HomePhActivity.this, EditInformation_PH.class);
                 startActivity(intent);
-            }
-        });
-
-
-        ImageButton btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(HomePhActivity.this);
-                builder.setTitle("Xác nhận đăng xuất");
-                builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
-
-                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        HomePhActivity.phuHuynh = new PhuHuynh();
-                        Intent intent=new Intent(HomePhActivity.this, Login.class);
-                        startActivity(intent);
-                    }
-                });
-
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss(); // Đóng hộp thoại khi người dùng chọn hủy
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
             }
         });
         gvChucNang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,5 +99,17 @@ public class HomePhActivity extends AppCompatActivity {
     }
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
+    }
+    private void setLocaleFromDatabase(String selectedLanguage) {
+        Configuration config = getResources().getConfiguration();
+        Locale locale = new Locale(selectedLanguage);
+        config.setLocale(locale);
+
+        // Tạo một Context mới với Configuration mới
+        Context newContext = createConfigurationContext(config);
+
+        // Cập nhật ngôn ngữ cho ứng dụng
+        Resources resources = newContext.getResources();
+        getResources().updateConfiguration(config, resources.getDisplayMetrics());
     }
 }

@@ -80,6 +80,7 @@
                         android:textSize="10dp" />
 
                     <TextView
+                        android:id="@+id/txvTenHS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -143,7 +144,7 @@
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/midDark"
+            android:background="@color/white_mid_emp"
             android:padding="10dp"
 
             android:scrollbars="none">

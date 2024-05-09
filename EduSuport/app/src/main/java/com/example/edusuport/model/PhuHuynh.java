@@ -8,6 +8,33 @@ public class PhuHuynh implements Serializable {
     private String IDLopHoc;
     private String MSHS;
     private String Matkhau;
+    private String url;
+    private String NgonNgu;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getNgonNgu() {
+        return NgonNgu;
+    }
+
+    public void setNgonNgu(String ngonNgu) {
+        NgonNgu = ngonNgu;
+    }
+
+    public PhuHuynh(String MSPH, String ten, String IDLopHoc, String MSHS, String url, String NgonNgu) {
+        this.MSPH = MSPH;
+        Ten = ten;
+        this.NgonNgu = NgonNgu;
+        this.IDLopHoc = IDLopHoc;
+        this.MSHS = MSHS;
+        this.url = url;
+    }
 
     public String getMSPH() {
         return MSPH;
@@ -50,13 +77,6 @@ public class PhuHuynh implements Serializable {
 
     public PhuHuynh() {
     }
-    public PhuHuynh(String MSPH,String mssv, String ten, String idlophoc, String matkhau) {
-        this.MSHS= mssv;
-        this.Ten = ten;
-        this.IDLopHoc = idlophoc;
-        this.Matkhau = matkhau;
-    }
-
     public PhuHuynh(String MSPH, String ten, String IDLopHoc, String MSHS) {
         this.MSPH = MSPH;
         Ten = ten;

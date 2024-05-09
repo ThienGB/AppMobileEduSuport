@@ -42,7 +42,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         if (chatLists.get(position).getidUser().equals(idCurUser)){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppoLayout.setVisibility(View.GONE);
-
             holder.myMsg.setText(list2.getMessage());
             holder.myTime.setText(list2.getDate() + " " + list2.getTime());
         }

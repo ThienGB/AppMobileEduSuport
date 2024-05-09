@@ -345,7 +345,17 @@ public class Login extends AppCompatActivity {
                             String Ten = PHSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
                             String IDLopHoc = PHSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
                             String mshs = PHSnapshot.child(dbHelper.FieldMSHS).getValue(String.class);
-                            PhuHuynh phuHuynh = new PhuHuynh(Msph, Ten, IDLopHoc, mshs);
+                            String url = PHSnapshot.child("urlAva").getValue(String.class);
+
+                            DataSnapshot ngonNguSnapshot = PHSnapshot.child("ngonNgu");
+                            String NgonNgu;
+
+                            if (ngonNguSnapshot.exists()) {
+                                NgonNgu = ngonNguSnapshot.getValue(String.class);
+                            } else {
+                                NgonNgu = "vi";
+                            }
+                            PhuHuynh phuHuynh = new PhuHuynh(Msph, Ten, IDLopHoc, mshs, url, NgonNgu);
                             HomePhActivity.phuHuynh = phuHuynh;
                             validate = true;
                     }
@@ -383,7 +393,16 @@ public class Login extends AppCompatActivity {
                     {
                         String Ten = PHSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
                         String IDLopHoc = PHSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
-                        HocSinh hocSinh = new HocSinh(Mssh, Ten, IDLopHoc);
+                        String url = PHSnapshot.child("urlAva").getValue(String.class);
+                        DataSnapshot ngonNguSnapshot = PHSnapshot.child("ngonNgu");
+                        String NgonNgu;
+                        if (ngonNguSnapshot.exists()) {
+                            NgonNgu = ngonNguSnapshot.getValue(String.class);
+                        } else {
+                            NgonNgu = "vi";
+                        }
+                        HocSinh hocSinh = new HocSinh(Mssh, Ten, IDLopHoc, url, NgonNgu);
+
                         HomeHsActivity.hocSinh = hocSinh;
                         validate = true;
                     }

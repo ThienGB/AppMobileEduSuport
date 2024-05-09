@@ -16,8 +16,11 @@ import com.example.edusuport.R;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HocSinhAdapter extends ArrayAdapter {
     Context context;
@@ -58,9 +61,8 @@ public class HocSinhAdapter extends ArrayAdapter {
             }
         });
         viewHolder.txvMaGV.setText("Mã học sinh: "+ item.getMSHS());
-
+        Picasso.get().load(item.getUrl()).into(viewHolder.imvAvaGV);
         return convertView;
     }
-
 }
 

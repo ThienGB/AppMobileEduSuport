@@ -46,6 +46,7 @@ public class MessController {
     String lastMsg="";
     public void loadPartner_idCuren(String idCurUse, RecyclerView messageRecyclerView, Context context){
         list.clear();
+
         myRef.child("chat").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -64,7 +65,10 @@ public class MessController {
 
                             String Idpartner="";
                             String role="";
+                            chatKey="";
+
                             if ( getUserTwo.equals(idCurUse) || (getUserOne.equals(idCurUse))) {
+                                lastMsg="";
                                 for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                     String getMessageKey = chatDataSnapshot.getKey();
                                     //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
@@ -72,7 +76,7 @@ public class MessController {
                                     lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                 }
-
+                                chatKey="";
                                 chatKey = getKey;
                                 if(getUserTwo.equals(idCurUse) )
                                 {
@@ -84,12 +88,16 @@ public class MessController {
                                     Idpartner=getUserTwo;
                                     role=roleTwo;
                                 }
-
+                                MessageList messageList = new MessageList("", "", "", lastMsg, "","", chatKey);
+                                chatKey="";lastMsg="";
                                 getUser(Idpartner, role, new DataRetrievedCallback_User() {
                                     @Override
                                     public void onDataRetrieved(Account account) {
-                                        MessageList messageList = new MessageList(account.getIdTK(), account.getName(), account.getPhoneNum(), lastMsg, account.getUrlAva(),account.getRole(), chatKey);
-                                        Log.d("CHafffffffffffffff", String.valueOf("getName"));
+                                        messageList.setIdpartner(account.getIdTK());
+                                        messageList.setName(account.getName());
+                                        messageList.setPhone(account.getPhoneNum());
+                                        messageList.setProfilePic(account.getUrlAva());
+                                        messageList.setRole(account.getRole());
                                         list.add(messageList);
                                         messageRecyclerView.setAdapter(new MessagesAdapter(list, context));
 
@@ -150,7 +158,7 @@ public class MessController {
                     if (idlophoc != null && idlophoc.equals(idLopHoc)) {
                         Task<DataSnapshot> chatTask = myRef.child("chat").get();
                         chatKey="";
-                        lastMsg="";
+
                         tasks.add(chatTask.continueWithTask(new Continuation<DataSnapshot, Task<Void>>() {
                             @Override
                             public Task<Void> then(@NonNull Task<DataSnapshot> task) throws Exception {
@@ -165,6 +173,7 @@ public class MessController {
                                         final String roleTwo = dataSnapshot1.child("role_2").getValue(String.class);
 
                                         if ( (getUserOne.equals(id) && getUserTwo.equals(idCurUse)) || (getUserOne.equals(idCurUse)&& getUserTwo.equals(id))) {
+                                            lastMsg="";
                                             for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                                 String getMessageKey = chatDataSnapshot.getKey();
                                                 //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
@@ -172,12 +181,14 @@ public class MessController {
                                                 lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                             }
-
+                                            chatKey="";
                                             chatKey = getKey;
-
+                                            Log.d("CHafffffffffffffff", String.valueOf(lastMsg+chatKey));
                                 }}}
 
                                 list.add(new MessageList(id, ten, phone, lastMsg, urlava, "hocsinh", chatKey));
+                                chatKey="";lastMsg="";
+                                Log.d("CHafffffff10", String.valueOf(lastMsg+chatKey));
                                 return Tasks.whenAll(messageTasks);
                             }
                         }));
@@ -211,12 +222,12 @@ public class MessController {
 
                     if (idlophoc != null && idlophoc.equals(idLopHoc)) {
                         Task<DataSnapshot> chatTask = myRef.child("chat").get();
+                        chatKey="";
+
                         tasks.add(chatTask.continueWithTask(new Continuation<DataSnapshot, Task<Void>>() {
                             @Override
                             public Task<Void> then(@NonNull Task<DataSnapshot> task) throws Exception {
                                 ArrayList<Task<Void>> messageTasks = new ArrayList<>();
-                                chatKey="";
-                                lastMsg="";
                                 for (DataSnapshot dataSnapshot1 : task.getResult().getChildren()) {
                                     final String getKey = dataSnapshot1.getKey();
 
@@ -227,6 +238,7 @@ public class MessController {
                                         final String roleTwo = dataSnapshot1.child("role_2").getValue(String.class);
 
                                         if ( (getUserOne.equals(id) && getUserTwo.equals(idCurUse)) || (getUserOne.equals(idCurUse)&& getUserTwo.equals(id))) {
+                                            lastMsg="";
                                             for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                                 String getMessageKey = chatDataSnapshot.getKey();
                                                 //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
@@ -234,13 +246,12 @@ public class MessController {
                                                 lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                             }
-
+                                            chatKey="";
                                             chatKey = getKey;
+                                                       }}}
 
-                                        }}}
-
-                                list.add(new MessageList(id, ten, phone, lastMsg, urlava, "hocsinh", chatKey));
-
+                                list.add(new MessageList(id, ten, phone, lastMsg, urlava, "phuhuynh", chatKey));
+                                chatKey="";lastMsg="";
                                 return Tasks.whenAll(messageTasks);
                             }
                         }));
@@ -268,14 +279,14 @@ public class MessController {
                             String ten = dataSnapshot.child("ten").getValue(String.class);
                             String sdt = dataSnapshot.child("phone").getValue(String.class);
                             String urlAva = dataSnapshot.child("urlAva").getValue(String.class);
-
+                            chatKey="";
                             myRef.child("chat").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    chatKey="";
+
                                     for (DataSnapshot dataSnapshot1 : task.getResult().getChildren()) {
                                         final String getKey = dataSnapshot1.getKey();
-
+                                        chatKey="";
 
                                         if (dataSnapshot1.hasChild("users_1") && dataSnapshot1.hasChild("users_2")) {
                                             final String getUserOne = dataSnapshot1.child("users_1").getValue(String.class);
@@ -286,23 +297,32 @@ public class MessController {
                                                 for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                                     String getMessageKey = chatDataSnapshot.getKey();
                                                     //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
-
+                                                    lastMsg="";
                                                     lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                                 }
-
+                                                chatKey="";
                                                 chatKey = getKey;
+
 
                                             }
 
-                                            callback.onDataRetrieved(new MessageList(id,ten,sdt,lastMsg,urlAva,"giaovien",chatKey));
-                                            break;
+
                                         }}
 
+                                    MessageList messageList=new MessageList(id,ten,sdt,lastMsg,urlAva,"giaovien",chatKey);
+                                    chatKey="";lastMsg="";
+                                    callback.onDataRetrieved(messageList);
                                 }
-
                             });
-                            }
+
+                            Log.e("chatKeyReal",String.valueOf("1"));
+
+
+
+
+
+                        }
                     }
 
         });
@@ -324,6 +344,7 @@ public class MessController {
                         public void onDataRetrieved(MessageList MessageList) {
                             Log.e("test ",String.valueOf(MessageList));
                             callbackLopHoc.onDataRetrieved(MessageList);
+                            chatKey="";lastMsg="";
 
                         }
                     });}}});
@@ -350,7 +371,7 @@ public class MessController {
                             for (DataSnapshot dataSnapshot1 : task.getResult().getChildren()) {
                                 final String getKey = dataSnapshot1.getKey();
 
-
+                                chatKey="";
                                 if (dataSnapshot1.hasChild("users_1") && dataSnapshot1.hasChild("users_2")) {
                                     final String getUserOne = dataSnapshot1.child("users_1").getValue(String.class);
                                     final String getUserTwo = dataSnapshot1.child("users_2").getValue(String.class);
@@ -360,22 +381,24 @@ public class MessController {
                                         for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                             String getMessageKey = chatDataSnapshot.getKey();
                                             //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
-
+                                            lastMsg="";
                                             lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                         }
-
+                                        chatKey="";
                                         chatKey = getKey;
-
+                                        break;
                                     }
 
-                                    callbackLopHoc.onDataRetrieved(new MessageList(id,ten,sdt,lastMsg,urlAva,"phuhuynh",chatKey));
-                                    break;
+
                                 }}
 
                         }
 
-                    });
+                    });callbackLopHoc.onDataRetrieved(new MessageList(id,ten,sdt,lastMsg,urlAva,"phuhuynh",chatKey));
+                    chatKey="";lastMsg="";
+
+
 
                 }}});
 
@@ -401,7 +424,7 @@ public class MessController {
                             chatKey="";
                             for (DataSnapshot dataSnapshot1 : task.getResult().getChildren()) {
                                 final String getKey = dataSnapshot1.getKey();
-
+                                chatKey="";
 
                                 if (dataSnapshot1.hasChild("users_1") && dataSnapshot1.hasChild("users_2")) {
                                     final String getUserOne = dataSnapshot1.child("users_1").getValue(String.class);
@@ -412,19 +435,19 @@ public class MessController {
                                         for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
                                             String getMessageKey = chatDataSnapshot.getKey();
                                             //final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
-
+                                            lastMsg="";
                                             lastMsg = chatDataSnapshot.child("msg").getValue(String.class);
 
                                         }
-
+                                        chatKey="";
                                         chatKey = getKey;
 
                                     }
 
-                                    callbackLopHoc.onDataRetrieved(new MessageList(id,ten,sdt,lastMsg,urlAva,"hocsinh",chatKey));
-                                    break;
-                                }}
 
+                                }}
+                            callbackLopHoc.onDataRetrieved(new MessageList(id,ten,sdt,lastMsg,urlAva,"hocsinh",chatKey));
+                            chatKey="";lastMsg="";
                         }
 
                     });

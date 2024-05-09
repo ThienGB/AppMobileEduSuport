@@ -85,11 +85,12 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                 imgHinh.setImageResource(R.drawable.icon_document);break;
             }
             case "XDHS":
+            case "XDPH":
             case "NDGV":{
                 imgHinh.setImageResource(R.drawable.icon_score);break;
             }
             case "XNHHS":
-            case "XNHPH":
+            case "XNXPH":
             case "DGHSGV":{
                 imgHinh.setImageResource(R.drawable.icon_dghs);break;
             }
@@ -155,7 +156,7 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         context.startActivity(intent);
                         break;
                     }
-                    case "XNHPH":{
+                    case "XNXPH":{
                         Intent intent=new Intent(context, XemNhanXetActivity.class);
                         intent.putExtra("role", "phuhuynh");
                         context.startActivity(intent);
@@ -179,6 +180,13 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                     }
                     case "XDHS":{
                         Intent intent=new Intent(context, XemDiemActivity.class);
+                        intent.putExtra("role", "hocsinh");
+                        context.startActivity(intent);
+                        break;
+                    }
+                    case "XDPH":{
+                        Intent intent=new Intent(context, XemDiemActivity.class);
+                        intent.putExtra("role", "phuhuynh");
                         context.startActivity(intent);
                         break;
                     }
@@ -197,13 +205,7 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         Intent intent=new Intent(context, XemNhanXetActivity.class);
                         context.startActivity(intent);
                         break;
-                    }
-                    case "XLGV":{
-                        Intent intent=new Intent(context, XemNhanXetActivity.class);
-                        intent.putExtra("role", "hocsinh");
-                        context.startActivity(intent);
-                        break;
-                    }case "TLHGV":{
+                    } case "TLHGV":{
                         Intent intent=new Intent(context, ThemLopHocActivity.class);
                         context.startActivity(intent);
                         break;

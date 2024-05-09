@@ -1,7 +1,10 @@
 package com.example.edusuport.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,13 +32,18 @@ import com.example.edusuport.controllers.LopHocController;
 import com.example.edusuport.model.ChucNang;
 import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.LopHoc;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
     //public static GiaoVien giaoVien = new GiaoVien("123", "Nguyễn Hữu Thoại");
-    public static GiaoVien giaoVien;
+    public static GiaoVien giaoVien=null;
     GridView gvChucNang;
+    CircleImageView ava;
     ArrayList<ChucNang> ListCN=new ArrayList<>();
     ArrayList<LopHoc> ListLH=new ArrayList<>();
     ChucNangHomeAdapter chucNangHomeAdapter;
@@ -54,6 +62,9 @@ public class Home extends AppCompatActivity {
         });
         TextView txvTenGV = findViewById(R.id.txvTenGV);
         txvTenGV.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
+        CircleImageView imgavt = findViewById(R.id.imgAvatar);
+        Picasso.get().load(giaoVien.getUrl()).into(imgavt);
+        setLocaleFromDatabase(giaoVien.getNgonNgu());
         getForm();
         getData();
         GetLopHoc();
@@ -73,10 +84,10 @@ public class Home extends AppCompatActivity {
     }
     public void AddEvents(){
         View includedLayout = findViewById(R.id.navbar_layout); // navbar_layout là ID của layout được include
-        ImageButton btnLogout = findViewById(R.id.btnLogout);
         ConstraintLayout layoutHome = includedLayout.findViewById(R.id.layoutHome);
         ConstraintLayout layoutMessage = includedLayout.findViewById(R.id.layoutMessage);
         ConstraintLayout layoutEditProfile = includedLayout.findViewById(R.id.layoutEditProfile);
+
         layoutHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,33 +109,7 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
-                builder.setTitle("Xác nhận đăng xuất");
-                builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
 
-                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Home.giaoVien = new GiaoVien();
-                        Intent intent=new Intent(Home.this, Login.class);
-                        startActivity(intent);
-                    }
-                });
-
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss(); // Đóng hộp thoại khi người dùng chọn hủy
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
         gvChucNang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -147,6 +132,13 @@ public class Home extends AppCompatActivity {
     private void getForm() {
         gvChucNang=findViewById(R.id.grid_ChucNang);
         rcvLopHoc = findViewById(R.id.rcvLopHoc);
+        ava= findViewById(R.id.imgAvatar);
+        if(!giaoVien.getUrl().isEmpty()){
+            Picasso.get().load(giaoVien.getUrl()).into(ava);
+        }
+        else {
+            Picasso.get().load(R.drawable.profile).into(ava);
+        }
     }
     private void SetDataLopHoc(ArrayList<LopHoc> arrList){
         adapter = new LopHocAdapter(arrList);
@@ -163,5 +155,14 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-
+    private void setLocaleFromDatabase(String selectedLanguage) {
+        Configuration config = getResources().getConfiguration();
+        Locale locale = new Locale(selectedLanguage);
+        config.setLocale(locale);
+        // Tạo một Context mới với Configuration mới
+        Context newContext = createConfigurationContext(config);
+        // Cập nhật ngôn ngữ cho ứng dụng
+        Resources resources = newContext.getResources();
+        getResources().updateConfiguration(config, resources.getDisplayMetrics());
+    }
 }

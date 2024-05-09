@@ -310,17 +310,21 @@ public class DangTaiTaiLieu_MonActivity extends AppCompatActivity {
                         if(data!=null && !txtTenFile.getText().toString().equals("")){
                             String ext="."+getFileExtension(data.getData());
 
-
+                            ProgressDialog progressDialog = new ProgressDialog(DangTaiTaiLieu_MonActivity.this);
+                            progressDialog.setMessage("Uploading...");
+                            progressDialog.show();
                             dangTaiTaiLieuController.createNewFileTaiLieu_idmon(idMon, txtTenFile.getText().toString(), data.getData(), ext, idLop, new DangTaiTaiLieuController.UploadCallback() {
                                 @Override
                                 public void onUploadComplete() {
                                     reLoadListf();
                                     Toast.makeText(DangTaiTaiLieu_MonActivity.this, "Đăng thành công", Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onUploadFailed(String errorMessage) {
                                     Toast.makeText(DangTaiTaiLieu_MonActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                    progressDialog.dismiss();
                                 }
                             });
                             data=null;

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:id="@+id/layoutXPItem"
     android:orientation="horizontal"
-    android:background="@drawable/background_subject_excellent_score"
+    android:padding="10dp"
+    android:background="@drawable/fullbutton_background"
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView

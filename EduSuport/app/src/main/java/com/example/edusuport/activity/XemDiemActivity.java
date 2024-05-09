@@ -15,12 +15,14 @@ import com.example.edusuport.databinding.ActivityXemDiemBinding;
 import com.example.edusuport.model.Diem;
 import com.example.edusuport.model.DonXinNghiHoc;
 import com.example.edusuport.model.HocSinh;
+import com.example.edusuport.model.PhuHuynh;
 import com.google.android.gms.common.api.internal.LifecycleCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -31,7 +33,11 @@ public class XemDiemActivity extends AppCompatActivity {
     DBHelper dbHelper;
     Diem diem;
     HocSinh hocSinh;
+    PhuHuynh phuHuynh;
     private String hocKy = "học kỳ 1";
+    String tenHS;
+    String mshs = "";
+    String url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +46,37 @@ public class XemDiemActivity extends AppCompatActivity {
         dbHelper = new DBHelper();
         AddEvents();
         hocSinh = HomeHsActivity.hocSinh;
-        GetDiem(hocSinh.getMSHS());
+        phuHuynh = HomePhActivity.phuHuynh;
+        Intent intent = getIntent();
+        String role = (String) intent.getSerializableExtra("role");
+        if (role.equals("hocsinh")){
+            mshs = hocSinh.getMSHS();
+            tenHS = hocSinh.getTen();
+            url = hocSinh.getUrl();
+        }else {
+            mshs = phuHuynh.getMSHS();
+            dbHelper.getTenHocSinhByMSHS(mshs, new DBHelper.TenHocSinhCallback() {
+                @Override
+                public void onTenHocSinhFetched(String tenHocSinh) {
+                    if (tenHocSinh != null) {
+                        tenHS = tenHocSinh;
+                    } else {
+                        // Xử lý khi không lấy được tên học sinh
+                    }
+                }
+            });
+            dbHelper.getUlrHocSinhByID(mshs, new DBHelper.TenHocSinhCallback() {
+                @Override
+                public void onTenHocSinhFetched(String urlAva) {
+                    if (urlAva != null) {
+                        url = urlAva;
+                    } else {
+                        // Xử lý khi không lấy được tên học sinh
+                    }
+                }
+            });
+        }
+        GetDiem(mshs);
     }
     public void GetDiem(String MSHS){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -79,6 +115,9 @@ public class XemDiemActivity extends AppCompatActivity {
         });
     }
     public void SetData(Diem diem){
+        Picasso.get().load(url).into(binding.ava);
+        binding.txvTenHS.setText("Học sinh " + tenHS);
+
         binding.txvToan.setText(String.valueOf(diem.getDiemToan()));
         binding.txvVatLy.setText(String.valueOf(diem.getDiemVatLy()));
         binding.txvHoaHoc.setText(String.valueOf(diem.getDiemHoaHoc()));
@@ -159,12 +198,12 @@ public class XemDiemActivity extends AppCompatActivity {
                 switch (selectedOption) {
                     case "Học kì 1":{
                         hocKy = dbHelper.ValueHocKy1;
-                        GetDiem(hocSinh.getMSHS());
+                        GetDiem(mshs);
                         break;
                     }
                     case "Học kì 2":{
                         hocKy = dbHelper.ValueHocKy2;
-                        GetDiem(hocSinh.getMSHS());
+                        GetDiem(mshs);
                         break;
                     }
                 }

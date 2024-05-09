@@ -12,8 +12,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
+        android:layout_gravity="center"
         android:clipToOutline="true"
-        android:src="@drawable/img_list_class" />
+        android:src="@drawable/img_list_class"
+        android:background="@drawable/fullbutton_background"/>
 
     <TextView
         android:id="@+id/txvTenLop"
@@ -22,7 +24,10 @@
         android:text="Lớp 12B3"
         android:textSize="16sp"
         android:paddingLeft="5dp"
-        android:textColor="@android:color/black"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/main_dark_blue"
+        android:textStyle="bold"
         android:layout_marginTop="8dp"/>
 
     <TextView
@@ -31,8 +36,9 @@
         android:layout_height="wrap_content"
         android:text="Sĩ số lớp: 20"
         android:paddingLeft="5dp"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         android:layout_marginTop="4dp"/>
 
 </LinearLayout>

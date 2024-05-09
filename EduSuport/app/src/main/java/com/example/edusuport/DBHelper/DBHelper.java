@@ -127,6 +127,25 @@ public class DBHelper {
             }
         });
     }
+    public void getUlrHocSinhByID(String MSPH, final TenHocSinhCallback callback) {
+        DatabaseReference hocsinhRef = databaseRef.child(ColecHocSinh).child(MSPH).child("urlAva");
+        hocsinhRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String url = dataSnapshot.getValue(String.class);
+                    callback.onTenHocSinhFetched(url);
+                } else {
+                    callback.onTenHocSinhFetched(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onTenHocSinhFetched(null);
+            }
+        });
+    }
     public interface TenHocSinhCallback {
         void onTenHocSinhFetched(String tenHocSinh);
     }

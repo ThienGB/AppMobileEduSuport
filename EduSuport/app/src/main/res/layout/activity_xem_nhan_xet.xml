@@ -124,6 +124,15 @@
                 android:textSize="25dp"
                 android:text="NHẬN XÉT HỌC SINH"
                 android:textStyle="bold" />
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="1"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

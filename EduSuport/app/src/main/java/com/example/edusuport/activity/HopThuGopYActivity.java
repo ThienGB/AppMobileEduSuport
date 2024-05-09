@@ -218,6 +218,7 @@ public class HopThuGopYActivity extends AppCompatActivity {
         return filteredList;
     }
     public void Back(){
-        super.onBackPressed();
+        Intent intent = new Intent(HopThuGopYActivity.this, Home.class);
+        startActivity(intent);
     }
 }

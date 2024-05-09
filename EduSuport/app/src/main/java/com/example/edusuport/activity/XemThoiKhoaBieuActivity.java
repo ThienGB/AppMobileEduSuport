@@ -23,8 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class XemThoiKhoaBieuActivity extends AppCompatActivity {
     ActivityXemThoiKhoaBieuBinding binding;
@@ -40,6 +43,10 @@ public class XemThoiKhoaBieuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityXemThoiKhoaBieuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.txvTenHS.setText("Học sinh: " + hocSinh.getTen());
+        Picasso.get().load(hocSinh.getUrl()).into(binding.imgAva);
+
         listtkb = new ArrayList<>();
         dbHelper = new DBHelper();
         IDLopHoc = hocSinh.getIDLopHoc();
