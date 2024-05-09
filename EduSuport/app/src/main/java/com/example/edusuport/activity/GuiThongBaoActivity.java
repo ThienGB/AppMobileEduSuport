@@ -53,7 +53,7 @@ public class GuiThongBaoActivity extends AppCompatActivity {
         binding = ActivityGuiThongBaoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         thongbaoRef = FirebaseDatabase.getInstance().getReference(dbHelper.ColecThongBao);
-        binding.txvTenGiaoVien.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
+        binding.txvTenGiaoVien.setText(getResources().getString(R.string.teacher) + giaoVien.getTenGiaoVien());
         GetLopHoc();
         AddEvents();
     }

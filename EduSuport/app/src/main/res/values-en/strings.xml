@@ -132,4 +132,12 @@
     <string name="seeReview">See comments</string>
     <string name="cmtTeacher">Teacher feedback</string>
     <string name="listpermitapp">List permit applications</string>
+    <string name="functionList">Funtion list</string>
+    <string name="classMng">Classroom management</string>
+    <string name="notify">Notifications</string>
+    <string name="stdCmt">COMMENTS ABOUT STUDENT</string>
+    <string name="contentComment">Comment content :</string>
+    <string name="reviewer">Reviewer :</string>
+    <string name="idParents">ID Parents</string>
+    <string name="idStd">ID Student</string>
 </resources>

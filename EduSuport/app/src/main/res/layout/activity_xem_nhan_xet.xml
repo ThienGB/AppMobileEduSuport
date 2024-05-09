@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Kết quả học tập " />
+                        android:text="@string/studyResults" />
                 </LinearLayout>
 
 
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:layout_marginBottom="1dp"
-                        android:text="Xin chào!"
+                        android:text="@string/hello"
                         android:textColor="@color/black_high_emp"
                         android:textSize="10dp" />
 
@@ -122,7 +122,7 @@
                 android:paddingBottom="20dp"
                 android:textAlignment="center"
                 android:textSize="25dp"
-                android:text="NHẬN XÉT HỌC SINH"
+                android:text="@string/stdCmt"
                 android:textStyle="bold" />
             <RatingBar
                 android:id="@+id/ratingBar"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textStyle="bold"
-                android:text="Nội dung nhận xét:" />
+                android:text="@string/contentComment" />
             <TextView
                 android:id="@+id/txvNoiDungNX"
                 android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Người nhận xét:"
+                    android:text="@string/reviewer"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/txvTenNguoiNX"

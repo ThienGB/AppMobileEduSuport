@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginBottom="1dp"
-                    android:text="Xin chào"
+                    android:text="@string/hello"
                     android:textColor="@color/black_high_emp"
                     android:textSize="10dp" />
 
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Danh sách chức năng"
+                    android:text="@string/functionList"
                     android:textColor="@color/black"
                     android:textSize="17dp"
                     android:textStyle="bold" />
@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Quản lý lớp học"
+                        android:text="@string/classMng"
                         android:textSize="17dp"
                         android:textStyle="bold" />
 

@@ -136,5 +136,13 @@
     <string name="seeReview">Xem nhận xét</string>
     <string name="cmtTeacher">Góp ý giáo viên</string>
     <string name="listpermitapp">Danh sách đơn xin phép</string>
+    <string name="functionList">Danh sách chức năng</string>
+    <string name="classMng">Quản lý lớp học</string>
+    <string name="notify">Thông báo</string>
+    <string name="stdCmt">NHẬN XÉT HỌC SINH</string>
+    <string name="contentComment">Nội dung nhận xét :</string>
+    <string name="reviewer">Người nhận xét :</string>
+    <string name="idParents">Mã số phụ huynh</string>
+    <string name="idStd">Mã số sinh viên</string>
 
 </resources>

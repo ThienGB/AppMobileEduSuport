@@ -127,20 +127,20 @@ public class Login extends AppCompatActivity {
                     role="GV";
                     btn_dk.setVisibility(View.VISIBLE);
                     btn_dkgg.setVisibility(View.VISIBLE);
-                    tkhint.setHint("Email giáo viên");
+                    tkhint.setHint(getResources().getString(R.string.mailTeacher));
                     tk.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 } else if (checkedId==R.id.radioBtn_PH) {
                     role="PH";
                     btn_dk.setVisibility(View.GONE);
                     btn_dkgg.setVisibility(View.GONE);
-                    tkhint.setHint("Mã số phụ huynh");
+                    tkhint.setHint(getResources().getString(R.string.idParents));
                 }
                 else
                 {
                     role="HS";
                     btn_dk.setVisibility(View.GONE);
                     btn_dkgg.setVisibility(View.GONE);
-                    tkhint.setHint("Mã số sinh viên");
+                    tkhint.setHint(getResources().getString(R.string.idStd));
                 }
             }
         });
