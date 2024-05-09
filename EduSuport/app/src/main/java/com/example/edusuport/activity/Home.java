@@ -71,7 +71,7 @@ public class Home extends AppCompatActivity {
         AddEvents();
     }
     private void getData() {
-        ListCN.add(new ChucNang("TKBGV","Chỉnh sửa thời khóa biểu"));
+        ListCN.add(new ChucNang("TKBGV",getResources().getString(R.string.TKB)));
         ListCN.add(new ChucNang("TBGV","Gửi thông báo"));
         ListCN.add(new ChucNang("GYGV","Xem góp ý phụ huynh"));
         ListCN.add(new ChucNang("DXNGV","Xem đơn xin nghỉ học"));

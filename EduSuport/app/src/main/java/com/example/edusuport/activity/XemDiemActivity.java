@@ -101,9 +101,9 @@ public class XemDiemActivity extends AppCompatActivity {
                         double DiemGDTC = diemSNS.child(dbHelper.FieldDiemGDTC).getValue(double.class);
                         double DiemTinHoc = diemSNS.child(dbHelper.FieldDiemTinHoc).getValue(double.class);
                         double DiemTiengAnh = diemSNS.child(dbHelper.FieldDiemTiengAnh).getValue(double.class);
-                        diem = new Diem(IDDiem, hocSinh.getMSHS(), hocKy, DiemToan, DiemVatLy, DiemHoaHoc, DiemSinhHoc,
+                        diem = new Diem(IDDiem, mshs, hocKy, DiemToan, DiemVatLy, DiemHoaHoc, DiemSinhHoc,
                                 DiemLichSu, DiemDiaLy, DiemNguVan, DiemGDCD, DiemGDTC, DiemTinHoc, DiemTiengAnh);
-                        Log.d("Dem Ca Nhan", "ID: " + hocSinh.getMSHS() + ", Điểm toán: " + DiemToan);
+                        Log.d("Dem Ca Nhan", "ID: " +mshs + ", Điểm toán: " + DiemToan);
                     }
                 }
                 SetData(diem);

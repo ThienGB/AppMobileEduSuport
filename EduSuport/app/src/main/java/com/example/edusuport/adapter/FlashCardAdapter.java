@@ -46,7 +46,7 @@ public class FlashCardAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        if(position==getCount()){
+        if(position==getCount()-1){
             View endLayout = layoutInflater.inflate(R.layout.congrat_finish_fc, container, false);
             LinearLayout reload =(LinearLayout) endLayout.findViewById(R.id.btn_congrat_reload);
             LinearLayout out=(LinearLayout) endLayout.findViewById(R.id.btn_congrat_out);
