@@ -61,7 +61,7 @@
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePicture"
+                android:id="@+id/imgAvatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
@@ -80,11 +80,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginBottom="1dp"
-                    android:text="Người gửi:"
+                    android:text="@string/hello"
                     android:textColor="@color/black_high_emp"
                     android:textSize="10dp" />
 
                 <TextView
+                    android:id="@+id/txvTenPH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"

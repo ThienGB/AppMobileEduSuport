@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,6 @@ public class Messages extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_message);
-        final CircleImageView profilePicture = findViewById(R.id.profilePicture);
         messageRecyclerView = findViewById(R.id.msgRecylerView);
         filter= findViewById(R.id.filter);
 
@@ -87,7 +88,10 @@ public class Messages extends AppCompatActivity {
         phone = getIntent().getStringExtra("phone");
         name = getIntent().getStringExtra("name");
       //  idCurUse = getIntent().getStringExtra("idCurUse");
-//
+        TextView txvTenGV = findViewById(R.id.txvTenGV);
+        txvTenGV.setText("Giáo viên: " + giaoVien.getTenGiaoVien());
+        CircleImageView imgavt = findViewById(R.id.imgAvatar);
+        Picasso.get().load(giaoVien.getUrl()).into(imgavt);
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

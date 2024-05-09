@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import com.example.edusuport.R;
 import com.example.edusuport.activity.ChinhsuaThoiKhoaBieuActivity;
 import com.example.edusuport.activity.DangTaiTaiLieuActivity;
+import com.example.edusuport.activity.DanhSachDxpPhActivity;
 import com.example.edusuport.activity.DanhSachHocSinh;
 import com.example.edusuport.activity.DanhSachLopHoc;
 import com.example.edusuport.activity.DuyetDonXinNghiHocActivity;
@@ -172,7 +173,7 @@ public class ChucNangHomeAdapter extends ArrayAdapter {
                         break;
                     }
                     case "DXPPH":{
-                        Intent intent=new Intent(context, Main_DonXinNghiHoc_PH.class);
+                        Intent intent=new Intent(context, DanhSachDxpPhActivity.class);
                         context.startActivity(intent);
                         break;
                     }

@@ -55,11 +55,11 @@ public class HomePhActivity extends AppCompatActivity {
         AddEvents();
     }
     private void getData() {
-        ListCN.add(new ChucNang("DXPPH","Đơn xin nghỉ học"));
-        ListCN.add(new ChucNang("GYPH","Góp ý giáo viên"));
-        ListCN.add(new ChucNang("TBPH","Xem thông báo"));
-        ListCN.add(new ChucNang("XNXPH","Xem nhận xét"));
-        ListCN.add(new ChucNang("XDPH","Xem điểm"));
+        ListCN.add(new ChucNang("DXPPH",getResources().getString(R.string.leaveForm)));
+        ListCN.add(new ChucNang("GYPH",getResources().getString(R.string.cmtTeacher)));
+        ListCN.add(new ChucNang("TBPH",getResources().getString(R.string.seenNoti)));
+        ListCN.add(new ChucNang("XNXPH",getResources().getString(R.string.seeReview)));
+        ListCN.add(new ChucNang("XDPH",getResources().getString(R.string.seeScore)));
         chucNangHomeAdapter=new ChucNangHomeAdapter(HomePhActivity.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }

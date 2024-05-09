@@ -77,7 +77,7 @@
     <string name="history">History</string>
     <string name="geography">Geography</string>
     <string name="english">English</string>
-    <string name="it">Information technology</string>
+    <string name="it">Informatics</string>
     <string name="civicEducation">Civic education</string>
     <string name="physicalEducation">Physical education</string>
     <string name="confirmScores">"Confirm "</string>
@@ -122,4 +122,14 @@
     <string name="editNameFlashcard">Edit flashcard\'s name</string>
     <string name="delFlashcard">Delete flashcard</string>
     <string name="shareFlashcard">Share flashcard</string>
+    <string name="reviewStudent">Student assessment</string>
+    <string name="seeLeaveform">See application for leave of absence</string>
+    <string name="addClass">Add a new class</string>
+    <string name="seeParentOpinion">See parents comments</string>
+    <string name="seenNoti">See notifitications</string>
+    <string name="materials">Materials study</string>
+    <string name="seeScore">Scores</string>
+    <string name="seeReview">See comments</string>
+    <string name="cmtTeacher">Teacher feedback</string>
+    <string name="listpermitapp">List permit applications</string>
 </resources>

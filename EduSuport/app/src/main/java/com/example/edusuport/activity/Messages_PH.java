@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.edusuport.R;
 import com.example.edusuport.adapter.LopHoc_IdGV_Nav_Adapter;
@@ -33,6 +34,7 @@ import com.example.edusuport.model.PhuHuynh;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +67,13 @@ public class Messages_PH extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_ph);
-        final CircleImageView profilePicture = findViewById(R.id.profilePicture);
+
         messageRecyclerView = findViewById(R.id.msgRecylerView);
         filter= findViewById(R.id.filter);
-
+        TextView txvTenGV = findViewById(R.id.txvTenPH);
+        txvTenGV.setText(phuHuynh.getTen());
+        CircleImageView imgavt = findViewById(R.id.imgAvatar);
+        Picasso.get().load(phuHuynh.getUrl()).into(imgavt);
 //        get intent data from login
         phone = getIntent().getStringExtra("phone");
         name = getIntent().getStringExtra("name");

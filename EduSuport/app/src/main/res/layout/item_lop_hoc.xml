@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lớp 12B3"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:paddingLeft="5dp"
         android:singleLine="true"
         android:ellipsize="end"
@@ -36,9 +36,8 @@
         android:layout_height="wrap_content"
         android:text="Sĩ số lớp: 20"
         android:paddingLeft="5dp"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="4dp"/>
+        android:textStyle="bold" />
 
 </LinearLayout>

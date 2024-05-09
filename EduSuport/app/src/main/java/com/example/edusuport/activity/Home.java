@@ -71,14 +71,14 @@ public class Home extends AppCompatActivity {
         AddEvents();
     }
     private void getData() {
-        ListCN.add(new ChucNang("TKBGV",getResources().getString(R.string.TKB)));
-        ListCN.add(new ChucNang("TBGV","Gửi thông báo"));
-        ListCN.add(new ChucNang("GYGV","Xem góp ý phụ huynh"));
-        ListCN.add(new ChucNang("DXNGV","Xem đơn xin nghỉ học"));
-        ListCN.add(new ChucNang("TLHTGV","Đăng tải tài liệu học tập"));
-        ListCN.add(new ChucNang("NDGV","Nhập điểm"));
-        ListCN.add(new ChucNang("DGHSGV","Đánh giá học sinh"));
-        ListCN.add(new ChucNang("TLHGV","Thêm lớp học"));
+        ListCN.add(new ChucNang("TKBGV",getResources().getString(R.string.editSchedule)));
+        ListCN.add(new ChucNang("TBGV",getResources().getString(R.string.sendNoti)));
+        ListCN.add(new ChucNang("GYGV",getResources().getString(R.string.seeParentOpinion)));
+        ListCN.add(new ChucNang("DXNGV",getResources().getString(R.string.seeLeaveform)));
+        ListCN.add(new ChucNang("TLHTGV",getResources().getString(R.string.uploadStudyMaterials)));
+        ListCN.add(new ChucNang("NDGV",getResources().getString(R.string.inputScore)));
+        ListCN.add(new ChucNang("DGHSGV",getResources().getString(R.string.reviewStudent)));
+        ListCN.add(new ChucNang("TLHGV",getResources().getString(R.string.addClass)));
         chucNangHomeAdapter=new ChucNangHomeAdapter(Home.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }

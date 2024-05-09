@@ -59,11 +59,11 @@ public class HomeHsActivity extends AppCompatActivity {
         AddEvents();
     }
     private void getData() {
-        ListCN.add(new ChucNang("XTKBHS","Thời khóa biểu"));
-        ListCN.add(new ChucNang("XTBHS","Xem thông báo"));
-        ListCN.add(new ChucNang("XTLHS","Tài liệu"));
-        ListCN.add(new ChucNang("XDHS","Xem điểm"));
-        ListCN.add(new ChucNang("XNHHS","Xem nhận xét"));
+        ListCN.add(new ChucNang("XTKBHS",getResources().getString(R.string.schedule)));
+        ListCN.add(new ChucNang("XTBHS",getResources().getString(R.string.seenNoti)));
+        ListCN.add(new ChucNang("XTLHS",getResources().getString(R.string.materials)));
+        ListCN.add(new ChucNang("XDHS",getResources().getString(R.string.seeScore)));
+        ListCN.add(new ChucNang("XNHHS",getResources().getString(R.string.seeReview)));
         chucNangHomeAdapter=new ChucNangHomeAdapter(HomeHsActivity.this,R.layout.icon_tailieu_gv,ListCN);
         gvChucNang.setAdapter(chucNangHomeAdapter);
     }

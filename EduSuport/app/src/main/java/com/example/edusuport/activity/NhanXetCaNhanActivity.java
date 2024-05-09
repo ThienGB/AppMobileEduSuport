@@ -164,8 +164,31 @@ public class NhanXetCaNhanActivity extends AppCompatActivity {
         DatabaseReference nhanXetRef = database.getReference(dbHelper.ColecNhanXet);
         nhanXetRef.child(IDNhanXet).updateChildren(updates);
         Toast.makeText(NhanXetCaNhanActivity.this, "Đánh giá thành công!!", Toast.LENGTH_SHORT).show();
+        SendNotification(hocSinh.getMSHS(), "Thông báo đã đánh giá cho học sinh");
         Back();
 
+    }
+    private void SendNotification(String Mshs, String NoiDung) {
+        DatabaseReference thongbaoRef = FirebaseDatabase.getInstance().getReference(dbHelper.ColecThongBao);
+        // Gui cho học sinh
+        Map<String, Object> updates = new HashMap<>();
+        String IDThongBao = UUID.randomUUID().toString();
+        long thoigian = System.currentTimeMillis();
+        updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
+        updates.put(dbHelper.FieldIDNguoiNhan, Mshs);
+        updates.put(dbHelper.FieldNoiDung, NoiDung);
+        updates.put(dbHelper.FieldThoiGian, thoigian);
+        thongbaoRef.child(IDThongBao).updateChildren(updates);
+        // Gui cho phụ huynh
+        updates = new HashMap<>();
+        String MSPH = Mshs + "PH";
+        IDThongBao = UUID.randomUUID().toString();
+        updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
+        updates.put(dbHelper.FieldIDNguoiNhan,MSPH);
+        updates.put(dbHelper.FieldNoiDung, NoiDung);
+        updates.put(dbHelper.FieldThoiGian, thoigian);
+        thongbaoRef.child(IDThongBao).updateChildren(updates);
+        super.onBackPressed();
     }
     public void Back(){
         super.onBackPressed();

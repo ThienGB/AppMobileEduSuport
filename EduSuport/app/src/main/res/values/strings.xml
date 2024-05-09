@@ -126,5 +126,15 @@
     <string name="editNameFlashcard">Chỉnh sửa tên flashcard</string>
     <string name="delFlashcard">Xóa flashcard</string>
     <string name="shareFlashcard">Chia sẻ flashcard</string>
+    <string name="reviewStudent">Đánh giá học sinh</string>
+    <string name="seeLeaveform">Xem đơn xin nghỉ học</string>
+    <string name="addClass">Thêm lớp học</string>
+    <string name="seeParentOpinion">Xem góp ý phụ huynh</string>
+    <string name="seenNoti">Xem thông báo</string>
+    <string name="materials">Tài liệu</string>
+    <string name="seeScore">Xem điểm</string>
+    <string name="seeReview">Xem nhận xét</string>
+    <string name="cmtTeacher">Góp ý giáo viên</string>
+    <string name="listpermitapp">Danh sách đơn xin phép</string>
 
 </resources>

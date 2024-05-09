@@ -17,6 +17,7 @@ import com.example.edusuport.adapter.HocSinhAdapter;
 import com.example.edusuport.databinding.ActivityNhapDiemCaNhanBinding;
 import com.example.edusuport.model.Diem;
 import com.example.edusuport.model.DonXinNghiHoc;
+import com.example.edusuport.model.GiaoVien;
 import com.example.edusuport.model.HocSinh;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -38,6 +40,7 @@ public class NhapDiemCaNhanActivity extends AppCompatActivity {
     private String hocKy;
     private Diem diem;
     DBHelper dbHelper;
+    GiaoVien giaoVien = Home.giaoVien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +170,7 @@ public class NhapDiemCaNhanActivity extends AppCompatActivity {
                 updates.put(dbHelper.FieldDiemTiengAnh, DiemTiengAnh);
                 myRef.child(key).updateChildren(updates);
                 Toast.makeText(getApplicationContext(), "Nhập điểm thành công", Toast.LENGTH_SHORT).show();
+                SendNotification(hocSinh.getMSHS(), "Thông báo đã nhập điểm " + hocKy +" cho học sinh");
             }
         });
 
@@ -199,6 +203,29 @@ public class NhapDiemCaNhanActivity extends AppCompatActivity {
                 Back();
             }
         });
+    }
+
+    private void SendNotification(String Mshs, String NoiDung) {
+        DatabaseReference thongbaoRef = FirebaseDatabase.getInstance().getReference(dbHelper.ColecThongBao);
+        // Gui cho học sinh
+        Map<String, Object> updates = new HashMap<>();
+        String IDThongBao = UUID.randomUUID().toString();
+        long thoigian = System.currentTimeMillis();
+        updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
+        updates.put(dbHelper.FieldIDNguoiNhan, Mshs);
+        updates.put(dbHelper.FieldNoiDung, NoiDung);
+        updates.put(dbHelper.FieldThoiGian, thoigian);
+        thongbaoRef.child(IDThongBao).updateChildren(updates);
+        // Gui cho phụ huynh
+        updates = new HashMap<>();
+        String MSPH = Mshs + "PH";
+        IDThongBao = UUID.randomUUID().toString();
+        updates.put(dbHelper.FieldIDNguoiGui, giaoVien.getIDGiaoVien());
+        updates.put(dbHelper.FieldIDNguoiNhan,MSPH);
+        updates.put(dbHelper.FieldNoiDung, NoiDung);
+        updates.put(dbHelper.FieldThoiGian, thoigian);
+        thongbaoRef.child(IDThongBao).updateChildren(updates);
+        super.onBackPressed();
     }
     public void Back(){
         super.onBackPressed();

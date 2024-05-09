@@ -73,8 +73,8 @@ public class NhanXetChungActivity extends AppCompatActivity {
                         String Mshs = monHocSnapshot.getKey();
                         String Ten = monHocSnapshot.child(dbHelper.FieldTenPH).getValue(String.class);
                         String IDLopHoc = monHocSnapshot.child(dbHelper.FieldIDLopHoc).getValue(String.class);
-
-                        HocSinh don = new HocSinh(Mshs, Ten, IDLopHoc);
+                        String url = monHocSnapshot.child("urlAva").getValue(String.class);
+                        HocSinh don = new HocSinh(Mshs, Ten, IDLopHoc, url);
                         listHS.add(don);
                         Log.d("Don Xin Phep", "ID: " + Mshs + ",Tên : " + Ten);
                     }

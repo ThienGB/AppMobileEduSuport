@@ -189,7 +189,7 @@ public class EditInformationHS extends AppCompatActivity {
         if (TextUtils.isEmpty(binding.edtPhone.getText())|| TextUtils.isEmpty(binding.edtName.getText())) {
             Toast.makeText(this, "Số điện thoại không được để trống.", Toast.LENGTH_SHORT).show();
         } else {
-            FirebaseDatabase.getInstance().getReference("hocsinh/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());
+            FirebaseDatabase.getInstance().getReference("hocsinh/" + hocSinh.getMSHS() + "/ten").setValue(binding.edtName.getText().toString());
             //   FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());
             Toast.makeText(this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
         }
