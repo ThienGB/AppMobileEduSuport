@@ -472,7 +472,7 @@
                         android:layout_height="40dp"
                         android:layout_margin="5dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/english"/>
+                        android:src="@drawable/icon_gdcd"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -510,7 +510,7 @@
                         android:layout_height="40dp"
                         android:layout_margin="5dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/english"/>
+                        android:src="@drawable/icon_sport"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -548,7 +548,7 @@
                         android:layout_height="40dp"
                         android:layout_margin="5dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/english"/>
+                        android:src="@drawable/icon_tech"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
