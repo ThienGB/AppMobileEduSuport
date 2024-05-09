@@ -113,6 +113,12 @@ public class XemNhanXetActivity extends AppCompatActivity {
         String danhGia = nhanXet.getDanhGia();
         binding.txvTenHS.setText("Học sinh: "+ tenHS);
         binding.txvNoiDungNX.setText(nhanXet.getNoiDung());
+        dbHelper.getTenGiaoVienByID(nhanXet.getIDGiaoVien(), new DBHelper.TenHocSinhCallback() {
+            @Override
+            public void onTenHocSinhFetched(String tenHocSinh) {
+                binding.txvTenNguoiNX.setText("Giác viên: " + tenHocSinh);
+            }
+        });
         binding.txvDanhGia.setText(danhGia);
         if (danhGia.equals("Yếu")){
             binding.ratingBar.setRating(1);

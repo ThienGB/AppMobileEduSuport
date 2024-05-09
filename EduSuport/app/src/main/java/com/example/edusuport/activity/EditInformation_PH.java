@@ -70,7 +70,7 @@ public class EditInformation_PH extends AppCompatActivity {
         }
         binding.edtName.setEnabled(false);
         binding.edtMSPH.setEnabled(false);
-        binding.edtPhone.setEnabled(false);
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,18 +123,18 @@ public class EditInformation_PH extends AppCompatActivity {
                     isEdit=true;
                     binding.edtName.findFocus();
                     binding.edtName.setEnabled(true);
-                    binding.edtPhone.setEnabled(true);
+
                     binding.edtName.setBackgroundResource(R.drawable.background_subject_radius_click);
-                    binding.edtPhone.setBackgroundResource(R.drawable.background_subject_radius_click);
+
 
                 }
                 else {
                     binding.btnEdit.setImageResource(R.drawable.icon_edit);
                     //SaveData();
                     binding.edtName.setEnabled(false);
-                    binding.edtPhone.setEnabled(false);
+
                     binding.edtName.setBackgroundResource(R.drawable.background_subject_radius);
-                    binding.edtPhone.setBackgroundResource(R.drawable.background_subject_radius);
+
                     changePhone();
                 }
 
@@ -189,8 +189,8 @@ public class EditInformation_PH extends AppCompatActivity {
     //
     public void changePhone() {
 
-        if (TextUtils.isEmpty(binding.edtPhone.getText())|| TextUtils.isEmpty(binding.edtName.getText())) {
-            Toast.makeText(this, "Số điện thoại không được để trống.", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(binding.edtName.getText())) {
+            Toast.makeText(this, "Tên không được để trống.", Toast.LENGTH_SHORT).show();
         } else {
             FirebaseDatabase.getInstance().getReference("phuhuynh/" + phuHuynh.getMSPH() + "/ten").setValue(binding.edtName.getText().toString());
             //   FirebaseDatabase.getInstance().getReference("giaovien/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/ten").setValue(binding.edtName.getText().toString());

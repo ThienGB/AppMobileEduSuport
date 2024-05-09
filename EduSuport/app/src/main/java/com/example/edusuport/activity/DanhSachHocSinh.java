@@ -177,8 +177,6 @@ public class DanhSachHocSinh extends AppCompatActivity {
 
                 EditText txtTenHS=(EditText) alertView.findViewById(R.id.sua_txtTenHS);
                 txtTenHS.setText(HS.getTen());
-
-
                 txtTenHS.setTextColor(ContextCompat.getColor(DanhSachHocSinh.this, R.color.black_low_emp));
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
