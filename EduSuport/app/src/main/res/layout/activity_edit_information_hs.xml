@@ -108,7 +108,6 @@
                     android:id="@+id/floatingActionButton2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_alignEnd="@+id/imageView"
                     android:layout_marginTop="100dp"
                     android:background="@drawable/fullbutton_background"
                     android:elevation="10dp"

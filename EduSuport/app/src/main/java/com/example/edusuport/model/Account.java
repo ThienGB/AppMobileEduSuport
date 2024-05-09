@@ -22,9 +22,9 @@ public class Account {
         this.trangThai = trangThai;
     }
 
-    public Account(String idTK, String name, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
+    public Account(String idTK, String ten, String urlAva, String phoneNum, String role, String ngonNgu, String themeDL, String trangThai) {
         this.idTK = idTK;
-        this.ten = name;
+        this.ten = ten;
         this.urlAva = urlAva;
         this.sdt = phoneNum;
         this.role = role;
@@ -41,12 +41,12 @@ public class Account {
         this.idTK = idTK;
     }
 
-    public String getName() {
+    public String getTen() {
         return ten;
     }
 
-    public void setName(String name) {
-        this.ten = name;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public String getUrlAva() {

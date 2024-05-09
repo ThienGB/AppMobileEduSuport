@@ -94,7 +94,7 @@ public class MessController {
                                     @Override
                                     public void onDataRetrieved(Account account) {
                                         messageList.setIdpartner(account.getIdTK());
-                                        messageList.setName(account.getName());
+                                        messageList.setName(account.getTen());
                                         messageList.setPhone(account.getPhoneNum());
                                         messageList.setProfilePic(account.getUrlAva());
                                         messageList.setRole(account.getRole());
