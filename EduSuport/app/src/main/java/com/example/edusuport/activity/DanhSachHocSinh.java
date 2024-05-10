@@ -203,7 +203,8 @@ public class DanhSachHocSinh extends AppCompatActivity {
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogmini, int which) {
-                        deleteHS(HS.getMSHS());
+                        GetSoLuong(HS);
+
                         dialogmini.dismiss();
                         dialog.dismiss();
                     }
@@ -346,14 +347,12 @@ public class DanhSachHocSinh extends AppCompatActivity {
         myRef.child("hocsinh").child(mshs).child("ten").setValue(tennew);
     }
     public void deleteHS(String mshs){
-        GetSoLuong();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         lopHocController.XoaHocSinh(mshs);
         Toast.makeText(this, "Xóa học sinh thành công", Toast.LENGTH_SHORT).show();
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference lophocRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
-        SoLuong--;
+
         Map<String, Object> updates = new HashMap<>();
         updates.put(dbHelper.FieldSoLuong, SoLuong);
         lophocRef.updateChildren(updates);
@@ -364,18 +363,19 @@ public class DanhSachHocSinh extends AppCompatActivity {
         intent.putExtra("lopHoc", lopHoc);
         startActivity(intent);
     }
-    public void GetSoLuong(){
+    public void GetSoLuong(HocSinh Hs){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(dbHelper.ColecLopHoc).child(lopHoc.getIdLopHoc());
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     DataSnapshot fieldSoLuongSnapshot = dataSnapshot.child(dbHelper.FieldSoLuong);
                     if (fieldSoLuongSnapshot.exists()) {
-                        SoLuong = fieldSoLuongSnapshot.getValue(Long.class);
+                        SoLuong = fieldSoLuongSnapshot.getValue(Long.class) - 1;
                     }
                 }
+                deleteHS(Hs.getMSHS());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
